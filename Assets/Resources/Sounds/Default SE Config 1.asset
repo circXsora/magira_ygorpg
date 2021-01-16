@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87f0694638f2ff24b89916eb825f7573, type: 3}
+  m_Name: Default SE Config 1
+  m_EditorClassIdentifier: 
+  SEList:
+  - Name: 0
+    Clip: {fileID: 8300000, guid: c2d76f5468785584cab38b1ba5198fea, type: 3}
+  - Name: 1
+    Clip: {fileID: 8300000, guid: dfe19a74ebaa87640bbf9c19e8ffb8f7, type: 3}
+  - Name: 2
+    Clip: {fileID: 8300000, guid: 118c0f809098f0f4dba44589da709ed3, type: 3}
+  - Name: 3
+    Clip: {fileID: 8300000, guid: 4f4b9abfe1ebc694aac082d0040b6e15, type: 3}
+  - Name: 4
+    Clip: {fileID: 8300000, guid: dfe19a74ebaa87640bbf9c19e8ffb8f7, type: 3}
+  - Name: 5
+    Clip: {fileID: 8300000, guid: c2d76f5468785584cab38b1ba5198fea, type: 3}
+  - Name: 6
+    Clip: {fileID: 0}
+  - Name: 7
+    Clip: {fileID: 0}
+  - Name: 8
+    Clip: {fileID: 8300000, guid: d2d4d401747481441ab9dc2d2279333a, type: 3}
+  - Name: 9
+    Clip: {fileID: 8300000, guid: 2f80539ebb8dc25498c66e1413b4bc77, type: 3}

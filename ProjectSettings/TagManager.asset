@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - BattleSystem
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - Room
+  - Monster
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 1444871983
+    locked: 0
+  - name: GameObject
+    uniqueID: 1145854329
+    locked: 0
+  - name: Wall
+    uniqueID: 811204321
+    locked: 0
+  - name: Door
+    uniqueID: 3456535165
+    locked: 0
+  - name: Card
+    uniqueID: 3965363179
+    locked: 0
+  - name: Player
+    uniqueID: 2743145635
+    locked: 0
+  - name: Monster
+    uniqueID: 3843748031
+    locked: 0
+  - name: UI
+    uniqueID: 3712256753
+    locked: 0
