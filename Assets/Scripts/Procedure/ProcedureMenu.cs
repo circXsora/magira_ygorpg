@@ -12,7 +12,10 @@ namespace ygo
 
     public class ProcedureMenu : ProcedureBase
     {
-
+        protected override void OnEnter(IFsm<IProcedureManager> procedureOwner)
+        {
+            base.OnEnter(procedureOwner);
+        }
     }
 
 }

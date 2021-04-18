@@ -12,12 +12,20 @@ namespace ygo
 
     public class ProcedureSplash : ProcedureBase
     {
+        private float current_play_time = 0f;
+        private float play_time = 2f;
         protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
 
             // TODO: 这里可以播放一个 Splash 动画
             // ...
+            // mgo.MGOGameEntry.UI.
+            if (current_play_time < play_time)
+            {
+                current_play_time += elapseSeconds;
+                return;
+            }
 
             //if (mgo.GameEntry.Base.EditorResourceMode)
             //{

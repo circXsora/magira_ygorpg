@@ -18,7 +18,7 @@ namespace ygo
 
         private bool change_to_menu = false;
         private bool is_change_scene_complete = false;
-        private int backgounrd_music_id = 0;
+
 
         protected override void OnEnter(IFsm<IProcedureManager> procedureOwner)
         {

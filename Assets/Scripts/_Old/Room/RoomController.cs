@@ -21,10 +21,9 @@ public class RoomController : MonoBehaviour
         {
             try
             {
-
-            BattleTrigger.GetComponent<SpriteRenderer>().sprite = Monsters[0].Sprite;
+                BattleTrigger.GetComponent<SpriteRenderer>().sprite = Monsters[0].Sprite;
             }
-            catch (System.Exception e)
+            catch (System.Exception)
             {
 
                 throw;
