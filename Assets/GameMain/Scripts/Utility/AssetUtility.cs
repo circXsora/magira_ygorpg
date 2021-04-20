@@ -7,7 +7,7 @@
 
 using GameFramework;
 
-namespace StarForce
+namespace bbygo
 {
     public static class AssetUtility
     {

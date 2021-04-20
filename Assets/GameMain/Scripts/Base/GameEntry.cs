@@ -7,7 +7,7 @@
 
 using UnityEngine;
 
-namespace StarForce
+namespace bbygo
 {
     /// <summary>
     /// 游戏入口。

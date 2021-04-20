@@ -8,7 +8,7 @@
 using System;
 using UnityEngine;
 
-namespace StarForce
+namespace bbygo
 {
     [Serializable]
     public abstract class TargetableObjectData : EntityData

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace StarForce
+namespace bbygo
 {
     public class UpdateResourceForm : MonoBehaviour
     {

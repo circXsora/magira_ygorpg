@@ -8,7 +8,7 @@
 using System;
 using UnityEngine;
 
-namespace StarForce
+namespace bbygo
 {
     [Serializable]
     public class EffectData : EntityData

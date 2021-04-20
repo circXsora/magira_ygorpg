@@ -8,7 +8,7 @@
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
-namespace StarForce
+namespace bbygo
 {
     public class MyAircraft : Aircraft
     {

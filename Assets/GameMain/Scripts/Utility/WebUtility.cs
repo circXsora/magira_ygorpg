@@ -7,7 +7,7 @@
 
 using System;
 
-namespace StarForce
+namespace bbygo
 {
     public static class WebUtility
     {

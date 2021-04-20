@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
-namespace StarForce
+namespace bbygo
 {
     public sealed class CSPacketHeader : PacketHeaderBase
     {

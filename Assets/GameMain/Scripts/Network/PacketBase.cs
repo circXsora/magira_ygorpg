@@ -8,7 +8,7 @@
 using GameFramework.Network;
 using ProtoBuf;
 
-namespace StarForce
+namespace bbygo
 {
     public abstract class PacketBase : Packet, IExtensible
     {

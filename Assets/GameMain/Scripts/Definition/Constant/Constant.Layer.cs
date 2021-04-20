@@ -7,7 +7,7 @@
 
 using UnityEngine;
 
-namespace StarForce
+namespace bbygo
 {
     public static partial class Constant
     {

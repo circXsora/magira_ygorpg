@@ -7,7 +7,7 @@
 
 using GameFramework;
 
-namespace StarForce
+namespace bbygo
 {
     /// <summary>
     /// 对话框显示数据。

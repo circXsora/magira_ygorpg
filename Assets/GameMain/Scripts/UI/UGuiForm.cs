@@ -11,7 +11,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityGameFramework.Runtime;
 
-namespace StarForce
+namespace bbygo
 {
     public abstract class UGuiForm : UIFormLogic
     {
@@ -98,6 +98,15 @@ namespace StarForce
             for (int i = 0; i < texts.Length; i++)
             {
                 texts[i].font = s_MainFont;
+                if (!string.IsNullOrEmpty(texts[i].text))
+                {
+                    texts[i].text = GameEntry.Localization.GetString(texts[i].text);
+                }
+            }
+
+            var protexts = GetComponentsInChildren<TMPro.TMP_Text>(true);
+            for (int i = 0; i < protexts.Length; i++)
+            {
                 if (!string.IsNullOrEmpty(texts[i].text))
                 {
                     texts[i].text = GameEntry.Localization.GetString(texts[i].text);
