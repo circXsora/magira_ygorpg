@@ -37,7 +37,7 @@ namespace bbygo
         {
             base.OnInit(procedureOwner);
 
-            m_Games.Add(GameMode.Survival, new SurvivalGame());
+            m_Games.Add(GameMode.Story, new StoryGame());
         }
 
         protected override void OnDestroy(ProcedureOwner procedureOwner)

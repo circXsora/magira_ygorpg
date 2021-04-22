@@ -13,8 +13,8 @@ namespace bbygo
     public enum GameMode : byte
     {
         /// <summary>
-        /// 生存模式。
+        /// 故事模式。
         /// </summary>
-        Survival,
+        Story,
     }
 }
