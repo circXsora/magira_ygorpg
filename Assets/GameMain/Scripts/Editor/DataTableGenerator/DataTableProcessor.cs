@@ -57,13 +57,14 @@ namespace bbygo.Editor.DataTableTools
             StreamReader sr = new StreamReader(fs, System.Text.Encoding.Default);
             List<string> lines = new List<string>();
             string tem = "";
-            while (true)
+            int deathloop_defender = 0;
+            while (true && deathloop_defender < 100000)
             {
                 tem = sr.ReadLine();
                 if (tem == null)
                     break;
                 lines.Add(tem);
-
+                deathloop_defender++;
             }
 
             sr.Close();

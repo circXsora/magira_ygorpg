@@ -33,5 +33,7 @@ namespace bbygo
         /// 关于。
         /// </summary>
         AboutForm = 102,
+
+        VideoForm = 201
     }
 }

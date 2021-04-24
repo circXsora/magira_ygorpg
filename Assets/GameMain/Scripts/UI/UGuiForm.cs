@@ -107,9 +107,9 @@ namespace bbygo
             var protexts = GetComponentsInChildren<TMPro.TMP_Text>(true);
             for (int i = 0; i < protexts.Length; i++)
             {
-                if (!string.IsNullOrEmpty(texts[i].text))
+                if (!string.IsNullOrEmpty(protexts[i].text) && GameEntry.Localization.HasRawString(protexts[i].text))
                 {
-                    texts[i].text = GameEntry.Localization.GetString(texts[i].text);
+                    protexts[i].text = GameEntry.Localization.GetString(protexts[i].text);
                 }
             }
         }
@@ -162,9 +162,16 @@ namespace bbygo
         {
             base.OnResume();
 
-            m_CanvasGroup.alpha = 0f;
-            StopAllCoroutines();
-            StartCoroutine(m_CanvasGroup.FadeToAlpha(1f, FadeTime));
+            if (isActiveAndEnabled)
+            {
+                m_CanvasGroup.alpha = 0f;
+                StopAllCoroutines();
+                StartCoroutine(m_CanvasGroup.FadeToAlpha(1f, FadeTime));
+            }
+            else
+            {
+                m_CanvasGroup.alpha = 1;
+            }
         }
 
 #if UNITY_2017_3_OR_NEWER

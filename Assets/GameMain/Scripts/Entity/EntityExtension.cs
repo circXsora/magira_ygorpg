@@ -75,6 +75,11 @@ namespace bbygo
             entityCompoennt.ShowEntity(typeof(Asteroid), "Asteroid", Constant.AssetPriority.AsteroiAsset, data);
         }
 
+        public static void ShowPlayer(this EntityComponent entityCompoennt, PlayerData data)
+        {
+            entityCompoennt.ShowEntity(typeof(Player), "Player", Constant.AssetPriority.AsteroiAsset, data);
+        }
+
         public static void ShowEffect(this EntityComponent entityComponent, EffectData data)
         {
             entityComponent.ShowEntity(typeof(Effect), "Effect", Constant.AssetPriority.EffectAsset, data);

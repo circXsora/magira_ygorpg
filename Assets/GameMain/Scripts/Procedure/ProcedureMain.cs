@@ -5,6 +5,8 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework.Event;
+using System;
 using System.Collections.Generic;
 using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
@@ -19,7 +21,7 @@ namespace bbygo
         private GameBase m_CurrentGame = null;
         private bool m_GotoMenu = false;
         private float m_GotoMenuDelaySeconds = 0f;
-
+        private int? videoFormId;
         public override bool UseNativeDialog
         {
             get
@@ -40,13 +42,6 @@ namespace bbygo
             m_Games.Add(GameMode.Story, new StoryGame());
         }
 
-        protected override void OnDestroy(ProcedureOwner procedureOwner)
-        {
-            base.OnDestroy(procedureOwner);
-
-            m_Games.Clear();
-        }
-
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);
@@ -55,6 +50,8 @@ namespace bbygo
             GameMode gameMode = (GameMode)procedureOwner.GetData<VarByte>("GameMode").Value;
             m_CurrentGame = m_Games[gameMode];
             m_CurrentGame.Initialize();
+            GameEntry.Event.Subscribe(OPPlayFinishEventArgs.EventId, OnOPPlayFinish);
+            videoFormId = GameEntry.UI.OpenUIForm(UIFormId.VideoForm);
         }
 
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
@@ -64,8 +61,14 @@ namespace bbygo
                 m_CurrentGame.Shutdown();
                 m_CurrentGame = null;
             }
-
+            GameEntry.Event.Unsubscribe(OPPlayFinishEventArgs.EventId, OnOPPlayFinish);
             base.OnLeave(procedureOwner, isShutdown);
+        }
+
+        protected override void OnDestroy(ProcedureOwner procedureOwner)
+        {
+            base.OnDestroy(procedureOwner);
+            m_Games.Clear();
         }
 
         protected override void OnUpdate(ProcedureOwner procedureOwner, float elapseSeconds, float realElapseSeconds)
@@ -90,6 +93,13 @@ namespace bbygo
                 procedureOwner.SetData<VarInt32>("NextSceneId", GameEntry.Config.GetInt("Scene.Menu"));
                 ChangeState<ProcedureChangeScene>(procedureOwner);
             }
+        }
+
+
+        private void OnOPPlayFinish(object sender, GameEventArgs e)
+        {
+            GameEntry.UI.CloseUIForm(videoFormId.Value);
+            GameEntry.Entity.ShowPlayer(new PlayerData(GameEntry.Entity.GenerateSerialId(), 60000));
         }
     }
 }
