@@ -52,12 +52,27 @@ namespace bbygo.Editor.DataTableTools
                 throw new GameFrameworkException(Utility.Text.Format("Data table file '{0}' is not exist.", dataTableFileName));
             }
 
-            string[] lines = File.ReadAllLines(dataTableFileName, encoding);
-            int rawRowCount = lines.Length;
+
+            FileStream fs = new FileStream(dataTableFileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            StreamReader sr = new StreamReader(fs, System.Text.Encoding.Default);
+            List<string> lines = new List<string>();
+            string tem = "";
+            while (true)
+            {
+                tem = sr.ReadLine();
+                if (tem == null)
+                    break;
+                lines.Add(tem);
+
+            }
+
+            sr.Close();
+
+            int rawRowCount = lines.Count;
 
             int rawColumnCount = 0;
             List<string[]> rawValues = new List<string[]>();
-            for (int i = 0; i < lines.Length; i++)
+            for (int i = 0; i < lines.Count; i++)
             {
                 string[] rawValue = lines[i].Split(DataSplitSeparators);
                 for (int j = 0; j < rawValue.Length; j++)
