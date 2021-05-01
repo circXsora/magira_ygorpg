@@ -7,7 +7,7 @@
 
 using UnityEngine;
 
-namespace bbygo
+namespace BBYGO
 {
     public static partial class Constant
     {

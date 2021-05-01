@@ -7,7 +7,7 @@
 
 using System.Runtime.InteropServices;
 
-namespace bbygo
+namespace BBYGO
 {
     [StructLayout(LayoutKind.Auto)]
     public struct ImpactData

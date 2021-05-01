@@ -8,7 +8,7 @@
 using ProtoBuf;
 using System;
 
-namespace bbygo
+namespace BBYGO
 {
     [Serializable, ProtoContract(Name = @"CSHeartBeat")]
     public class CSHeartBeat : CSPacketBase

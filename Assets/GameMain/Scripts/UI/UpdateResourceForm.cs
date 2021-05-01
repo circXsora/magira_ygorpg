@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace bbygo
+namespace BBYGO
 {
     public class UpdateResourceForm : MonoBehaviour
     {

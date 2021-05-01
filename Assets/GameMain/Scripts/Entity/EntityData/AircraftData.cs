@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace bbygo
+namespace BBYGO
 {
     [Serializable]
     public abstract class AircraftData : TargetableObjectData

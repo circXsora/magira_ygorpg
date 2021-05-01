@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
-namespace bbygo
+namespace BBYGO
 {
     /// <summary>
     /// 战机类。
@@ -46,19 +46,19 @@ namespace bbygo
 
             Name = Utility.Text.Format("Aircraft ({0})", Id.ToString());
 
-            GameEntry.Entity.ShowThruster(m_AircraftData.GetThrusterData());
+            //GameEntry.Entity.ShowThruster(m_AircraftData.GetThrusterData());
 
-            List<WeaponData> weaponDatas = m_AircraftData.GetAllWeaponDatas();
-            for (int i = 0; i < weaponDatas.Count; i++)
-            {
-                GameEntry.Entity.ShowWeapon(weaponDatas[i]);
-            }
+            //List<WeaponData> weaponDatas = m_AircraftData.GetAllWeaponDatas();
+            //for (int i = 0; i < weaponDatas.Count; i++)
+            //{
+            //    GameEntry.Entity.ShowWeapon(weaponDatas[i]);
+            //}
 
-            List<ArmorData> armorDatas = m_AircraftData.GetAllArmorDatas();
-            for (int i = 0; i < armorDatas.Count; i++)
-            {
-                GameEntry.Entity.ShowArmor(armorDatas[i]);
-            }
+            //List<ArmorData> armorDatas = m_AircraftData.GetAllArmorDatas();
+            //for (int i = 0; i < armorDatas.Count; i++)
+            //{
+            //    GameEntry.Entity.ShowArmor(armorDatas[i]);
+            //}
         }
 
 #if UNITY_2017_3_OR_NEWER

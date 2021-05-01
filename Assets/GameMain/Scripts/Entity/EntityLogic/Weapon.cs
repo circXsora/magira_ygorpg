@@ -9,7 +9,7 @@ using GameFramework;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
-namespace bbygo
+namespace BBYGO
 {
     /// <summary>
     /// 武器类。
@@ -70,10 +70,10 @@ namespace bbygo
             }
 
             m_NextAttackTime = Time.time + m_WeaponData.AttackInterval;
-            GameEntry.Entity.ShowBullet(new BulletData(GameEntry.Entity.GenerateSerialId(), m_WeaponData.BulletId, m_WeaponData.OwnerId, m_WeaponData.OwnerCamp, m_WeaponData.Attack, m_WeaponData.BulletSpeed)
-            {
-                Position = CachedTransform.position,
-            });
+            //GameEntry.Entity.ShowBullet(new BulletData(GameEntry.Entity.GenerateSerialId(), m_WeaponData.BulletId, m_WeaponData.OwnerId, m_WeaponData.OwnerCamp, m_WeaponData.Attack, m_WeaponData.BulletSpeed)
+            //{
+            //    Position = CachedTransform.position,
+            //});
             GameEntry.Sound.PlaySound(m_WeaponData.BulletSoundId);
         }
     }

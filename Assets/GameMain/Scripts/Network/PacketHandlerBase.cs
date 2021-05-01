@@ -7,7 +7,7 @@
 
 using GameFramework.Network;
 
-namespace bbygo
+namespace BBYGO
 {
     public abstract class PacketHandlerBase : IPacketHandler
     {

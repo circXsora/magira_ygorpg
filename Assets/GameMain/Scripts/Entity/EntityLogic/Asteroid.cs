@@ -8,7 +8,7 @@
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
-namespace bbygo
+namespace BBYGO
 {
     /// <summary>
     /// 小行星类。

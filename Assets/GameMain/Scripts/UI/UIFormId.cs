@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
-namespace bbygo
+namespace BBYGO
 {
     /// <summary>
     /// 界面编号。

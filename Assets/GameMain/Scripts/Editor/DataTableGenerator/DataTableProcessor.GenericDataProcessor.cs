@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
-namespace bbygo.Editor.DataTableTools
+namespace BBYGO.Editor.DataTableTools
 {
     public sealed partial class DataTableProcessor
     {

@@ -11,7 +11,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityGameFramework.Runtime;
 
-namespace bbygo
+namespace BBYGO
 {
     public abstract class UGuiForm : UIFormLogic
     {

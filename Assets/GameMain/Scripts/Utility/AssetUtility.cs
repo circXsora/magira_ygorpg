@@ -7,7 +7,7 @@
 
 using GameFramework;
 
-namespace bbygo
+namespace BBYGO
 {
     public static class AssetUtility
     {

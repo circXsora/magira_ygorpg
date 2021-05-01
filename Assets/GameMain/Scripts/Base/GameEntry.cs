@@ -7,7 +7,7 @@
 
 using UnityEngine;
 
-namespace bbygo
+namespace BBYGO
 {
     /// <summary>
     /// 游戏入口。

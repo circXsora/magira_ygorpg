@@ -8,7 +8,7 @@
 using System;
 using UnityEngine;
 
-namespace bbygo
+namespace BBYGO
 {
     [Serializable]
     public class MyAircraftData : AircraftData

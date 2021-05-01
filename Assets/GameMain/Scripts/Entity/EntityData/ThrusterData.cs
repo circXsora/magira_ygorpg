@@ -9,7 +9,7 @@ using GameFramework.DataTable;
 using System;
 using UnityEngine;
 
-namespace bbygo
+namespace BBYGO
 {
     [Serializable]
     public class ThrusterData : AccessoryObjectData

@@ -7,7 +7,7 @@
 
 using UnityEngine;
 
-namespace bbygo
+namespace BBYGO
 {
     /// <summary>
     /// 游戏入口。
@@ -26,10 +26,13 @@ namespace bbygo
             private set;
         }
 
+        public static RoomGeneratorComponent RoomGenerator;
+
         private static void InitCustomComponents()
         {
             BuiltinData = UnityGameFramework.Runtime.GameEntry.GetComponent<BuiltinDataComponent>();
             HPBar = UnityGameFramework.Runtime.GameEntry.GetComponent<HPBarComponent>();
+            RoomGenerator = UnityGameFramework.Runtime.GameEntry.GetComponent<RoomGeneratorComponent>();
         }
     }
 }

@@ -10,11 +10,11 @@ using System;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
-namespace bbygo
+namespace BBYGO
 {
     public static class DataTableExtension
     {
-        private const string DataRowClassPrefixName = "bbygo.DR";
+        private const string DataRowClassPrefixName = nameof(BBYGO)+".DR";
         internal static readonly char[] DataSplitSeparators = new char[] { '\t' };
         internal static readonly char[] DataTrimSeparators = new char[] { '\"' };
 

@@ -9,7 +9,7 @@ using GameFramework;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
-namespace bbygo
+namespace BBYGO
 {
     public abstract class Entity : EntityLogic
     {

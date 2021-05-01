@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
-namespace bbygo
+namespace BBYGO
 {
     public class VersionInfo
     {

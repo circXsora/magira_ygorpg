@@ -16,7 +16,7 @@ using System.IO;
 using System.Reflection;
 using UnityGameFramework.Runtime;
 
-namespace bbygo
+namespace BBYGO
 {
     public class NetworkChannelHelper : INetworkChannelHelper
     {

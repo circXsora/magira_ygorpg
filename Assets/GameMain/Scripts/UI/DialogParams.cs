@@ -7,7 +7,7 @@
 
 using GameFramework;
 
-namespace bbygo
+namespace BBYGO
 {
     /// <summary>
     /// 对话框显示数据。

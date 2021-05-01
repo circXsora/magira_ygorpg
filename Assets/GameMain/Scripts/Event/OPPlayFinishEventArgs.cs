@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 //public sealed class ActiveSceneChangedEventArgs : GameEventArgs
 
-namespace bbygo
+namespace BBYGO
 {
 
     public sealed class OPPlayFinishEventArgs : GameEventArgs

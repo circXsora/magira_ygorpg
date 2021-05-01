@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace bbygo.Editor.DataTableTools
+namespace BBYGO.Editor.DataTableTools
 {
     public sealed partial class DataTableProcessor
     {

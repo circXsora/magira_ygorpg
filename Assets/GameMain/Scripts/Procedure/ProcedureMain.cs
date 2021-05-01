@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 
-namespace bbygo
+namespace BBYGO
 {
     public class ProcedureMain : ProcedureBase
     {
@@ -62,6 +62,7 @@ namespace bbygo
                 m_CurrentGame = null;
             }
             GameEntry.Event.Unsubscribe(OPPlayFinishEventArgs.EventId, OnOPPlayFinish);
+
             base.OnLeave(procedureOwner, isShutdown);
         }
 

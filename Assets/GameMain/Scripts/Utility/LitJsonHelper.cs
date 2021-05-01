@@ -9,7 +9,7 @@ using GameFramework;
 using LitJson;
 using System;
 
-namespace bbygo
+namespace BBYGO
 {
     /// <summary>
     /// LitJSON 函数集辅助器。

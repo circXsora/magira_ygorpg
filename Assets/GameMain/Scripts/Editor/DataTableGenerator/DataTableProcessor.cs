@@ -13,7 +13,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace bbygo.Editor.DataTableTools
+namespace BBYGO.Editor.DataTableTools
 {
     public sealed partial class DataTableProcessor
     {
@@ -52,22 +52,7 @@ namespace bbygo.Editor.DataTableTools
                 throw new GameFrameworkException(Utility.Text.Format("Data table file '{0}' is not exist.", dataTableFileName));
             }
 
-
-            FileStream fs = new FileStream(dataTableFileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-            StreamReader sr = new StreamReader(fs, System.Text.Encoding.Default);
-            List<string> lines = new List<string>();
-            string tem = "";
-            int deathloop_defender = 0;
-            while (true && deathloop_defender < 100000)
-            {
-                tem = sr.ReadLine();
-                if (tem == null)
-                    break;
-                lines.Add(tem);
-                deathloop_defender++;
-            }
-
-            sr.Close();
+            List<string> lines = FileUtility.ReadAllLinesShared(dataTableFileName);
 
             int rawRowCount = lines.Count;
 

@@ -10,7 +10,7 @@ using GameFramework.DataTable;
 using Stateless;
 using UnityEngine;
 
-namespace bbygo
+namespace BBYGO
 {
     public class StoryGame : GameBase
     {

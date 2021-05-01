@@ -7,7 +7,7 @@
 
 using System;
 
-namespace bbygo
+namespace BBYGO
 {
     public static class WebUtility
     {

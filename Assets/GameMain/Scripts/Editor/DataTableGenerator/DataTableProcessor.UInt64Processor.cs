@@ -7,7 +7,7 @@
 
 using System.IO;
 
-namespace bbygo.Editor.DataTableTools
+namespace BBYGO.Editor.DataTableTools
 {
     public sealed partial class DataTableProcessor
     {

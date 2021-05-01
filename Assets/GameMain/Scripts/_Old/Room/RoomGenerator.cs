@@ -1,28 +1,22 @@
-﻿using System;
+﻿using BBYGO;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-[Serializable]
 public class RoomInfo
 {
     public int? StepFormOrigin;
     public GameObject Room;
     public RoomInfo[] WithRooms = new RoomInfo[4];
 }
-public enum Direction
-{
-    Up,
-    Down,
-    Left,
-    Right
-}
+
 public class RoomGenerator : Magia.SingletonInScene<RoomGenerator>
 {
-    Direction dir;
-    private int current_x = 0, current_y = 0;
+    private BBYGO.Direction _currentDir;
+    private int _currentX = 0, _currentY = 0;
 
     [Header("房间信息")]
     public GameObject RoomPrefab;
@@ -178,12 +172,12 @@ public class RoomGenerator : Magia.SingletonInScene<RoomGenerator>
                 }
             }
 
-            dir = (Direction)UnityEngine.Random.Range(0, 4);
-            x = current_x;
-            y = current_y;
+            _currentDir = (Direction)UnityEngine.Random.Range(0, 4);
+            x = _currentX;
+            y = _currentY;
             p = GeneratorPoint;
 
-            switch (dir)
+            switch (_currentDir)
             {
                 case Direction.Up:
                     y += 1;
@@ -207,8 +201,8 @@ public class RoomGenerator : Magia.SingletonInScene<RoomGenerator>
 
 
         } while (TestPointIsInRoom(p));
-        current_x = x;
-        current_y = y;
+        _currentX = x;
+        _currentY = y;
         GeneratorPoint = p;
     }
     private bool TestPointIsInRoom(Vector3 point)

@@ -8,7 +8,7 @@
 using GameFramework.Network;
 using ProtoBuf;
 
-namespace bbygo
+namespace BBYGO
 {
     public abstract class PacketBase : Packet, IExtensible
     {

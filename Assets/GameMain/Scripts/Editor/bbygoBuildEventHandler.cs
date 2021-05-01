@@ -11,9 +11,9 @@ using UnityEditor;
 using UnityEngine;
 using UnityGameFramework.Editor.ResourceTools;
 
-namespace bbygo.Editor
+namespace BBYGO.Editor
 {
-    public sealed class bbygoBuildEventHandler : IBuildEventHandler
+    public sealed class BBYGOBuildEventHandler : IBuildEventHandler
     {
         public bool ContinueOnFailure
         {

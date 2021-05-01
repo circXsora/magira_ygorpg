@@ -10,13 +10,10 @@ using UnityEngine.UI;
 using UnityEngine.Video;
 using UnityGameFramework.Runtime;
 using DG.Tweening;
-namespace bbygo
+namespace BBYGO
 {
     public class VideoForm : UGuiForm
     {
-
-        private float m_InitPosition = 0f;
-
         private bool firstClick = true;
         private float firstClickComputeTime = 0;
 

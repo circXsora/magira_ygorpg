@@ -11,15 +11,14 @@ public class BattaleSystem : Magia.SingletonInScene<BattaleSystem>
     public UnityEvent OnWin, OnLose;
 
     bool IsSkill = false;
-    BattleInfo.AttackInfo AttackInfo = new BattleInfo.AttackInfo();
-    BattleInfo.SkillProcessInfo SkillProcessInfo = new BattleInfo.SkillProcessInfo();
+    private readonly BattleInfo.SkillProcessInfo SkillProcessInfo = new BattleInfo.SkillProcessInfo();
 
     public List<MonsterController> SelectingRange = new List<MonsterController>();
     public MonsterController[] PlayerMonsterTemplates;
     public MonsterController[] EnemyMonsterTemplates;
 
-    private List<MonsterController> PlayerMonsters = new List<MonsterController>();
-    private List<MonsterController> EnemyMonsters = new List<MonsterController>();
+    private readonly List<MonsterController> PlayerMonsters = new List<MonsterController>();
+    private readonly List<MonsterController> EnemyMonsters = new List<MonsterController>();
 
     private MonsterController active_monster;
     private MonsterController ActiveMonster

@@ -9,7 +9,7 @@ using GameFramework;
 using UnityEditor;
 using UnityEngine;
 
-namespace bbygo.Editor.DataTableTools
+namespace BBYGO.Editor.DataTableTools
 {
     public sealed class DataTableGeneratorMenu
     {

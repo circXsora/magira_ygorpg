@@ -9,7 +9,7 @@ using GameFramework.Event;
 using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 
-namespace bbygo
+namespace BBYGO
 {
     public class ProcedureMenu : ProcedureBase
     {

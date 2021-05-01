@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
-namespace bbygo
+namespace BBYGO
 {
     public class HPBarComponent : GameFrameworkComponent
     {
