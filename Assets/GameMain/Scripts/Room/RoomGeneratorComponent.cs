@@ -1,3 +1,4 @@
+using GameFramework.Event;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,12 +9,6 @@ using UnityGameFramework.Runtime;
 
 namespace BBYGO
 {
-    public class RoomInfo
-    {
-        public int? StepFormOrigin;
-        public GameObject Room;
-        public RoomInfo[] WithRooms = new RoomInfo[4];
-    }
 
     public class RoomGeneratorComponent : GameFrameworkComponent
     {
@@ -21,120 +16,143 @@ namespace BBYGO
         private int _currentX = 0, _currentY = 0;
 
         [Header("房间信息")]
-        public GameObject RoomPrefab;
         public int RoomNumber;
         public Color StartColor, EndColor;
         public LayerMask RoomLayer;
 
         [Header("位置控制")]
+        public Vector3 InitialRoomPosition = Vector3.zero;
         private Vector3 _generatorPoint;
         public float XOffset, YOffset;
 
-        private readonly List<RoomInfo> rooms = new List<RoomInfo>();
-        public RoomInfo EndRoom;
+        private readonly List<RoomData> _roomDatas = new List<RoomData>();
+        public RoomData EndRoom;
         public MonsterInfo[] GenMonsterList;
-        private void Init()
+
+        private void Start()
         {
-            _generatorPoint = transform.position;
+            //GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, OnShowEntitySuccess);
+            //GameEntry.Event.Subscribe(ShowEntityFailureEventArgs.EventId, OnShowEntityFailure);
+        }
+
+        private void OnDestroy()
+        {
+            //GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, OnShowEntitySuccess);
+            //GameEntry.Event.Unsubscribe(ShowEntityFailureEventArgs.EventId, OnShowEntityFailure);
+        }
+
+        private void OnShowEntityFailure(object sender, GameEventArgs e)
+        {
+
+        }
+
+        private void OnShowEntitySuccess(object sender, GameEventArgs e)
+        {
+
+        }
+
+        public void GenerateRooms()
+        {
+            _generatorPoint = InitialRoomPosition;
 
             for (int i = 0; i < RoomNumber; i++)
             {
-                //GameEntry.Entity.ShowRoom()
-                var room = Instantiate(RoomPrefab, _generatorPoint, Quaternion.identity);
-                var info = new RoomInfo { Room = room };
-                var roomCtrl = room.GetComponent<RoomController>();
-                roomCtrl.Info = info;
-                rooms.Add(info);
-                ChangePointPos();
+                var roomData = new RoomData { Position = _generatorPoint };
+                _roomDatas.Add(roomData);
+                //ChangePointPos();
             }
 
-            rooms[0].Room.GetComponent<SpriteRenderer>().color = StartColor;
-            rooms[0].Room.GetComponent<SpriteRenderer>().enabled = true;
-            rooms[0].StepFormOrigin = 0;
+            _roomDatas[0].Type = RoomType.Start;
+            _roomDatas[0].StepFormOrigin = 0;
 
 
-            Setup(rooms[0]);
-            rooms.ForEach(r => SetupDoor(r));
-            for (int i = 1; i < RoomNumber; i++)
-            {
-                var monsterNum = UnityEngine.Random.Range(1, 4);
-                var roomCtrl = rooms[i].Room.GetComponent<RoomController>();
-                roomCtrl.Monsters = new MonsterInfo[monsterNum];
-                for (int j = 0; j < monsterNum; j++)
-                {
-                    roomCtrl.Monsters[j] = GenMonsterList.Random();
-                    roomCtrl.SetupBattle();
-                }
-            }
-            ComputeRoomHard();
+            //Setup(_roomDatas[0]);
+            //_roomDatas.ForEach(r => SetupDoor(r));
 
-            rooms.Sort((r, h) => r.StepFormOrigin.Value.CompareTo(h.StepFormOrigin.Value));
-            //rooms.OrderBy(r => r.SetupFromBase.Value);
-            EndRoom = null;
-            var endlist = rooms.FindAll(r => r.StepFormOrigin >= rooms.Last().StepFormOrigin - 1);
-            for (int i = endlist.Count - 1; i >= 0; i--)
-            {
-                if (endlist[i].WithRooms.Count(wr => wr != null) < 2)
-                {
-                    EndRoom = endlist[i];
-                    break;
-                }
-            }
+            // TODO:设置房间里的怪物信息
+            //for (int i = 1; i < RoomNumber; i++)
+            //{
+            //    var monsterNum = UnityEngine.Random.Range(1, 4);
+            //    var roomCtrl = _roomDatas[i].Room.GetComponent<RoomController>();
+            //    roomCtrl.Monsters = new MonsterInfo[monsterNum];
+            //    for (int j = 0; j < monsterNum; j++)
+            //    {
+            //        roomCtrl.Monsters[j] = GenMonsterList.Random();
+            //        roomCtrl.SetupBattle();
+            //    }
+            //}
+            //ComputeRoomHard();
 
-            if (EndRoom == null)
-            {
-                EndRoom = rooms.Last();
-            }
+            //_roomDatas.Sort((r, h) => r.StepFormOrigin.Value.CompareTo(h.StepFormOrigin.Value));
+
+            //EndRoom = null;
+            //var endlist = _roomDatas.FindAll(r => r.StepFormOrigin >= _roomDatas.Last().StepFormOrigin - 1);
+            //for (int i = endlist.Count - 1; i >= 0; i--)
+            //{
+            //    if (endlist[i].WithRooms.Count(wr => wr != null) < 2)
+            //    {
+            //        EndRoom = endlist[i];
+            //        break;
+            //    }
+            //}
+
+            //if (EndRoom == null)
+            //{
+            //    EndRoom = _roomDatas.Last();
+            //}
             //if (EndRoom.StepFormOrigin < rooms.Last().StepFormOrigin)
             //{
             //    Debug.Log("less! endRoom.SetupFromBase:" + EndRoom.StepFormOrigin + " rooms.Last().SetupFromBase:" + rooms.Last().StepFormOrigin);
             //}
-            EndRoom.Room.GetComponent<SpriteRenderer>().color = EndColor;
-            EndRoom.Room.GetComponent<SpriteRenderer>().enabled = true;
+            //EndRoom.Type = RoomType.End;
+            foreach (var roomdata in _roomDatas)
+            {
+                GameEntry.Entity.ShowRoom(roomdata);
+            }
         }
 
         internal void ComputeRoomHard()
         {
-            for (int i = 0; i < RoomNumber; i++)
-            {
-                var roomCtrl = rooms[i].Room.GetComponent<RoomController>();
-                for (int j = 0; j < rooms[i].WithRooms.Length; j++)
-                {
-                    if (rooms[i].WithRooms[j] == null)
-                    {
-                        continue;
-                    }
-                    var withRoomCtrl = rooms[i].WithRooms[j].Room.GetComponent<RoomController>();
-                    roomCtrl.Doors[j].GetComponentInChildren<HardDisplay>().SetHard(withRoomCtrl.Monsters.Length);
-                }
-            }
+            //for (int i = 0; i < RoomNumber; i++)
+            //{
+            //    var roomCtrl = _roomDatas[i].Room.GetComponent<RoomController>();
+            //    for (int j = 0; j < _roomDatas[i].WithRooms.Length; j++)
+            //    {
+            //        if (_roomDatas[i].WithRooms[j] == null)
+            //        {
+            //            continue;
+            //        }
+            //        var withRoomCtrl = _roomDatas[i].WithRooms[j].Room.GetComponent<RoomController>();
+            //        roomCtrl.Doors[j].GetComponentInChildren<HardDisplay>().SetHard(withRoomCtrl.Monsters.Length);
+            //    }
+            //}
         }
 
-        private void Setup(RoomInfo roomInfo)
+        private void Setup(RoomData roomData)
         {
             for (int i = 0; i < 4; i++)
             {
                 var direction = (Direction)i;
-                var coll = TestRoomAround(roomInfo.Room.transform, direction);
-                roomInfo.Room.GetComponent<RoomController>().Doors[i].SetActive(coll != null);
-                if (coll != null)
-                {
-                    var aroundInfo = coll.gameObject.GetComponent<RoomController>().Info;
-                    roomInfo.WithRooms[i] = aroundInfo;
-                    if (aroundInfo.StepFormOrigin.HasValue)
-                    {
-                        if (aroundInfo.StepFormOrigin.Value > roomInfo.StepFormOrigin.Value + 1)
-                        {
-                            aroundInfo.StepFormOrigin = roomInfo.StepFormOrigin.Value + 1;
-                            Setup(aroundInfo);
-                        }
-                    }
-                    else
-                    {
-                        aroundInfo.StepFormOrigin = roomInfo.StepFormOrigin.Value + 1;
-                        Setup(aroundInfo);
-                    }
-                }
+                //var coll = TestRoomAround(roomData.Room.transform, direction);
+                //roomData.Room.GetComponent<RoomController>().Doors[i].SetActive(coll != null);
+                //if (coll != null)
+                //{
+                //    var aroundInfo = coll.gameObject.GetComponent<RoomController>().Info;
+                //    roomData.WithRooms[i] = aroundInfo;
+                //    if (aroundInfo.StepFormOrigin.HasValue)
+                //    {
+                //        if (aroundInfo.StepFormOrigin.Value > roomData.StepFormOrigin.Value + 1)
+                //        {
+                //            aroundInfo.StepFormOrigin = roomData.StepFormOrigin.Value + 1;
+                //            Setup(aroundInfo);
+                //        }
+                //    }
+                //    else
+                //    {
+                //        aroundInfo.StepFormOrigin = roomData.StepFormOrigin.Value + 1;
+                //        Setup(aroundInfo);
+                //    }
+                //}
             }
         }
 
@@ -158,19 +176,19 @@ namespace BBYGO
 
                 if (n % 20 == 0)
                 {
-                    _generatorPoint = rooms[UnityEngine.Random.Range(0, rooms.Count)].Room.transform.position;
+                    _generatorPoint = _roomDatas[UnityEngine.Random.Range(0, _roomDatas.Count)].Position;
                 }
                 if (n % 50 == 0)
                 {
-                    for (int i = 0; i < rooms.Count; i++)
+                    for (int i = 0; i < _roomDatas.Count; i++)
                     {
                         for (int j = 0; j < 4; j++)
                         {
                             var direction = (Direction)j;
-                            if (null == TestRoomAround(rooms[i].Room.transform, direction))
-                            {
-                                _generatorPoint = rooms[i].Room.transform.position;
-                            }
+                            //if (null == TestRoomAround(_roomDatas[i].Room.transform, direction))
+                            //{
+                            //    _generatorPoint = _roomDatas[i].Room.transform.position;
+                            //}
                         }
                     }
                 }
@@ -244,7 +262,7 @@ namespace BBYGO
         // boss关
         public GameObject end_wall;
 
-        void SetupDoor(RoomInfo newRoom)
+        void SetupDoor(RoomData newRoom)
         {
             string up = (newRoom.WithRooms[(int)Direction.Up] != null ? 1 : 0).ToString();
             string down = (newRoom.WithRooms[(int)Direction.Down] != null ? 1 : 0).ToString();
@@ -252,8 +270,7 @@ namespace BBYGO
             string right = (newRoom.WithRooms[(int)Direction.Right] != null ? 1 : 0).ToString();
             var wallAttribute = "wall" + up + down + left + right;
             GameObject wall_prefab = this.GetType().GetField(wallAttribute).GetValue(this) as GameObject;
-            //GameEntry.Entity.ShowBullet()
-            newRoom.Room.GetComponent<RoomController>().Wall = Instantiate(wall_prefab, newRoom.Room.transform);
+            //newRoom.Room.GetComponent<RoomController>().Wall = Instantiate(wall_prefab, newRoom.Room.transform);
         }
     }
 }

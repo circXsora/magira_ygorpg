@@ -26,7 +26,11 @@ namespace BBYGO
             private set;
         }
 
-        public static RoomGeneratorComponent RoomGenerator;
+        public static RoomGeneratorComponent RoomGenerator
+        {
+            get;
+            private set;
+        }
 
         private static void InitCustomComponents()
         {

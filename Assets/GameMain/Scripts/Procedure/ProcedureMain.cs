@@ -101,6 +101,7 @@ namespace BBYGO
         {
             GameEntry.UI.CloseUIForm(videoFormId.Value);
             GameEntry.Entity.ShowPlayer(new PlayerData(GameEntry.Entity.GenerateSerialId(), 60000));
+            GameEntry.RoomGenerator.GenerateRooms();
         }
     }
 }

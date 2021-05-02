@@ -1,12 +1,13 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityGameFramework.Runtime;
+
 namespace BBYGO
 {
-    public class RoomController : MonoBehaviour
+    public class Room : Entity
     {
-        public RoomData Info;
+        public RoomData _data;
 
         public TMPro.TMP_Text StepText;
 
