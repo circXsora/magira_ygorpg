@@ -77,12 +77,13 @@ namespace BBYGO
 
         public static void ShowPlayer(this EntityComponent entityCompoennt, PlayerData data)
         {
-            entityCompoennt.ShowEntity(typeof(Player), "Player", Constant.AssetPriority.AsteroiAsset, data);
+            entityCompoennt.ShowEntity(typeof(Player), "Player", Constant.AssetPriority.Room, data);
         }
 
         public static void ShowRoom(this EntityComponent entityCompoennt, RoomData data)
         {
-            entityCompoennt.ShowEntity(typeof(Room), "Room", Constant.AssetPriority.AsteroiAsset, data);
+            entityCompoennt.ShowEntity(typeof(Room), "Room", Constant.AssetPriority.Room, data);
+            entityCompoennt.ShowEntity(typeof(Wall), "Wall", Constant.AssetPriority.Room, new WallData(data.WallID.Value, data.Id));
         }
 
         public static void ShowEffect(this EntityComponent entityComponent, EffectData data)

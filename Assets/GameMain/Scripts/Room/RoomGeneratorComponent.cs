@@ -6,6 +6,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityGameFramework.Runtime;
+using static UnityEngine.Random;
 
 namespace BBYGO
 {
@@ -14,6 +15,7 @@ namespace BBYGO
     {
         private Direction _currentDirection;
         private int _currentX = 0, _currentY = 0;
+        private Dictionary<(int x, int y), RoomData> _roomPositionDic = new Dictionary<(int x, int y), RoomData>();
 
         [Header("房间信息")]
         public int RoomNumber;
@@ -33,6 +35,15 @@ namespace BBYGO
         {
             //GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, OnShowEntitySuccess);
             //GameEntry.Event.Subscribe(ShowEntityFailureEventArgs.EventId, OnShowEntityFailure);
+        }
+
+
+        private void Update()
+        {
+            //if (Input.GetKeyDown(KeyCode.R))
+            //{
+            //    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            //}
         }
 
         private void OnDestroy()
@@ -57,17 +68,17 @@ namespace BBYGO
 
             for (int i = 0; i < RoomNumber; i++)
             {
-                var roomData = new RoomData { Position = _generatorPoint };
+                var roomData = new RoomData { Position = _generatorPoint, IndexPosition = new Vector2Int(_currentX, _currentY) };
                 _roomDatas.Add(roomData);
-                //ChangePointPos();
+                _roomPositionDic.Add((_currentX, _currentY), _roomDatas[i]);
+                GetNextRoomPosition();
             }
 
             _roomDatas[0].Type = RoomType.Start;
             _roomDatas[0].StepFormOrigin = 0;
 
-
-            //Setup(_roomDatas[0]);
-            //_roomDatas.ForEach(r => SetupDoor(r));
+            SetupDoorsAndSteps(_roomDatas[0]);
+            _roomDatas.ForEach(roomData => roomData.WallID = GetWallID(roomData));
 
             // TODO:设置房间里的怪物信息
             //for (int i = 1; i < RoomNumber; i++)
@@ -83,35 +94,35 @@ namespace BBYGO
             //}
             //ComputeRoomHard();
 
-            //_roomDatas.Sort((r, h) => r.StepFormOrigin.Value.CompareTo(h.StepFormOrigin.Value));
+            _roomDatas.Sort((r, h) => r.StepFormOrigin.Value.CompareTo(h.StepFormOrigin.Value));
 
-            //EndRoom = null;
-            //var endlist = _roomDatas.FindAll(r => r.StepFormOrigin >= _roomDatas.Last().StepFormOrigin - 1);
-            //for (int i = endlist.Count - 1; i >= 0; i--)
-            //{
-            //    if (endlist[i].WithRooms.Count(wr => wr != null) < 2)
-            //    {
-            //        EndRoom = endlist[i];
-            //        break;
-            //    }
-            //}
+            EndRoom = null;
+            var endlist = _roomDatas.FindAll(r => r.StepFormOrigin >= _roomDatas.Last().StepFormOrigin - 1);
+            for (int i = endlist.Count - 1; i >= 0; i--)
+            {
+                if (endlist[i].WithRooms.Count(wr => wr != null) < 2)
+                {
+                    EndRoom = endlist[i];
+                    break;
+                }
+            }
 
-            //if (EndRoom == null)
-            //{
-            //    EndRoom = _roomDatas.Last();
-            //}
-            //if (EndRoom.StepFormOrigin < rooms.Last().StepFormOrigin)
-            //{
-            //    Debug.Log("less! endRoom.SetupFromBase:" + EndRoom.StepFormOrigin + " rooms.Last().SetupFromBase:" + rooms.Last().StepFormOrigin);
-            //}
-            //EndRoom.Type = RoomType.End;
+            if (EndRoom == null)
+            {
+                EndRoom = _roomDatas.Last();
+            }
+            if (EndRoom.StepFormOrigin < _roomDatas.Last().StepFormOrigin)
+            {
+                Log.Error($"最终房间步数计算错误！EndRoom步数为：{EndRoom.StepFormOrigin}，但有更大的步数房间，步数为{_roomDatas.Last().StepFormOrigin}");
+            }
+            EndRoom.Type = RoomType.End;
             foreach (var roomdata in _roomDatas)
             {
                 GameEntry.Entity.ShowRoom(roomdata);
             }
         }
 
-        internal void ComputeRoomHard()
+        private void ComputeRoomHard()
         {
             //for (int i = 0; i < RoomNumber; i++)
             //{
@@ -128,75 +139,43 @@ namespace BBYGO
             //}
         }
 
-        private void Setup(RoomData roomData)
+        private void SetupDoorsAndSteps(RoomData roomData)
         {
             for (int i = 0; i < 4; i++)
             {
                 var direction = (Direction)i;
-                //var coll = TestRoomAround(roomData.Room.transform, direction);
-                //roomData.Room.GetComponent<RoomController>().Doors[i].SetActive(coll != null);
-                //if (coll != null)
-                //{
-                //    var aroundInfo = coll.gameObject.GetComponent<RoomController>().Info;
-                //    roomData.WithRooms[i] = aroundInfo;
-                //    if (aroundInfo.StepFormOrigin.HasValue)
-                //    {
-                //        if (aroundInfo.StepFormOrigin.Value > roomData.StepFormOrigin.Value + 1)
-                //        {
-                //            aroundInfo.StepFormOrigin = roomData.StepFormOrigin.Value + 1;
-                //            Setup(aroundInfo);
-                //        }
-                //    }
-                //    else
-                //    {
-                //        aroundInfo.StepFormOrigin = roomData.StepFormOrigin.Value + 1;
-                //        Setup(aroundInfo);
-                //    }
-                //}
+                var linkedRoomData = GetRoomLinkedRoom(roomData, direction);
+                roomData.DoorsActiveInfos[i] = linkedRoomData != null;
+                if (linkedRoomData != null)
+                {
+                    roomData.WithRooms[i] = linkedRoomData;
+                    if (linkedRoomData.StepFormOrigin.HasValue)
+                    {
+                        if (linkedRoomData.StepFormOrigin.Value > roomData.StepFormOrigin.Value + 1)
+                        {
+                            linkedRoomData.StepFormOrigin = roomData.StepFormOrigin.Value + 1;
+                            SetupDoorsAndSteps(linkedRoomData);
+                        }
+                    }
+                    else
+                    {
+                        linkedRoomData.StepFormOrigin = roomData.StepFormOrigin.Value + 1;
+                        SetupDoorsAndSteps(linkedRoomData);
+                    }
+                }
             }
         }
 
-        private void Update()
+        private Vector3 GetNextRoomPosition()
         {
-            //if (Input.GetKeyDown(KeyCode.R))
-            //{
-            //    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            //}
-        }
-
-        private void ChangePointPos()
-        {
-            int x, y;
-            Vector3 p;
-            int n = 0;
-
-            do
+            var directions = new Direction[4] { Direction.Down, Direction.Up, Direction.Left, Direction.Right };
+            Array.Sort(directions, (l, r) => Range(-1, 2) - 0); // 洗牌
+            foreach (var direction in directions)
             {
-                n++;
-
-                if (n % 20 == 0)
-                {
-                    _generatorPoint = _roomDatas[UnityEngine.Random.Range(0, _roomDatas.Count)].Position;
-                }
-                if (n % 50 == 0)
-                {
-                    for (int i = 0; i < _roomDatas.Count; i++)
-                    {
-                        for (int j = 0; j < 4; j++)
-                        {
-                            var direction = (Direction)j;
-                            //if (null == TestRoomAround(_roomDatas[i].Room.transform, direction))
-                            //{
-                            //    _generatorPoint = _roomDatas[i].Room.transform.position;
-                            //}
-                        }
-                    }
-                }
-
-                _currentDirection = (Direction)UnityEngine.Random.Range(0, 4);
-                x = _currentX;
-                y = _currentY;
-                p = _generatorPoint;
+                _currentDirection = direction;
+                int x = _currentX;
+                int y = _currentY;
+                Vector3 p = _generatorPoint;
 
                 switch (_currentDirection)
                 {
@@ -220,57 +199,53 @@ namespace BBYGO
                         break;
                 }
 
+                if (!_roomPositionDic.ContainsKey((x, y)))
+                {
+                    _currentX = x;
+                    _currentY = y;
+                    _generatorPoint = p;
+                    return _generatorPoint;
+                }
+            }
+            throw new GameFramework.GameFrameworkException("四个方向上都已经有房间，房间生成失败！");
 
-            } while (TestPointIsInRoom(p));
-            _currentX = x;
-            _currentY = y;
-            _generatorPoint = p;
-        }
-        private bool TestPointIsInRoom(Vector3 point)
-        {
-            return Physics2D.OverlapCircle(point, .2f, RoomLayer.value);
         }
 
-        private Collider2D TestRoomAround(Transform room, Direction direction)
+        private RoomData GetRoomLinkedRoom(RoomData roomData, Direction direction)
         {
+            var indexPosition = roomData.IndexPosition;
             switch (direction)
             {
                 case Direction.Up:
-                    return Physics2D.OverlapCircle(room.transform.position + new Vector3(0, YOffset, 0), .2f, RoomLayer.value);
+                    indexPosition.y += 1;
+                    break;
                 case Direction.Down:
-                    return Physics2D.OverlapCircle(room.transform.position + new Vector3(0, -YOffset, 0), .2f, RoomLayer.value);
+                    indexPosition.y -= 1;
+                    break;
                 case Direction.Left:
-                    return Physics2D.OverlapCircle(room.transform.position + new Vector3(-XOffset, 0, 0), .2f, RoomLayer.value);
+                    indexPosition.x -= 1;
+                    break;
                 case Direction.Right:
-                    return Physics2D.OverlapCircle(room.transform.position + new Vector3(XOffset, 0, 0), .2f, RoomLayer.value);
+                    indexPosition.x += 1;
+                    break;
                 default:
                     Debug.LogError("no such direction!");
                     return null;
             }
+            if (_roomPositionDic.ContainsKey((indexPosition.x, indexPosition.y)))
+                return _roomPositionDic[(indexPosition.x, indexPosition.y)];
+            else
+                return null;
         }
 
         //命名规则上下左右
-
-        // 单出口
-        public GameObject wall0001, wall1000, wall0010, wall0100;
-        // 双出口
-        public GameObject wall0011, wall1100, wall1001, wall0101, wall0110, wall1010;
-        // 三出口
-        public GameObject wall1101, wall0111, wall1110, wall1011;
-        // 四出口
-        public GameObject wall1111;
-        // boss关
-        public GameObject end_wall;
-
-        void SetupDoor(RoomData newRoom)
+        private int GetWallID(RoomData newRoom)
         {
             string up = (newRoom.WithRooms[(int)Direction.Up] != null ? 1 : 0).ToString();
             string down = (newRoom.WithRooms[(int)Direction.Down] != null ? 1 : 0).ToString();
             string left = (newRoom.WithRooms[(int)Direction.Left] != null ? 1 : 0).ToString();
             string right = (newRoom.WithRooms[(int)Direction.Right] != null ? 1 : 0).ToString();
-            var wallAttribute = "wall" + up + down + left + right;
-            GameObject wall_prefab = this.GetType().GetField(wallAttribute).GetValue(this) as GameObject;
-            //newRoom.Room.GetComponent<RoomController>().Wall = Instantiate(wall_prefab, newRoom.Room.transform);
+            return int.Parse("1" + up + down + left + right);
         }
     }
 }

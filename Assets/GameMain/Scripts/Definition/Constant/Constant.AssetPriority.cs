@@ -30,7 +30,7 @@ namespace BBYGO
             public const int WeaponAsset = 30;
             public const int ArmorAsset = 30;
             public const int BulletAsset = 80;
-            public const int AsteroiAsset = 80;
+            public const int Room = 80;
             public const int EffectAsset = 80;
         }
     }
