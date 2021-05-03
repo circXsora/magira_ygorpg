@@ -13,7 +13,6 @@ namespace BBYGO
 
     public class RoomGeneratorComponent : GameFrameworkComponent
     {
-        private Direction _currentDirection;
         private int _currentX = 0, _currentY = 0;
         private Dictionary<(int x, int y), RoomData> _roomPositionDic = new Dictionary<(int x, int y), RoomData>();
 
@@ -24,11 +23,10 @@ namespace BBYGO
 
         [Header("位置控制")]
         public Vector3 InitialRoomPosition = Vector3.zero;
-        private Vector3 _generatorPoint;
         public float XOffset, YOffset;
+        private Vector3 _generatorPoint;
 
         private readonly List<RoomData> _roomDatas = new List<RoomData>();
-        public RoomData EndRoom;
         public MonsterInfo[] GenMonsterList;
 
         private void Start()
@@ -40,10 +38,11 @@ namespace BBYGO
 
         private void Update()
         {
-            //if (Input.GetKeyDown(KeyCode.R))
-            //{
-            //    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            //}
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                ClearAllRooms();
+                GenerateRooms();
+            }
         }
 
         private void OnDestroy()
@@ -96,30 +95,51 @@ namespace BBYGO
 
             _roomDatas.Sort((r, h) => r.StepFormOrigin.Value.CompareTo(h.StepFormOrigin.Value));
 
-            EndRoom = null;
+            RoomData endRoom = null;
             var endlist = _roomDatas.FindAll(r => r.StepFormOrigin >= _roomDatas.Last().StepFormOrigin - 1);
             for (int i = endlist.Count - 1; i >= 0; i--)
             {
                 if (endlist[i].WithRooms.Count(wr => wr != null) < 2)
                 {
-                    EndRoom = endlist[i];
+                    endRoom = endlist[i];
                     break;
                 }
             }
 
-            if (EndRoom == null)
+            if (endRoom == null)
             {
-                EndRoom = _roomDatas.Last();
+                endRoom = _roomDatas.Last();
             }
-            if (EndRoom.StepFormOrigin < _roomDatas.Last().StepFormOrigin)
+            if (endRoom.StepFormOrigin < _roomDatas.Last().StepFormOrigin)
             {
-                Log.Error($"最终房间步数计算错误！EndRoom步数为：{EndRoom.StepFormOrigin}，但有更大的步数房间，步数为{_roomDatas.Last().StepFormOrigin}");
+                Log.Error($"最终房间步数计算错误！EndRoom步数为：{endRoom.StepFormOrigin}，但有更大的步数房间，步数为{_roomDatas.Last().StepFormOrigin}");
             }
-            EndRoom.Type = RoomType.End;
+            endRoom.Type = RoomType.End;
             foreach (var roomdata in _roomDatas)
             {
                 GameEntry.Entity.ShowRoom(roomdata);
             }
+        }
+
+        public void ClearAllRooms()
+        {
+            var wallGroup = GameEntry.Entity.GetEntityGroup("Wall");
+            var wallEntities = wallGroup.GetAllEntities();
+            for (int i = 0; i < wallEntities.Length; i++)
+            {
+                GameEntry.Entity.HideEntity(wallEntities[i].Id);
+            }
+
+            var roomGroup = GameEntry.Entity.GetEntityGroup("Room");
+            var roomEntities = roomGroup.GetAllEntities();
+            for (int i = 0; i < roomEntities.Length; i++)
+            {
+                GameEntry.Entity.HideEntity(roomEntities[i].Id);
+            }
+
+
+            _roomPositionDic.Clear();
+            _roomDatas.Clear();
         }
 
         private void ComputeRoomHard()
@@ -169,15 +189,16 @@ namespace BBYGO
         private Vector3 GetNextRoomPosition()
         {
             var directions = new Direction[4] { Direction.Down, Direction.Up, Direction.Left, Direction.Right };
-            Array.Sort(directions, (l, r) => Range(-1, 2) - 0); // 洗牌
-            foreach (var direction in directions)
+           
+            directions = directions.OrderBy(d => Range(0, 100)).ToArray();
+            for (int i = 0; i < directions.Length; i++)
             {
-                _currentDirection = direction;
+                var direction = directions[i];
                 int x = _currentX;
                 int y = _currentY;
                 Vector3 p = _generatorPoint;
 
-                switch (_currentDirection)
+                switch (direction)
                 {
                     case Direction.Up:
                         y += 1;
@@ -206,7 +227,9 @@ namespace BBYGO
                     _generatorPoint = p;
                     return _generatorPoint;
                 }
+
             }
+
             throw new GameFramework.GameFrameworkException("四个方向上都已经有房间，房间生成失败！");
 
         }

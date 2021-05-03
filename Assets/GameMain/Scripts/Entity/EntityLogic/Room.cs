@@ -40,6 +40,9 @@ namespace BBYGO
             {
                 _doors[i].gameObject.SetActive(_data.DoorsActiveInfos[i]);
             }
+
+            GameEntry.Entity.ShowWall(new WallData(_data.WallID.Value, _data.Id));
+
         }
 
         protected override void OnAttached(EntityLogic childEntity, Transform parentTransform, object userData)
