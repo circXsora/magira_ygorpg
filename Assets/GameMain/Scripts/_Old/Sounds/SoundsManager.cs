@@ -5,7 +5,7 @@ using UnityEngine;
 using DG.Tweening;
 using System.Threading.Tasks;
 
-public class SoundsManager : Magia.Singleton<SoundsManager>
+public class SoundsManager : MGO.Singleton<SoundsManager>
 {
     public SEConfig SEConfig;
     public BGMConfig BGMConfig;

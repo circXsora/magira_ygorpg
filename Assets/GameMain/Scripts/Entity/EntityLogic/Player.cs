@@ -30,8 +30,7 @@ namespace BBYGO
             var entity = collision.GetComponent<Entity>();
             if (entity is Room)
             {
-                var e = ReferencePool.Acquire<PlayerArrivedRoomEventArgs>();
-                GameEntry.Event.Fire(this, e.Fill(entity as Room));
+                GameEntry.Event.Fire(this, PlayerArrivedRoomEventArgs.Create(entity as Room));
             }
         }
     }

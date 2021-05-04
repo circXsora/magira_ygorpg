@@ -1,4 +1,5 @@
 using GameFramework.Event;
+using MGO;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -188,12 +189,10 @@ namespace BBYGO
 
         private Vector3 GetNextRoomPosition()
         {
-            var directions = new Direction[4] { Direction.Down, Direction.Up, Direction.Left, Direction.Right };
-           
-            directions = directions.OrderBy(d => Range(0, 100)).ToArray();
-            for (int i = 0; i < directions.Length; i++)
+            var directions = new List<Direction>() { Direction.Down, Direction.Up, Direction.Left, Direction.Right };
+            directions.Shuffle();
+            foreach (var direction in directions)
             {
-                var direction = directions[i];
                 int x = _currentX;
                 int y = _currentY;
                 Vector3 p = _generatorPoint;
@@ -227,7 +226,6 @@ namespace BBYGO
                     _generatorPoint = p;
                     return _generatorPoint;
                 }
-
             }
 
             throw new GameFramework.GameFrameworkException("四个方向上都已经有房间，房间生成失败！");

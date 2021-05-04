@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MaterialManager : Magia.Singleton<MaterialManager>
+public class MaterialManager : MGO.Singleton<MaterialManager>
 {
 
     public enum MaterialMode

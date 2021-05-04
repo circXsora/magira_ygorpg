@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using System.Threading.Tasks;
 
-public class TalkUI : Magia.SingletonInScene<TalkUI>
+public class TalkUI : MGO.SingletonInScene<TalkUI>
 {
     [SerializeField]
     private GameObject TalkUIPanel;
@@ -38,7 +38,7 @@ public class TalkUI : Magia.SingletonInScene<TalkUI>
         group.alpha = 0;
         TalkUIPanel.SetActive(true);
         DOTween.To(() => group.alpha, val => group.alpha = val, 1, OpenFadeTime);
-        await Task.Delay(OpenFadeTime.ToMill());
+        await Task.Delay((int)(OpenFadeTime * 1000));
     }
     public async Task Close()
     {
@@ -50,7 +50,7 @@ public class TalkUI : Magia.SingletonInScene<TalkUI>
         {
             await Task.Yield();
         }
-        
+
         //await Task.Delay(OpenFadeTime.ToMill());
         TalkUIPanel.SetActive(false);
     }

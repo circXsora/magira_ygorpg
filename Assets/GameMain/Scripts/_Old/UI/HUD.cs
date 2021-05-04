@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HUD : Magia.SingletonInScene<HUD>
+public class HUD : MGO.SingletonInScene<HUD>
 {
     public void RegisterPlayerMonster(MonsterController monster)
     {

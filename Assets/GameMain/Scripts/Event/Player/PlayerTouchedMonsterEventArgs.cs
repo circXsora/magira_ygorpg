@@ -3,7 +3,7 @@
  *------------------------------------------------------------------------
  *  作者:  circXsora
  *  邮箱:  circXsora@outlook.com
- *  日期:  2021/5/4 13:41:22
+ *  日期:  2021/5/4 13:38:15
  *  项目:  BBYGO
  *  功能:
 *****************************************************/
@@ -16,26 +16,23 @@ using UnityEngine;
 
 namespace BBYGO
 {
-	public sealed class PlayerArrivedRoomEventArgs : GameEventArgs
+	public sealed class PlayerTouchedMonsterEventArgs : GameEventArgs
 	{
-        public static readonly int EventId = typeof(PlayerArrivedRoomEventArgs).GetHashCode();
+        public static readonly int EventId = typeof(PlayerTouchedMonsterEventArgs).GetHashCode();
         
         public override int Id => EventId;
-
-        public Room Room;
 
         /// <summary>
         /// 你不应该调用构造函数而应该调用Create静态方法
         /// </summary>
-        public PlayerArrivedRoomEventArgs()
+        public PlayerTouchedMonsterEventArgs()
         {
 
         }
 
-        public static PlayerArrivedRoomEventArgs Create(Room room)
+        public static PlayerTouchedMonsterEventArgs Create(/*在这里加入构造参数*/)
         {
-            PlayerArrivedRoomEventArgs eventArgs = ReferencePool.Acquire<PlayerArrivedRoomEventArgs>();
-            eventArgs.Room = room;
+            PlayerTouchedMonsterEventArgs eventArgs = ReferencePool.Acquire<PlayerTouchedMonsterEventArgs>();
             return eventArgs;
         }
 

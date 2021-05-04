@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using DG.Tweening;
-public class InterludeUI : Magia.SingletonInScene<InterludeUI>
+public class InterludeUI : MGO.SingletonInScene<InterludeUI>
 {
 
     public TMPro.TMP_Text InterludeText;

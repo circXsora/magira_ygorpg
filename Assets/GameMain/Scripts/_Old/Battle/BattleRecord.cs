@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleRecord : Magia.SingletonInScene<BattleRecord>
+public class BattleRecord : MGO.SingletonInScene<BattleRecord>
 {
     public TMPro.TMP_InputField Record;
 

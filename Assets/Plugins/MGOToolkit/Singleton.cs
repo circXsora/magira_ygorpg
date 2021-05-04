@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Magia
+namespace MGO
 {
     public abstract class Singleton<T> : MonoBehaviour where T : Singleton<T>
     {

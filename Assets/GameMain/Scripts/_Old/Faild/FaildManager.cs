@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class FaildManager : Magia.SingletonInScene<FaildManager>
+public class FaildManager : MGO.SingletonInScene<FaildManager>
 {
     public void ExitGame()
     {

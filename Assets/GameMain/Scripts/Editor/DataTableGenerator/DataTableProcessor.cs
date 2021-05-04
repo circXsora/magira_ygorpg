@@ -52,7 +52,7 @@ namespace BBYGO.Editor.DataTableTools
                 throw new GameFrameworkException(Utility.Text.Format("Data table file '{0}' is not exist.", dataTableFileName));
             }
 
-            List<string> lines = FileUtility.ReadAllLinesShared(dataTableFileName);
+            List<string> lines = MGO.FileUtility.ReadAllLinesShared(dataTableFileName);
 
             int rawRowCount = lines.Count;
 

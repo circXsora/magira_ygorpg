@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FreeSceneManager : Magia.SingletonInScene<FreeSceneManager>
+public class FreeSceneManager : MGO.SingletonInScene<FreeSceneManager>
 {
 
 }

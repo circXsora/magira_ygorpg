@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MGO;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class BattaleSystem : Magia.SingletonInScene<BattaleSystem>
+public class BattaleSystem : MGO.SingletonInScene<BattaleSystem>
 {
     public UnityEvent OnWin, OnLose;
 
@@ -378,7 +379,7 @@ public class BattaleSystem : Magia.SingletonInScene<BattaleSystem>
                 }
                 foreach (var enemy in EnemyMonsters)
                 {
-                    await enemy.Attack(PlayerMonsters.Random());
+                    await enemy.Attack(PlayerMonsters.Random1());
                 }
                 state_machine.Fire(Trigger.TurnEnd);
             })

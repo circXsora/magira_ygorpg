@@ -1,4 +1,5 @@
 ﻿using BBYGO;
+using MGO;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ public class RoomInfo
     public RoomInfo[] WithRooms = new RoomInfo[4];
 }
 
-public class RoomGenerator : Magia.SingletonInScene<RoomGenerator>
+public class RoomGenerator : MGO.SingletonInScene<RoomGenerator>
 {
     private BBYGO.Direction _currentDir;
     private int _currentX = 0, _currentY = 0;
@@ -59,7 +60,7 @@ public class RoomGenerator : Magia.SingletonInScene<RoomGenerator>
             roomCtrl.Monsters = new MonsterInfo[monsterNum];
             for (int j = 0; j < monsterNum; j++)
             {
-                roomCtrl.Monsters[j] = GenMonsterList.Random();
+                roomCtrl.Monsters[j] = GenMonsterList.Random1();
                 roomCtrl.SetupBattle();
             }
         }

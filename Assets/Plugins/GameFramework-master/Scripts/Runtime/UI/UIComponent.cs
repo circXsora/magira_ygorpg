@@ -694,7 +694,6 @@ namespace UnityGameFramework.Runtime
                 Log.Warning("UI form is invalid.");
                 return;
             }
-
             m_UIManager.SetUIFormInstancePriority(uiForm.gameObject, priority);
         }
 

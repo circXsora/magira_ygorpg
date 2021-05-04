@@ -1,0 +1,21 @@
+/****************************************************
+ *  Copyright © #CREATEYEAR# #AUTHORNAME#. All rights reserved.
+ *------------------------------------------------------------------------
+ *  作者:  circXsora
+ *  邮箱:  circXsora@outlook.com
+ *  日期:  #CREATETIME#
+ *  项目:  #PROJECTNAME#
+ *  功能:
+*****************************************************/
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace #PROJECTNAME#
+{
+	public class #SCRIPTNAME# : Entity
+	{
+
+	}
+}

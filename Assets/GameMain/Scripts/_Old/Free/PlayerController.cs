@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : Magia.SingletonInScene<PlayerController>
+public class PlayerController : MGO.SingletonInScene<PlayerController>
 {
 
     public float Speed = 2f;

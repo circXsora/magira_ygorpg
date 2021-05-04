@@ -1,10 +1,10 @@
 /****************************************************
- *  Copyright © 2021 circXsora. All rights reserved.
+ *  Copyright © #CREATEYEAR# #AUTHORNAME#. All rights reserved.
  *------------------------------------------------------------------------
  *  作者:  circXsora
  *  邮箱:  circXsora@outlook.com
- *  日期:  2021/5/4 13:41:22
- *  项目:  BBYGO
+ *  日期:  #CREATETIME#
+ *  项目:  #PROJECTNAME#
  *  功能:
 *****************************************************/
 
@@ -14,28 +14,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BBYGO
+namespace #PROJECTNAME#
 {
-	public sealed class PlayerArrivedRoomEventArgs : GameEventArgs
+	public sealed class #SCRIPTNAME# : GameEventArgs
 	{
-        public static readonly int EventId = typeof(PlayerArrivedRoomEventArgs).GetHashCode();
+        public static readonly int EventId = typeof(#SCRIPTNAME#).GetHashCode();
         
         public override int Id => EventId;
-
-        public Room Room;
 
         /// <summary>
         /// 你不应该调用构造函数而应该调用Create静态方法
         /// </summary>
-        public PlayerArrivedRoomEventArgs()
+        public #SCRIPTNAME#()
         {
 
         }
 
-        public static PlayerArrivedRoomEventArgs Create(Room room)
+        public static #SCRIPTNAME# Create(/*在这里加入构造参数*/)
         {
-            PlayerArrivedRoomEventArgs eventArgs = ReferencePool.Acquire<PlayerArrivedRoomEventArgs>();
-            eventArgs.Room = room;
+            #SCRIPTNAME# eventArgs = ReferencePool.Acquire<#SCRIPTNAME#>();
             return eventArgs;
         }
 

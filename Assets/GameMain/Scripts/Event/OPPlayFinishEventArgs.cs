@@ -1,34 +1,44 @@
+/****************************************************
+ *  Copyright © 2021 circXsora. All rights reserved.
+ *------------------------------------------------------------------------
+ *  作者:  circXsora
+ *  邮箱:  circXsora@outlook.com
+ *  日期:  2021/5/4 13:40:22
+ *  项目:  BBYGO
+ *  功能:
+*****************************************************/
+
+using GameFramework;
 using GameFramework.Event;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//public sealed class ActiveSceneChangedEventArgs : GameEventArgs
 
 namespace BBYGO
 {
-
-    public sealed class OPPlayFinishEventArgs : GameEventArgs
-    {
+	public sealed class OPPlayFinishEventArgs : GameEventArgs
+	{
         public static readonly int EventId = typeof(OPPlayFinishEventArgs).GetHashCode();
+        
+        public override int Id => EventId;
 
-
+        /// <summary>
+        /// 你不应该调用构造函数而应该调用Create静态方法
+        /// </summary>
         public OPPlayFinishEventArgs()
         {
 
         }
 
-        public override int Id
+        public static OPPlayFinishEventArgs Create(/*在这里加入构造参数*/)
         {
-            get
-            {
-                return EventId;
-            }
+            OPPlayFinishEventArgs eventArgs = ReferencePool.Acquire<OPPlayFinishEventArgs>();
+            return eventArgs;
         }
 
         public override void Clear()
         {
-           
-        }
-    }
 
+        }
+	}
 }
