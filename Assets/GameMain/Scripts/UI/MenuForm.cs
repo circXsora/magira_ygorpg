@@ -24,12 +24,12 @@ namespace BBYGO
 
         public void OnSettingButtonClick()
         {
-            GameEntry.UI.OpenUIForm(UIFormId.SettingForm);
+            GameEntry.UI.OpenUIForm(UIFormID.SettingForm);
         }
 
         public void OnAboutButtonClick()
         {
-            GameEntry.UI.OpenUIForm(UIFormId.AboutForm);
+            GameEntry.UI.OpenUIForm(UIFormID.AboutForm);
         }
 
         public void OnQuitButtonClick()

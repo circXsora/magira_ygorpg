@@ -10,7 +10,7 @@ namespace BBYGO
     /// <summary>
     /// 界面编号。
     /// </summary>
-    public enum UIFormId : byte
+    public enum UIFormID : byte
     {
         Undefined = 0,
 

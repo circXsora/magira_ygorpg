@@ -14,11 +14,8 @@ namespace BBYGO
 {
     public class ProcedureChangeScene : ProcedureBase
     {
-        private const int MenuSceneId = 1;
-
         private bool m_ChangeToMenu = false;
         private bool m_IsChangeSceneComplete = false;
-        private int m_BackgroundMusicId = 0;
 
         public override bool UseNativeDialog
         {
@@ -58,7 +55,7 @@ namespace BBYGO
             GameEntry.Base.ResetNormalGameSpeed();
 
             int sceneId = procedureOwner.GetData<VarInt32>("NextSceneId");
-            m_ChangeToMenu = sceneId == MenuSceneId;
+            m_ChangeToMenu = sceneId == SceneID.Menu;
             IDataTable<DRScene> dtScene = GameEntry.DataTable.GetDataTable<DRScene>();
             DRScene drScene = dtScene.GetDataRow(sceneId);
             if (drScene == null)
@@ -68,7 +65,6 @@ namespace BBYGO
             }
 
             GameEntry.Scene.LoadScene(AssetUtility.GetSceneAsset(drScene.AssetName), Constant.AssetPriority.SceneAsset, this);
-            m_BackgroundMusicId = drScene.BackgroundMusicId;
         }
 
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
@@ -109,11 +105,6 @@ namespace BBYGO
             }
 
             Log.Info("Load scene '{0}' OK.", ne.SceneAssetName);
-
-            if (m_BackgroundMusicId > 0)
-            {
-                GameEntry.Sound.PlayMusic(m_BackgroundMusicId);
-            }
 
             m_IsChangeSceneComplete = true;
         }

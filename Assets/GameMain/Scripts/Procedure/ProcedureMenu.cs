@@ -36,7 +36,8 @@ namespace BBYGO
             GameEntry.Event.Subscribe(OpenUIFormSuccessEventArgs.EventId, OnOpenUIFormSuccess);
 
             m_StartGame = false;
-            GameEntry.UI.OpenUIForm(UIFormId.MenuForm, this);
+            GameEntry.UI.OpenUIForm(UIFormID.MenuForm, this);
+            GameEntry.Sound.PlayMusic(MusicID.Menu);
         }
 
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
@@ -50,6 +51,7 @@ namespace BBYGO
                 m_MenuForm.Close(isShutdown);
                 m_MenuForm = null;
             }
+            GameEntry.Sound.StopMusic();
         }
 
         protected override void OnUpdate(ProcedureOwner procedureOwner, float elapseSeconds, float realElapseSeconds)

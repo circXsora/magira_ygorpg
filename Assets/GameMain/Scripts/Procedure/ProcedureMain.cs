@@ -51,19 +51,20 @@ namespace BBYGO
             m_CurrentGame = m_Games[gameMode];
             m_CurrentGame.Initialize();
             GameEntry.Event.Subscribe(OPPlayFinishEventArgs.EventId, OnOPPlayFinish);
-            videoFormId = GameEntry.UI.OpenUIForm(UIFormId.VideoForm);
+            videoFormId = GameEntry.UI.OpenUIForm(UIFormID.VideoForm);
         }
 
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
         {
+            base.OnLeave(procedureOwner, isShutdown);
+
             if (m_CurrentGame != null)
             {
                 m_CurrentGame.Shutdown();
                 m_CurrentGame = null;
             }
             GameEntry.Event.Unsubscribe(OPPlayFinishEventArgs.EventId, OnOPPlayFinish);
-
-            base.OnLeave(procedureOwner, isShutdown);
+            GameEntry.Sound.StopMusic();
         }
 
         protected override void OnDestroy(ProcedureOwner procedureOwner)
@@ -101,6 +102,7 @@ namespace BBYGO
         {
             GameEntry.UI.CloseUIForm(videoFormId.Value);
             GameEntry.Entity.ShowPlayer(new PlayerData(GameEntry.Entity.GenerateSerialId(), 60000));
+            GameEntry.Sound.PlayMusic(MusicID.Main);
             GameEntry.RoomGenerator.GenerateRooms();
         }
     }

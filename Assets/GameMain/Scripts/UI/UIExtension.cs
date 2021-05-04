@@ -44,7 +44,7 @@ namespace BBYGO
             slider.value = value;
         }
 
-        public static bool HasUIForm(this UIComponent uiComponent, UIFormId uiFormId, string uiGroupName = null)
+        public static bool HasUIForm(this UIComponent uiComponent, UIFormID uiFormId, string uiGroupName = null)
         {
             return uiComponent.HasUIForm((int)uiFormId, uiGroupName);
         }
@@ -73,7 +73,7 @@ namespace BBYGO
             return uiGroup.HasUIForm(assetName);
         }
 
-        public static UGuiForm GetUIForm(this UIComponent uiComponent, UIFormId uiFormId, string uiGroupName = null)
+        public static UGuiForm GetUIForm(this UIComponent uiComponent, UIFormID uiFormId, string uiGroupName = null)
         {
             return uiComponent.GetUIForm((int)uiFormId, uiGroupName);
         }
@@ -120,7 +120,7 @@ namespace BBYGO
             uiComponent.CloseUIForm(uiForm.UIForm);
         }
 
-        public static int? OpenUIForm(this UIComponent uiComponent, UIFormId uiFormId, object userData = null)
+        public static int? OpenUIForm(this UIComponent uiComponent, UIFormID uiFormId, object userData = null)
         {
             return uiComponent.OpenUIForm((int)uiFormId, userData);
         }
@@ -160,7 +160,7 @@ namespace BBYGO
             }
             else
             {
-                uiComponent.OpenUIForm(UIFormId.DialogForm, dialogParams);
+                uiComponent.OpenUIForm(UIFormID.DialogForm, dialogParams);
             }
         }
 
