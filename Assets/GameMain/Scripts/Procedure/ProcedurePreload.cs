@@ -25,6 +25,7 @@ namespace BBYGO
             "Sound",
             "UIForm",
             "UISound",
+            "Monster",
         };
 
         private Dictionary<string, bool> m_LoadedFlag = new Dictionary<string, bool>();

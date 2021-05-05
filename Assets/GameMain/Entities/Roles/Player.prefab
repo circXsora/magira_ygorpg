@@ -287,7 +287,7 @@ GameObject:
   m_Component:
   - component: {fileID: 664858020232263154}
   - component: {fileID: 664858020232263155}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: MinimapMark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -369,7 +369,7 @@ GameObject:
   m_Component:
   - component: {fileID: 664858021097697809}
   - component: {fileID: 664858021097697810}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: shadows
   m_TagString: Untagged
   m_Icon: {fileID: 0}

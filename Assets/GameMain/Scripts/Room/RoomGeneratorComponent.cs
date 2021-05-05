@@ -28,7 +28,7 @@ namespace BBYGO
         private Vector3 _generatorPoint;
 
         private readonly List<RoomData> _roomDatas = new List<RoomData>();
-        public MonsterInfo[] GenMonsterList;
+        public int[] GenerateMonsterIds;
 
         private void Start()
         {
@@ -80,19 +80,18 @@ namespace BBYGO
             SetupDoorsAndSteps(_roomDatas[0]);
             _roomDatas.ForEach(roomData => roomData.WallID = GetWallID(roomData));
 
-            // TODO:设置房间里的怪物信息
-            //for (int i = 1; i < RoomNumber; i++)
-            //{
-            //    var monsterNum = UnityEngine.Random.Range(1, 4);
-            //    var roomCtrl = _roomDatas[i].Room.GetComponent<RoomController>();
-            //    roomCtrl.Monsters = new MonsterInfo[monsterNum];
-            //    for (int j = 0; j < monsterNum; j++)
-            //    {
-            //        roomCtrl.Monsters[j] = GenMonsterList.Random();
-            //        roomCtrl.SetupBattle();
-            //    }
-            //}
-            //ComputeRoomHard();
+            // 设置房间里的怪物信息
+            for (int i = 1; i < RoomNumber; i++)
+            {
+                var monsterNum = Range(1, 4);
+                var roomData = _roomDatas[i];
+                roomData.MonsterDatas = new MonsterData[monsterNum];
+                roomData.DifficultValue = monsterNum;
+                for (int j = 0; j < monsterNum; j++)
+                {
+                    roomData.MonsterDatas[j] = new MonsterData(GenerateMonsterIds.Random1());
+                }
+            }
 
             _roomDatas.Sort((r, h) => r.StepFormOrigin.Value.CompareTo(h.StepFormOrigin.Value));
 
@@ -141,23 +140,6 @@ namespace BBYGO
 
             _roomPositionDic.Clear();
             _roomDatas.Clear();
-        }
-
-        private void ComputeRoomHard()
-        {
-            //for (int i = 0; i < RoomNumber; i++)
-            //{
-            //    var roomCtrl = _roomDatas[i].Room.GetComponent<RoomController>();
-            //    for (int j = 0; j < _roomDatas[i].WithRooms.Length; j++)
-            //    {
-            //        if (_roomDatas[i].WithRooms[j] == null)
-            //        {
-            //            continue;
-            //        }
-            //        var withRoomCtrl = _roomDatas[i].WithRooms[j].Room.GetComponent<RoomController>();
-            //        roomCtrl.Doors[j].GetComponentInChildren<HardDisplay>().SetHard(withRoomCtrl.Monsters.Length);
-            //    }
-            //}
         }
 
         private void SetupDoorsAndSteps(RoomData roomData)

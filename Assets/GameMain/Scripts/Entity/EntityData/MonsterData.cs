@@ -16,9 +16,10 @@ namespace BBYGO
 {
     public class MonsterData : EntityData
     {
-        public MonsterData(int entityId, int typeId) : base(entityId, typeId)
+        public int Level;
+        public MonsterData(int typeId, int level = 1) : base(GameEntry.Entity.GenerateSerialId(), typeId)
         {
-
+            Level = level;
         }
     }
 }

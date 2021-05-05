@@ -804,7 +804,7 @@ MonoBehaviour:
   InitialRoomPosition: {x: 0, y: 0, z: 0}
   XOffset: 18
   YOffset: 10
-  GenMonsterList: []
+  GenerateMonsterIds: 010000000200000003000000
 --- !u!1 &513208572
 GameObject:
   m_ObjectHideFlags: 0

@@ -60,5 +60,10 @@ namespace BBYGO
         {
             return Utility.Text.Format("Assets/GameMain/UI/UISounds/{0}.wav", assetName);
         }
+
+        public static string GetTextureAsset(string assetName)
+        {
+            return Utility.Text.Format("Assets/GameMain/Textures/{0}.png", assetName);
+        }
     }
 }
