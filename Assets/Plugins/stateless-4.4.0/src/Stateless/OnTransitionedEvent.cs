@@ -16,7 +16,7 @@ namespace Stateless
                 if (_onTransitionedAsync.Count != 0)
                     throw new InvalidOperationException(
                         "Cannot execute asynchronous action specified as OnTransitioned callback. " +
-                        "Use asynchronous version of Fire [FireAsync]");
+                        "Use asynchronous version of Raise [FireAsync]");
 
                 _onTransitioned?.Invoke(transition);
             }

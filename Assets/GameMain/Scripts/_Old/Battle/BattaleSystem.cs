@@ -123,7 +123,7 @@ public class BattaleSystem : MGO.SingletonInScene<BattaleSystem>
             .OnEntry(async () =>
             {
                 await InterludeUI.Instance.WaitInterlude("战斗开始");
-                state_machine.Fire(Trigger.Start);
+                state_machine.Raise(Trigger.Start);
             })
             .Permit(Trigger.Win, State.Win)
             .Permit(Trigger.Lose, State.Lose)
@@ -163,7 +163,7 @@ public class BattaleSystem : MGO.SingletonInScene<BattaleSystem>
                     await mons.ActiveStatuses();
                 }
                 await TalkUI.Instance.Close();
-                state_machine.Fire(Trigger.Idle);
+                state_machine.Raise(Trigger.Idle);
             })
             .Permit(Trigger.TurnEnd, State.EnemyTurn)
             .Permit(Trigger.Idle, State.Idle)
@@ -174,7 +174,7 @@ public class BattaleSystem : MGO.SingletonInScene<BattaleSystem>
             .OnEntry(() =>
                         {
                             if (PlayerMonsters.All(m => m.MonsterActive == false))
-                                state_machine.Fire(Trigger.TurnEnd);
+                                state_machine.Raise(Trigger.TurnEnd);
                         })
             .OnExit(() => BattleMenu.gameObject.SetActive(false))
             .PermitDynamic(SpecialSkillTrigger, (spsk) =>
@@ -257,7 +257,7 @@ public class BattaleSystem : MGO.SingletonInScene<BattaleSystem>
                             ActiveMonster.MonsterActive = false;
                             ActiveMonster.BeNormal();
                             ActiveMonster = null;
-                            state_machine.Fire(Trigger.Idle);
+                            state_machine.Raise(Trigger.Idle);
                         })
             .InternalTransition<MonsterController>(Trigger.Click, (t) =>
                         {
@@ -309,11 +309,11 @@ public class BattaleSystem : MGO.SingletonInScene<BattaleSystem>
                 {
                     SkillProcessInfo.FunctionOnMonsters.Clear();
                     SkillProcessInfo.FunctionOnMonsters.Add(monster);
-                    state_machine.Fire(Trigger.SkillProcess);
+                    state_machine.Raise(Trigger.SkillProcess);
                 }
                 else
                 {
-                    state_machine.Fire(AttackEnemyTrigger, monster);
+                    state_machine.Raise(AttackEnemyTrigger, monster);
                 }
             }
         })
@@ -351,7 +351,7 @@ public class BattaleSystem : MGO.SingletonInScene<BattaleSystem>
                           await ActiveMonster.Attack(mons);
                           ActiveMonster = null;
                           await TalkUI.Instance.Close();
-                          state_machine.Fire(Trigger.AttackOver);
+                          state_machine.Raise(Trigger.AttackOver);
                       })
                     ;
 
@@ -364,7 +364,7 @@ public class BattaleSystem : MGO.SingletonInScene<BattaleSystem>
                 SkillProcessInfo.ActiveMonster.BeNormal();
 
                 await SkillProcessInfo.ActiveMonster.ExcuteSkill(SkillProcessInfo);
-                state_machine.Fire(Trigger.SkillProcessOver);
+                state_machine.Raise(Trigger.SkillProcessOver);
             });
 
         // Battle/EnemyTurn
@@ -381,7 +381,7 @@ public class BattaleSystem : MGO.SingletonInScene<BattaleSystem>
                 {
                     await enemy.Attack(PlayerMonsters.Random1());
                 }
-                state_machine.Fire(Trigger.TurnEnd);
+                state_machine.Raise(Trigger.TurnEnd);
             })
             .Permit(Trigger.TurnEnd, State.PlayerTurn);
 
@@ -417,22 +417,22 @@ public class BattaleSystem : MGO.SingletonInScene<BattaleSystem>
         {
             monster.OnClicked.AddListener(() =>
             {
-                state_machine.Fire(MonsterClickedTrigger, monster);
+                state_machine.Raise(MonsterClickedTrigger, monster);
             });
 
             monster.OnMouseEntered.AddListener(() =>
             {
-                state_machine.Fire(MouseEnterMonsterTrigger, monster);
+                state_machine.Raise(MouseEnterMonsterTrigger, monster);
             });
 
             monster.OnMouseExited.AddListener(() =>
             {
-                state_machine.Fire(MouseExitMonsterTrigger, monster);
+                state_machine.Raise(MouseExitMonsterTrigger, monster);
             });
 
             monster.OnMonsterDie.AddListener(() =>
             {
-                state_machine.Fire(MonsterDieTrigger, monster);
+                state_machine.Raise(MonsterDieTrigger, monster);
             });
         }
 
@@ -440,29 +440,29 @@ public class BattaleSystem : MGO.SingletonInScene<BattaleSystem>
         {
             monster.OnClicked.AddListener(() =>
             {
-                state_machine.Fire(MonsterClickedTrigger, monster);
+                state_machine.Raise(MonsterClickedTrigger, monster);
             });
 
             monster.OnMouseEntered.AddListener(() =>
             {
-                state_machine.Fire(MouseEnterMonsterTrigger, monster);
+                state_machine.Raise(MouseEnterMonsterTrigger, monster);
             });
 
             monster.OnMouseExited.AddListener(() =>
             {
-                state_machine.Fire(MouseExitMonsterTrigger, monster);
+                state_machine.Raise(MouseExitMonsterTrigger, monster);
             });
 
             monster.OnMonsterDie.AddListener(() =>
             {
-                state_machine.Fire(MonsterDieTrigger, monster);
+                state_machine.Raise(MonsterDieTrigger, monster);
             });
         }
 
         BattleMenu.OnAttack += () =>
-                        state_machine.Fire(Trigger.AttackCommand);
+                        state_machine.Raise(Trigger.AttackCommand);
         BattleMenu.OnDefense += () =>
-                        state_machine.Fire(Trigger.DefenseCommand);
+                        state_machine.Raise(Trigger.DefenseCommand);
 
 
         BattleMenu.SpecialSkillList.OnSkillTrigger.AddListener((sk) =>
@@ -493,7 +493,7 @@ public class BattaleSystem : MGO.SingletonInScene<BattaleSystem>
             }
             skInfo.ThisBattleUsed = true;
             skInfo.ThisTurnUsed = true;
-            state_machine.Fire(SpecialSkillTrigger, spSk);
+            state_machine.Raise(SpecialSkillTrigger, spSk);
         });
         BattleMenu.BattleSkillList.OnSkillTrigger.AddListener((sk) =>
         {
@@ -501,7 +501,7 @@ public class BattaleSystem : MGO.SingletonInScene<BattaleSystem>
             var btsk = sk as BattleSKill;
             if (ActiveMonster.Data.CurrentBattleSkillPoint >= btsk.Cost)
             {
-                state_machine.Fire(BattleSkillTrigger, btsk);
+                state_machine.Raise(BattleSkillTrigger, btsk);
             }
             else
             {
@@ -537,15 +537,15 @@ public class BattaleSystem : MGO.SingletonInScene<BattaleSystem>
         RegisterEvent();
         PlayerMonsters.ForEach((Action<MonsterController>)(m => { m.RecoveryBattleSkillPoint(); m.UpdateDataAndState(); if (m.TheMonsterState == MonsterController.MonsterState.Die) { PlayerMonsters.Remove(m); m.gameObject.SetActive(false); } }));
         EnemyMonsters.ForEach((Action<MonsterController>)(m => { m.UpdateDataAndState(); if (m.TheMonsterState == MonsterController.MonsterState.Die) { PlayerMonsters.Remove(m); m.gameObject.SetActive(false); } }));
-        state_machine.Fire(Trigger.Start);
+        state_machine.Raise(Trigger.Start);
     }
 
     private void CheckState()
     {
         if (PlayerMonsters.Count == 0)
-            state_machine.Fire(Trigger.Lose);
+            state_machine.Raise(Trigger.Lose);
         else if (EnemyMonsters.Count == 0)
-            state_machine.Fire(Trigger.Win);
+            state_machine.Raise(Trigger.Win);
     }
     #endregion
 
@@ -563,7 +563,7 @@ public class BattaleSystem : MGO.SingletonInScene<BattaleSystem>
         }
         else if (Input.GetMouseButtonDown(1))
         {
-            state_machine.Fire(Trigger.Cancle);
+            state_machine.Raise(Trigger.Cancle);
         }
     }
 

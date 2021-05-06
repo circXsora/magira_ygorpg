@@ -69,7 +69,7 @@ public class GameManager : MGO.Singleton<GameManager>
                         {
                             await Task.Delay(25);
                         }
-                        SuccessManager.Instance.OnNextStage.AddListener(() => machine.Fire(Trigger.GameStart));
+                        SuccessManager.Instance.OnNextStage.AddListener(() => machine.Raise(Trigger.GameStart));
                         return;
                     }
                     RoomGenerator.Instance.ComputeRoomHard();
@@ -88,7 +88,7 @@ public class GameManager : MGO.Singleton<GameManager>
                     {
                         await Task.Delay(25);
                     }
-                    FaildManager.Instance.OnReplay.AddListener(() => machine.Fire(Trigger.GameStart));
+                    FaildManager.Instance.OnReplay.AddListener(() => machine.Raise(Trigger.GameStart));
                 }
             })
             .PermitReentry(Trigger.GameStart)
@@ -121,7 +121,7 @@ public class GameManager : MGO.Singleton<GameManager>
             .Permit(Trigger.BattleEnd, State.Free);
 
         machine.OnUnhandledTrigger((s, t) => { });
-        machine.Fire(Trigger.GameStart);
+        machine.Raise(Trigger.GameStart);
     }
 
     //private async void Win() { }
@@ -135,13 +135,13 @@ public class GameManager : MGO.Singleton<GameManager>
             await Task.Delay(25);
         }
 
-        machine.Fire(Trigger.BattleEnd);
+        machine.Raise(Trigger.BattleEnd);
     }
 
     internal void Battle(RoomController roomController)
     {
         CurrentRoomCtrl = roomController;
-        machine.Fire(Trigger.BattleStart);
+        machine.Raise(Trigger.BattleStart);
         CurrentRoomCtrl.Battled = true;
     }
 
@@ -156,7 +156,7 @@ public class GameManager : MGO.Singleton<GameManager>
     {
         if (Input.GetKeyDown( KeyCode.R))
         {
-            machine.Fire(Trigger.GameStart);
+            machine.Raise(Trigger.GameStart);
         }
     }
 }

@@ -217,7 +217,7 @@ namespace GameFramework
         /// </summary>
         /// <param name="sender">事件源。</param>
         /// <param name="e">事件参数。</param>
-        public void Fire(object sender, T e)
+        public void Raise(object sender, T e)
         {
             if (e == null)
             {
@@ -236,7 +236,7 @@ namespace GameFramework
         /// </summary>
         /// <param name="sender">事件源。</param>
         /// <param name="e">事件参数。</param>
-        public void FireNow(object sender, T e)
+        public void RaiseNow(object sender, T e)
         {
             if (e == null)
             {

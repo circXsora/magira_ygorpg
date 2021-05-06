@@ -611,7 +611,7 @@ namespace GameFramework.Network
 
                     if (packet != null)
                     {
-                        m_ReceivePacketPool.Fire(this, packet);
+                        m_ReceivePacketPool.Raise(this, packet);
                     }
 
                     m_ReceiveState.PrepareForPacketHeader(m_NetworkChannelHelper.PacketHeaderLength);

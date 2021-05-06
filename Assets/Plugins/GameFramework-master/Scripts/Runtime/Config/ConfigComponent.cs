@@ -386,23 +386,23 @@ namespace UnityGameFramework.Runtime
 
         private void OnReadDataSuccess(object sender, ReadDataSuccessEventArgs e)
         {
-            m_EventComponent.Fire(this, LoadConfigSuccessEventArgs.Create(e));
+            m_EventComponent.Raise(this, LoadConfigSuccessEventArgs.Create(e));
         }
 
         private void OnReadDataFailure(object sender, ReadDataFailureEventArgs e)
         {
             Log.Warning("Load config failure, asset name '{0}', error message '{1}'.", e.DataAssetName, e.ErrorMessage);
-            m_EventComponent.Fire(this, LoadConfigFailureEventArgs.Create(e));
+            m_EventComponent.Raise(this, LoadConfigFailureEventArgs.Create(e));
         }
 
         private void OnReadDataUpdate(object sender, ReadDataUpdateEventArgs e)
         {
-            m_EventComponent.Fire(this, LoadConfigUpdateEventArgs.Create(e));
+            m_EventComponent.Raise(this, LoadConfigUpdateEventArgs.Create(e));
         }
 
         private void OnReadDataDependencyAsset(object sender, ReadDataDependencyAssetEventArgs e)
         {
-            m_EventComponent.Fire(this, LoadConfigDependencyAssetEventArgs.Create(e));
+            m_EventComponent.Raise(this, LoadConfigDependencyAssetEventArgs.Create(e));
         }
     }
 }

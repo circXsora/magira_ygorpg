@@ -377,23 +377,23 @@ namespace UnityGameFramework.Runtime
 
         private void OnReadDataSuccess(object sender, ReadDataSuccessEventArgs e)
         {
-            m_EventComponent.Fire(this, LoadDataTableSuccessEventArgs.Create(e));
+            m_EventComponent.Raise(this, LoadDataTableSuccessEventArgs.Create(e));
         }
 
         private void OnReadDataFailure(object sender, ReadDataFailureEventArgs e)
         {
             Log.Warning("Load data table failure, asset name '{0}', error message '{1}'.", e.DataAssetName, e.ErrorMessage);
-            m_EventComponent.Fire(this, LoadDataTableFailureEventArgs.Create(e));
+            m_EventComponent.Raise(this, LoadDataTableFailureEventArgs.Create(e));
         }
 
         private void OnReadDataUpdate(object sender, ReadDataUpdateEventArgs e)
         {
-            m_EventComponent.Fire(this, LoadDataTableUpdateEventArgs.Create(e));
+            m_EventComponent.Raise(this, LoadDataTableUpdateEventArgs.Create(e));
         }
 
         private void OnReadDataDependencyAsset(object sender, ReadDataDependencyAssetEventArgs e)
         {
-            m_EventComponent.Fire(this, LoadDataTableDependencyAssetEventArgs.Create(e));
+            m_EventComponent.Raise(this, LoadDataTableDependencyAssetEventArgs.Create(e));
         }
     }
 }

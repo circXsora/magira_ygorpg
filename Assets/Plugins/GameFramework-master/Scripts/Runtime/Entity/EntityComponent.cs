@@ -1119,28 +1119,28 @@ namespace UnityGameFramework.Runtime
 
         private void OnShowEntitySuccess(object sender, GameFramework.Entity.ShowEntitySuccessEventArgs e)
         {
-            m_EventComponent.Fire(this, ShowEntitySuccessEventArgs.Create(e));
+            m_EventComponent.Raise(this, ShowEntitySuccessEventArgs.Create(e));
         }
 
         private void OnShowEntityFailure(object sender, GameFramework.Entity.ShowEntityFailureEventArgs e)
         {
             Log.Warning("Show entity failure, entity id '{0}', asset name '{1}', entity group name '{2}', error message '{3}'.", e.EntityId.ToString(), e.EntityAssetName, e.EntityGroupName, e.ErrorMessage);
-            m_EventComponent.Fire(this, ShowEntityFailureEventArgs.Create(e));
+            m_EventComponent.Raise(this, ShowEntityFailureEventArgs.Create(e));
         }
 
         private void OnShowEntityUpdate(object sender, GameFramework.Entity.ShowEntityUpdateEventArgs e)
         {
-            m_EventComponent.Fire(this, ShowEntityUpdateEventArgs.Create(e));
+            m_EventComponent.Raise(this, ShowEntityUpdateEventArgs.Create(e));
         }
 
         private void OnShowEntityDependencyAsset(object sender, GameFramework.Entity.ShowEntityDependencyAssetEventArgs e)
         {
-            m_EventComponent.Fire(this, ShowEntityDependencyAssetEventArgs.Create(e));
+            m_EventComponent.Raise(this, ShowEntityDependencyAssetEventArgs.Create(e));
         }
 
         private void OnHideEntityComplete(object sender, GameFramework.Entity.HideEntityCompleteEventArgs e)
         {
-            m_EventComponent.Fire(this, HideEntityCompleteEventArgs.Create(e));
+            m_EventComponent.Raise(this, HideEntityCompleteEventArgs.Create(e));
         }
     }
 }

@@ -70,13 +70,13 @@ namespace GameFramework.Event
         /// </summary>
         /// <param name="sender">事件源。</param>
         /// <param name="e">事件参数。</param>
-        void Fire(object sender, GameEventArgs e);
+        void Raise(object sender, GameEventArgs e);
 
         /// <summary>
         /// 抛出事件立即模式，这个操作不是线程安全的，事件会立刻分发。
         /// </summary>
         /// <param name="sender">事件源。</param>
         /// <param name="e">事件参数。</param>
-        void FireNow(object sender, GameEventArgs e);
+        void RaiseNow(object sender, GameEventArgs e);
     }
 }

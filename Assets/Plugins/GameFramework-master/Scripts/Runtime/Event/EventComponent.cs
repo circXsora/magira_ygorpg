@@ -117,9 +117,9 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="sender">事件发送者。</param>
         /// <param name="e">事件内容。</param>
-        public void Fire(object sender, GameEventArgs e)
+        public void Raise(object sender, GameEventArgs e)
         {
-            m_EventManager.Fire(sender, e);
+            m_EventManager.Raise(sender, e);
         }
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="e">事件内容。</param>
         public void FireNow(object sender, GameEventArgs e)
         {
-            m_EventManager.FireNow(sender, e);
+            m_EventManager.RaiseNow(sender, e);
         }
     }
 }

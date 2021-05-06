@@ -626,7 +626,7 @@ namespace UnityGameFramework.Runtime
                 }
             }
 
-            m_EventComponent.Fire(this, PlaySoundSuccessEventArgs.Create(e));
+            m_EventComponent.Raise(this, PlaySoundSuccessEventArgs.Create(e));
         }
 
         private void OnPlaySoundFailure(object sender, GameFramework.Sound.PlaySoundFailureEventArgs e)
@@ -641,17 +641,17 @@ namespace UnityGameFramework.Runtime
                 Log.Warning(logMessage);
             }
 
-            m_EventComponent.Fire(this, PlaySoundFailureEventArgs.Create(e));
+            m_EventComponent.Raise(this, PlaySoundFailureEventArgs.Create(e));
         }
 
         private void OnPlaySoundUpdate(object sender, GameFramework.Sound.PlaySoundUpdateEventArgs e)
         {
-            m_EventComponent.Fire(this, PlaySoundUpdateEventArgs.Create(e));
+            m_EventComponent.Raise(this, PlaySoundUpdateEventArgs.Create(e));
         }
 
         private void OnPlaySoundDependencyAsset(object sender, GameFramework.Sound.PlaySoundDependencyAssetEventArgs e)
         {
-            m_EventComponent.Fire(this, PlaySoundDependencyAssetEventArgs.Create(e));
+            m_EventComponent.Raise(this, PlaySoundDependencyAssetEventArgs.Create(e));
         }
 
         private void OnLoadSceneSuccess(object sender, GameFramework.Scene.LoadSceneSuccessEventArgs e)

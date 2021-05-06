@@ -382,23 +382,23 @@ namespace UnityGameFramework.Runtime
 
         private void OnReadDataSuccess(object sender, ReadDataSuccessEventArgs e)
         {
-            m_EventComponent.Fire(this, LoadDictionarySuccessEventArgs.Create(e));
+            m_EventComponent.Raise(this, LoadDictionarySuccessEventArgs.Create(e));
         }
 
         private void OnReadDataFailure(object sender, ReadDataFailureEventArgs e)
         {
             Log.Warning("Load dictionary failure, asset name '{0}', error message '{1}'.", e.DataAssetName, e.ErrorMessage);
-            m_EventComponent.Fire(this, LoadDictionaryFailureEventArgs.Create(e));
+            m_EventComponent.Raise(this, LoadDictionaryFailureEventArgs.Create(e));
         }
 
         private void OnReadDataUpdate(object sender, ReadDataUpdateEventArgs e)
         {
-            m_EventComponent.Fire(this, LoadDictionaryUpdateEventArgs.Create(e));
+            m_EventComponent.Raise(this, LoadDictionaryUpdateEventArgs.Create(e));
         }
 
         private void OnReadDataDependencyAsset(object sender, ReadDataDependencyAssetEventArgs e)
         {
-            m_EventComponent.Fire(this, LoadDictionaryDependencyAssetEventArgs.Create(e));
+            m_EventComponent.Raise(this, LoadDictionaryDependencyAssetEventArgs.Create(e));
         }
     }
 }

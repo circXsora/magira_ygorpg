@@ -6,13 +6,13 @@ using System.Linq;
 namespace Stateless
 {
     /// <summary>
-    /// Enum for the different modes used when Fire-ing a trigger
+    /// Enum for the different modes used when Raise-ing a trigger
     /// </summary>
     public enum FiringMode
     {
         /// <summary> Use immediate mode when the queing of trigger events are not needed. Care must be taken when using this mode, as there is no run-to-completion guaranteed.</summary>
         Immediate,
-        /// <summary> Use the queued Fire-ing mode when run-to-completion is required. This is the recommended mode.</summary>
+        /// <summary> Use the queued Raise-ing mode when run-to-completion is required. This is the recommended mode.</summary>
         Queued
     }
 
@@ -195,7 +195,7 @@ namespace Stateless
         /// <param name="trigger">The trigger to fire.</param>
         /// <exception cref="System.InvalidOperationException">The current state does
         /// not allow the trigger to be fired.</exception>
-        public void Fire(TTrigger trigger)
+        public void Raise(TTrigger trigger)
         {
             InternalFire(trigger, new object[0]);
         }
@@ -211,7 +211,7 @@ namespace Stateless
         /// <param name="arg0">The first argument.</param>
         /// <exception cref="System.InvalidOperationException">The current state does
         /// not allow the trigger to be fired.</exception>
-        public void Fire<TArg0>(TriggerWithParameters<TArg0> trigger, TArg0 arg0)
+        public void Raise<TArg0>(TriggerWithParameters<TArg0> trigger, TArg0 arg0)
         {
             if (trigger == null) throw new ArgumentNullException(nameof(trigger));
             InternalFire(trigger.Trigger, arg0);
@@ -230,7 +230,7 @@ namespace Stateless
         /// <param name="trigger">The trigger to fire.</param>
         /// <exception cref="System.InvalidOperationException">The current state does
         /// not allow the trigger to be fired.</exception>
-        public void Fire<TArg0, TArg1>(TriggerWithParameters<TArg0, TArg1> trigger, TArg0 arg0, TArg1 arg1)
+        public void Raise<TArg0, TArg1>(TriggerWithParameters<TArg0, TArg1> trigger, TArg0 arg0, TArg1 arg1)
         {
             if (trigger == null) throw new ArgumentNullException(nameof(trigger));
             InternalFire(trigger.Trigger, arg0, arg1);
@@ -251,7 +251,7 @@ namespace Stateless
         /// <param name="trigger">The trigger to fire.</param>
         /// <exception cref="System.InvalidOperationException">The current state does
         /// not allow the trigger to be fired.</exception>
-        public void Fire<TArg0, TArg1, TArg2>(TriggerWithParameters<TArg0, TArg1, TArg2> trigger, TArg0 arg0, TArg1 arg1, TArg2 arg2)
+        public void Raise<TArg0, TArg1, TArg2>(TriggerWithParameters<TArg0, TArg1, TArg2> trigger, TArg0 arg0, TArg1 arg1, TArg2 arg2)
         {
             if (trigger == null) throw new ArgumentNullException(nameof(trigger));
             InternalFire(trigger.Trigger, arg0, arg1, arg2);
@@ -280,7 +280,7 @@ namespace Stateless
         }
 
         /// <summary>
-        /// Determine how to Fire the trigger
+        /// Determine how to Raise the trigger
         /// </summary>
         /// <param name="trigger">The trigger. </param>
         /// <param name="args">A variable-length parameters list containing arguments. </param>
@@ -524,7 +524,7 @@ namespace Stateless
         /// </summary>
         /// <typeparam name="TArg0">Type of the first trigger argument.</typeparam>
         /// <param name="trigger">The underlying trigger value.</param>
-        /// <returns>An object that can be passed to the Fire() method in order to
+        /// <returns>An object that can be passed to the Raise() method in order to
         /// fire the parameterised trigger.</returns>
         public TriggerWithParameters<TArg0> SetTriggerParameters<TArg0>(TTrigger trigger)
         {
@@ -539,7 +539,7 @@ namespace Stateless
         /// <typeparam name="TArg0">Type of the first trigger argument.</typeparam>
         /// <typeparam name="TArg1">Type of the second trigger argument.</typeparam>
         /// <param name="trigger">The underlying trigger value.</param>
-        /// <returns>An object that can be passed to the Fire() method in order to
+        /// <returns>An object that can be passed to the Raise() method in order to
         /// fire the parameterised trigger.</returns>
         public TriggerWithParameters<TArg0, TArg1> SetTriggerParameters<TArg0, TArg1>(TTrigger trigger)
         {
@@ -555,7 +555,7 @@ namespace Stateless
         /// <typeparam name="TArg1">Type of the second trigger argument.</typeparam>
         /// <typeparam name="TArg2">Type of the third trigger argument.</typeparam>
         /// <param name="trigger">The underlying trigger value.</param>
-        /// <returns>An object that can be passed to the Fire() method in order to
+        /// <returns>An object that can be passed to the Raise() method in order to
         /// fire the parameterised trigger.</returns>
         public TriggerWithParameters<TArg0, TArg1, TArg2> SetTriggerParameters<TArg0, TArg1, TArg2>(TTrigger trigger)
         {

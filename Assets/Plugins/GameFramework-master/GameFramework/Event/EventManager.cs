@@ -131,9 +131,9 @@ namespace GameFramework.Event
         /// </summary>
         /// <param name="sender">事件源。</param>
         /// <param name="e">事件参数。</param>
-        public void Fire(object sender, GameEventArgs e)
+        public void Raise(object sender, GameEventArgs e)
         {
-            m_EventPool.Fire(sender, e);
+            m_EventPool.Raise(sender, e);
         }
 
         /// <summary>
@@ -141,9 +141,9 @@ namespace GameFramework.Event
         /// </summary>
         /// <param name="sender">事件源。</param>
         /// <param name="e">事件参数。</param>
-        public void FireNow(object sender, GameEventArgs e)
+        public void RaiseNow(object sender, GameEventArgs e)
         {
-            m_EventPool.FireNow(sender, e);
+            m_EventPool.RaiseNow(sender, e);
         }
     }
 }

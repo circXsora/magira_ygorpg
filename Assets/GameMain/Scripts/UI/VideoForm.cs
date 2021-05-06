@@ -37,7 +37,7 @@ namespace BBYGO
             else
             {
 
-                GameEntry.Event.Fire(this, OPPlayFinishEventArgs.Create());
+                GameEntry.Event.Raise(this, OPPlayFinishEventArgs.Create());
             }
         }
 #if UNITY_2017_3_OR_NEWER

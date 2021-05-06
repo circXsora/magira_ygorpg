@@ -106,7 +106,7 @@ namespace Stateless
         }
 
         /// <summary>
-        /// Determine how to Fire the trigger
+        /// Determine how to Raise the trigger
         /// </summary>
         /// <param name="trigger">The trigger. </param>
         /// <param name="args">A variable-length parameters list containing arguments. </param>

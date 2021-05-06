@@ -1421,32 +1421,32 @@ namespace UnityGameFramework.Runtime
 
         private void OnResourceApplySuccess(object sender, GameFramework.Resource.ResourceApplySuccessEventArgs e)
         {
-            m_EventComponent.Fire(this, ResourceApplySuccessEventArgs.Create(e));
+            m_EventComponent.Raise(this, ResourceApplySuccessEventArgs.Create(e));
         }
 
         private void OnResourceApplyFailure(object sender, GameFramework.Resource.ResourceApplyFailureEventArgs e)
         {
-            m_EventComponent.Fire(this, ResourceApplyFailureEventArgs.Create(e));
+            m_EventComponent.Raise(this, ResourceApplyFailureEventArgs.Create(e));
         }
 
         private void OnResourceUpdateStart(object sender, GameFramework.Resource.ResourceUpdateStartEventArgs e)
         {
-            m_EventComponent.Fire(this, ResourceUpdateStartEventArgs.Create(e));
+            m_EventComponent.Raise(this, ResourceUpdateStartEventArgs.Create(e));
         }
 
         private void OnResourceUpdateChanged(object sender, GameFramework.Resource.ResourceUpdateChangedEventArgs e)
         {
-            m_EventComponent.Fire(this, ResourceUpdateChangedEventArgs.Create(e));
+            m_EventComponent.Raise(this, ResourceUpdateChangedEventArgs.Create(e));
         }
 
         private void OnResourceUpdateSuccess(object sender, GameFramework.Resource.ResourceUpdateSuccessEventArgs e)
         {
-            m_EventComponent.Fire(this, ResourceUpdateSuccessEventArgs.Create(e));
+            m_EventComponent.Raise(this, ResourceUpdateSuccessEventArgs.Create(e));
         }
 
         private void OnResourceUpdateFailure(object sender, GameFramework.Resource.ResourceUpdateFailureEventArgs e)
         {
-            m_EventComponent.Fire(this, ResourceUpdateFailureEventArgs.Create(e));
+            m_EventComponent.Raise(this, ResourceUpdateFailureEventArgs.Create(e));
         }
     }
 }

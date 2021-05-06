@@ -428,7 +428,7 @@ namespace UnityGameFramework.Runtime
             if (lastActiveScene != activeScene)
             {
                 SceneManager.SetActiveScene(activeScene);
-                m_EventComponent.Fire(this, ActiveSceneChangedEventArgs.Create(lastActiveScene, activeScene));
+                m_EventComponent.Raise(this, ActiveSceneChangedEventArgs.Create(lastActiveScene, activeScene));
             }
 
             RefreshMainCamera();
@@ -441,29 +441,29 @@ namespace UnityGameFramework.Runtime
                 m_SceneOrder.Add(e.SceneAssetName, 0);
             }
 
-            m_EventComponent.Fire(this, LoadSceneSuccessEventArgs.Create(e));
+            m_EventComponent.Raise(this, LoadSceneSuccessEventArgs.Create(e));
             RefreshSceneOrder();
         }
 
         private void OnLoadSceneFailure(object sender, GameFramework.Scene.LoadSceneFailureEventArgs e)
         {
             Log.Warning("Load scene failure, scene asset name '{0}', error message '{1}'.", e.SceneAssetName, e.ErrorMessage);
-            m_EventComponent.Fire(this, LoadSceneFailureEventArgs.Create(e));
+            m_EventComponent.Raise(this, LoadSceneFailureEventArgs.Create(e));
         }
 
         private void OnLoadSceneUpdate(object sender, GameFramework.Scene.LoadSceneUpdateEventArgs e)
         {
-            m_EventComponent.Fire(this, LoadSceneUpdateEventArgs.Create(e));
+            m_EventComponent.Raise(this, LoadSceneUpdateEventArgs.Create(e));
         }
 
         private void OnLoadSceneDependencyAsset(object sender, GameFramework.Scene.LoadSceneDependencyAssetEventArgs e)
         {
-            m_EventComponent.Fire(this, LoadSceneDependencyAssetEventArgs.Create(e));
+            m_EventComponent.Raise(this, LoadSceneDependencyAssetEventArgs.Create(e));
         }
 
         private void OnUnloadSceneSuccess(object sender, GameFramework.Scene.UnloadSceneSuccessEventArgs e)
         {
-            m_EventComponent.Fire(this, UnloadSceneSuccessEventArgs.Create(e));
+            m_EventComponent.Raise(this, UnloadSceneSuccessEventArgs.Create(e));
             m_SceneOrder.Remove(e.SceneAssetName);
             RefreshSceneOrder();
         }
@@ -471,7 +471,7 @@ namespace UnityGameFramework.Runtime
         private void OnUnloadSceneFailure(object sender, GameFramework.Scene.UnloadSceneFailureEventArgs e)
         {
             Log.Warning("Unload scene failure, scene asset name '{0}'.", e.SceneAssetName);
-            m_EventComponent.Fire(this, UnloadSceneFailureEventArgs.Create(e));
+            m_EventComponent.Raise(this, UnloadSceneFailureEventArgs.Create(e));
         }
     }
 }

@@ -65,12 +65,12 @@ public class MonsterController : MonoBehaviour, IMonsterHUDDataProvider
         UnSelecting
     }
 
-    public void BeNormal() => UserInteractFSM.Fire(InteractTrigger.Normal);
-    public void Active() => UserInteractFSM.Fire(InteractTrigger.Active);
-    public void Horver() => UserInteractFSM.Fire(InteractTrigger.Horver);
-    public void Selecting() => UserInteractFSM.Fire(InteractTrigger.Selecting);
-    public void UnSelecting() => UserInteractFSM.Fire(InteractTrigger.UnSelecting);
-    public void HorverEnd() => UserInteractFSM.Fire(InteractTrigger.HorverEnd);
+    public void BeNormal() => UserInteractFSM.Raise(InteractTrigger.Normal);
+    public void Active() => UserInteractFSM.Raise(InteractTrigger.Active);
+    public void Horver() => UserInteractFSM.Raise(InteractTrigger.Horver);
+    public void Selecting() => UserInteractFSM.Raise(InteractTrigger.Selecting);
+    public void UnSelecting() => UserInteractFSM.Raise(InteractTrigger.UnSelecting);
+    public void HorverEnd() => UserInteractFSM.Raise(InteractTrigger.HorverEnd);
 
     private Stateless.StateMachine<InteractState, InteractTrigger> UserInteractFSM;
 
