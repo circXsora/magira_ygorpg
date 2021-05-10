@@ -59,3 +59,4 @@ Build/
 # Crashlytics generated file
 crashlytics-build.properties
 
+CodeCoverage/

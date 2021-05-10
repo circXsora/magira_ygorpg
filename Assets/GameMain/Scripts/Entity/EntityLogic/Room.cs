@@ -30,6 +30,11 @@ namespace BBYGO
             _stepText = GetComponentInChildren<TMPro.TMP_Text>(true);
         }
 
+        private void OnBattleTriggerWithPlayer(object sender, System.EventArgs e)
+        {
+            // TODO:发送战斗触发器与玩家接触到的消息
+        }
+
         protected override void OnShow(object userData)
         {
             base.OnShow(userData);
@@ -43,6 +48,14 @@ namespace BBYGO
             GameEntry.Entity.ShowWall(new WallData(_data.WallID.Value, _data.Id));
             _stepText.text = _data.StepFormOrigin.GetValueOrDefault(-1).ToString();
             SetupBattleTrigger(_data);
+            _battleTrigger.TriggerWithPlayer += OnBattleTriggerWithPlayer;
+
+        }
+
+        protected override void OnHide(bool isShutdown, object userData)
+        {
+            base.OnHide(isShutdown, userData);
+            _battleTrigger.TriggerWithPlayer -= OnBattleTriggerWithPlayer;
         }
 
         protected override void OnAttached(EntityLogic childEntity, Transform parentTransform, object userData)
@@ -76,7 +89,6 @@ namespace BBYGO
                 {
                     Log.Error(assetName + " " + status.ToString() + " " + errorMessage);
                 }
-                //_battleTrigger.GetComponent<SpriteRenderer>().sprite;
             }
         }
 
@@ -115,8 +127,9 @@ namespace BBYGO
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.name == "Player")
+            if (collision.CompareTag("Player"))
             {
+                Log.Info("player trigger room" + name);
                 //FindObjectOfType<CameraController>().Target = transform;
 
                 //if (!Battled && Monsters.Length > 0)
