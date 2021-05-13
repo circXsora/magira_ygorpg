@@ -21,7 +21,6 @@ namespace BBYGO
         private GameBase m_CurrentGame = null;
         private bool m_GotoMenu = false;
         private float m_GotoMenuDelaySeconds = 0f;
-        private int? videoFormId;
         public override bool UseNativeDialog
         {
             get
@@ -50,8 +49,7 @@ namespace BBYGO
             GameMode gameMode = (GameMode)procedureOwner.GetData<VarByte>("GameMode").Value;
             m_CurrentGame = m_Games[gameMode];
             m_CurrentGame.Initialize();
-            GameEntry.Event.Subscribe(OPPlayFinishEventArgs.EventId, OnOPPlayFinish);
-            videoFormId = GameEntry.UI.OpenUIForm(UIFormID.VideoForm);
+
         }
 
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
@@ -63,8 +61,6 @@ namespace BBYGO
                 m_CurrentGame.Shutdown();
                 m_CurrentGame = null;
             }
-            GameEntry.Event.Unsubscribe(OPPlayFinishEventArgs.EventId, OnOPPlayFinish);
-            GameEntry.Sound.StopMusic();
         }
 
         protected override void OnDestroy(ProcedureOwner procedureOwner)
@@ -95,15 +91,6 @@ namespace BBYGO
                 procedureOwner.SetData<VarInt32>("NextSceneId", GameEntry.Config.GetInt("Scene.Menu"));
                 ChangeState<ProcedureChangeScene>(procedureOwner);
             }
-        }
-
-
-        private void OnOPPlayFinish(object sender, GameEventArgs e)
-        {
-            GameEntry.UI.CloseUIForm(videoFormId.Value);
-            GameEntry.Entity.ShowPlayer(new PlayerData(GameEntry.Entity.GenerateSerialId(), 60000));
-            GameEntry.Sound.PlayMusic(MusicID.Main);
-            GameEntry.RoomGenerator.GenerateRooms();
         }
     }
 }

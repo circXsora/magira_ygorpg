@@ -5,7 +5,7 @@ using UnityGameFramework.Runtime;
 
 namespace BBYGO
 {
-    public class Wall : Entity
+    public class Wall : UniversalEntityLogic
     {
         protected override void OnInit(object userData)
         {

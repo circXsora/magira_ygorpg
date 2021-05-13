@@ -58,7 +58,7 @@ namespace BBYGO
             }
         }
 
-        public void ShowHPBar(Entity entity, float fromHPRatio, float toHPRatio)
+        public void ShowHPBar(UniversalEntityLogic entity, float fromHPRatio, float toHPRatio)
         {
             if (entity == null)
             {
@@ -83,7 +83,7 @@ namespace BBYGO
             m_HPBarItemObjectPool.Unspawn(hpBarItem);
         }
 
-        private HPBarItem GetActiveHPBarItem(Entity entity)
+        private HPBarItem GetActiveHPBarItem(UniversalEntityLogic entity)
         {
             if (entity == null)
             {
@@ -101,7 +101,7 @@ namespace BBYGO
             return null;
         }
 
-        private HPBarItem CreateHPBarItem(Entity entity)
+        private HPBarItem CreateHPBarItem(UniversalEntityLogic entity)
         {
             HPBarItem hpBarItem = null;
             HPBarItemObject hpBarItemObject = m_HPBarItemObjectPool.Spawn();

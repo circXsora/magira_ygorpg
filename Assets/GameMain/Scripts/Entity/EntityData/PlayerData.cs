@@ -12,7 +12,7 @@ using UnityEngine;
 namespace BBYGO
 {
     [Serializable]
-    public class PlayerData : TargetableObjectData
+    public class PlayerData : EntityData
     {
         [SerializeField]
         private int m_MaxHP = 0;
@@ -33,10 +33,10 @@ namespace BBYGO
         private int m_DeadSoundId = 0;
 
         public PlayerData(int entityId, int typeId)
-            : base(entityId, typeId, CampType.Player)
+            : base(entityId, typeId)
         {
-            //IDataTable<DRAsteroid> dtAsteroid = GameEntry.DataTable.GetDataTable<DRAsteroid>();
-            //DRAsteroid drAsteroid = dtAsteroid.GetDataRow(TypeId);
+            IDataTable<DRPlayer> dtAsteroid = GameEntry.DataTable.GetDataTable<DRPlayer>();
+            DRPlayer drAsteroid = dtAsteroid.GetDataRow(TypeId);
             //if (drAsteroid == null)
             //{
             //    return;
@@ -50,7 +50,7 @@ namespace BBYGO
             //m_DeadSoundId = drAsteroid.DeadSoundId;
         }
 
-        public override int MaxHP
+        public int MaxHP
         {
             get
             {

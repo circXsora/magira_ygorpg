@@ -26,7 +26,7 @@ namespace BBYGO
             private set;
         }
 
-        public static RoomGeneratorComponent RoomGenerator
+        public static RoomGeneratorComponent RoomManager
         {
             get;
             private set;
@@ -36,7 +36,7 @@ namespace BBYGO
         {
             BuiltinData = UnityGameFramework.Runtime.GameEntry.GetComponent<BuiltinDataComponent>();
             HPBar = UnityGameFramework.Runtime.GameEntry.GetComponent<HPBarComponent>();
-            RoomGenerator = UnityGameFramework.Runtime.GameEntry.GetComponent<RoomGeneratorComponent>();
+            RoomManager = UnityGameFramework.Runtime.GameEntry.GetComponent<RoomGeneratorComponent>();
         }
     }
 }

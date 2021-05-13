@@ -15,7 +15,7 @@ namespace BBYGO
         private void OnTriggerExit(Collider other)
         {
             GameObject go = other.gameObject;
-            Entity entity = go.GetComponent<Entity>();
+            UniversalEntityLogic entity = go.GetComponent<UniversalEntityLogic>();
             if (entity == null)
             {
                 Log.Warning("Unknown GameObject '{0}', you must use entity only.", go.name);

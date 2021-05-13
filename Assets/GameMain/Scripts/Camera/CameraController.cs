@@ -17,12 +17,12 @@ namespace BBYGO
         // Start is called before the first frame update
         private void OnEnable()
         {
-            GameEntry.Event.Subscribe(PlayerArrivedRoomEventArgs.EventId, OnPlayerArrivedRoom);
+            GameEntry.Event?.Subscribe(PlayerArrivedRoomEventArgs.EventId, OnPlayerArrivedRoom);
         }
 
         private void OnDisable()
         {
-            GameEntry.Event.Unsubscribe(PlayerArrivedRoomEventArgs.EventId, OnPlayerArrivedRoom);
+            //GameEntry.Event?.Unsubscribe(PlayerArrivedRoomEventArgs.EventId, OnPlayerArrivedRoom);
         }
 
         private void Update()

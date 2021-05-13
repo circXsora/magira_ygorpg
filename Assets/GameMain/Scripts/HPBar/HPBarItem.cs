@@ -24,10 +24,10 @@ namespace BBYGO
         private Canvas m_ParentCanvas = null;
         private RectTransform m_CachedTransform = null;
         private CanvasGroup m_CachedCanvasGroup = null;
-        private Entity m_Owner = null;
+        private UniversalEntityLogic m_Owner = null;
         private int m_OwnerId = 0;
 
-        public Entity Owner
+        public UniversalEntityLogic Owner
         {
             get
             {
@@ -35,7 +35,7 @@ namespace BBYGO
             }
         }
 
-        public void Init(Entity owner, Canvas parentCanvas, float fromHPRatio, float toHPRatio)
+        public void Init(UniversalEntityLogic owner, Canvas parentCanvas, float fromHPRatio, float toHPRatio)
         {
             if (owner == null)
             {

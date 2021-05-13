@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 664858019032269361}
   - component: {fileID: 664858019032269363}
   - component: {fileID: 664858019032269362}
-  - component: {fileID: 664858019032269364}
   m_Layer: 0
   m_Name: Mutou
   m_TagString: Untagged
@@ -104,19 +103,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &664858019032269364
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 664858019032269360}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fad4ae70036c0344c9bc8c01b7505cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
 --- !u!1 &664858019085435004
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,7 +116,6 @@ GameObject:
   - component: {fileID: 664858019085435005}
   - component: {fileID: 664858019085434976}
   - component: {fileID: 664858019085434977}
-  - component: {fileID: 664858019085434978}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -263,20 +248,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0.024373673, y: 0.16736424}
   m_Size: {x: 0.9026487, y: 0.41524848}
   m_Direction: 1
---- !u!114 &664858019085434978
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 664858019085435004}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4185c9c137645d54caaf735bc09e2140, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Speed: 5
-  Datas: []
 --- !u!1 &664858020232263153
 GameObject:
   m_ObjectHideFlags: 0

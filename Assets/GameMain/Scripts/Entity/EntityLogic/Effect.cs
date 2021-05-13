@@ -13,7 +13,7 @@ namespace BBYGO
     /// <summary>
     /// 特效类。
     /// </summary>
-    public class Effect : Entity
+    public class Effect : UniversalEntityLogic
     {
         [SerializeField]
         private EffectData m_EffectData = null;
