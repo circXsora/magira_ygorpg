@@ -15,87 +15,27 @@ namespace BBYGO
     public class PlayerData : EntityData
     {
         [SerializeField]
-        private int m_MaxHP = 0;
-
-        [SerializeField]
-        private int m_Attack = 0;
-
-        [SerializeField]
-        private float m_Speed = 0f;
-
-        [SerializeField]
-        private float m_AngularSpeed = 0f;
-
-        [SerializeField]
-        private int m_DeadEffectId = 0;
-
-        [SerializeField]
-        private int m_DeadSoundId = 0;
+        private float _speed = 0f;
 
         public PlayerData(int entityId, int typeId)
             : base(entityId, typeId)
         {
-            IDataTable<DRPlayer> dtAsteroid = GameEntry.DataTable.GetDataTable<DRPlayer>();
-            DRPlayer drAsteroid = dtAsteroid.GetDataRow(TypeId);
-            //if (drAsteroid == null)
-            //{
-            //    return;
-            //}
-
-            //HP = m_MaxHP = drAsteroid.MaxHP;
-            //m_Attack = drAsteroid.Attack;
-            //m_Speed = drAsteroid.Speed;
-            //m_AngularSpeed = drAsteroid.AngularSpeed;
-            //m_DeadEffectId = drAsteroid.DeadEffectId;
-            //m_DeadSoundId = drAsteroid.DeadSoundId;
-        }
-
-        public int MaxHP
-        {
-            get
+            IDataTable<DRPlayer> dtPlayer = GameEntry.DataTable.GetDataTable<DRPlayer>();
+            DRPlayer drPlayer = dtPlayer.GetDataRow(TypeId);
+            if (drPlayer == null)
             {
-                return m_MaxHP;
+                throw new DataRowIsNullException("Player", TypeId);
             }
-        }
-
-        public int Attack
-        {
-            get
-            {
-                return m_Attack;
-            }
+            _speed = drPlayer.Speed;
         }
 
         public float Speed
         {
             get
             {
-                return m_Speed;
+                return _speed;
             }
         }
 
-        public float AngularSpeed
-        {
-            get
-            {
-                return m_AngularSpeed;
-            }
-        }
-
-        public int DeadEffectId
-        {
-            get
-            {
-                return m_DeadEffectId;
-            }
-        }
-
-        public int DeadSoundId
-        {
-            get
-            {
-                return m_DeadSoundId;
-            }
-        }
     }
 }

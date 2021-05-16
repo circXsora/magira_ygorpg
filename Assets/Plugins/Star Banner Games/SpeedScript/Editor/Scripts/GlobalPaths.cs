@@ -12,10 +12,10 @@ namespace SBG.SpeedScript
         #region CONSTANTS
 
         public const string FOLDERSTRUCTURE_SETTINGS_MENUPATH = "Window/Star Banner Games/Speed Script/Folder Structure";
-        public const string TEMPLATE_SETTINGS_MENUPATH = "Window/Star Banner Games/Speed Script/Template Settings";
+        public const string TEMPLATE_SETTINGS_MENUPATH = "Tools/Template Settings";
 
-        public const string TEMPLATE_MENUPATH = "Assets/Create/C# (Speed Script)/";
-        public const string TEMPLATE_EDITOR_MENUPATH = "Assets/Create/C# (Speed Script)/Editor/";
+        public const string TEMPLATE_MENUPATH = "Assets/Create/C#/";
+        public const string TEMPLATE_EDITOR_MENUPATH = "Assets/Create/C#/Editor/";
 
         private static readonly char[] SLASHES = {'/', '\\'};
 
@@ -66,9 +66,12 @@ namespace SBG.SpeedScript
         {
             get
             {
-                string docsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                //Debug.Log(Path.Combine(Application.dataPath,"Plugins", "MGOToolkit", "UserData", "Templates"));
 
-                return Path.Combine(docsPath, "Star Banner Games", "SpeedScript", "UserData", "Templates");
+                //string docsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+                //return Path.Combine(docsPath, "Star Banner Games", "SpeedScript", "UserData", "Templates");
+                return Path.Combine(Application.dataPath, "Plugins", "MGOToolkit", "UserData", "Templates");
             }
         }
         public static string UserStructuresFolderPath

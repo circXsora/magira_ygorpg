@@ -32,7 +32,7 @@ namespace SBG.SpeedScript
 
         #region WINDOW MANAGEMENT
 
-        [MenuItem(GlobalPaths.FOLDERSTRUCTURE_SETTINGS_MENUPATH)]
+        //[MenuItem(GlobalPaths.FOLDERSTRUCTURE_SETTINGS_MENUPATH)]
 		public static void ShowWindow()
 		{
 			GetWindow<FolderStructureEditorWindow>("Folder Structure");

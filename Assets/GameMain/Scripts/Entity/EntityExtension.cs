@@ -75,18 +75,32 @@ namespace BBYGO
         //    entityCompoennt.ShowEntity(typeof(Asteroid), "Asteroid", Constant.AssetPriority.AsteroiAsset, data);
         //}
 
-        public static void ShowPlayer(this EntityComponent entityCompoennt, PlayerData data)
+        public static void ShowPlayer(this EntityComponent entityComponent, PlayerData data)
         {
-            entityCompoennt.ShowEntity(typeof(Player), "Player", Constant.AssetPriority.Room, data);
+            if (data == null)
+            {
+                Log.Warning("Data is invalid.");
+                return;
+            }
+
+            IDataTable<DRPlayer> dtEntity = GameEntry.DataTable.GetDataTable<DRPlayer>();
+            DRPlayer drEntity = dtEntity.GetDataRow(data.TypeId);
+            if (drEntity == null)
+            {
+                Log.Warning("Can not load entity id '{0}' from data table.", data.TypeId.ToString());
+                return;
+            }
+
+            entityComponent.ShowEntity(data.Id, typeof(Player), AssetUtility.GetEntityAsset(drEntity.AssetName), "Player", Constant.AssetPriority.PlayerAsset, data);
         }
 
-        public static void ShowRoom(this EntityComponent entityCompoennt, RoomData data)
+        public static void ShowRoom(this EntityComponent entityComponent, RoomData data)
         {
-            entityCompoennt.ShowEntity(typeof(Room), "Room", Constant.AssetPriority.Room, data);
+            entityComponent.ShowEntity(typeof(Room), "Room", Constant.AssetPriority.RoomAsset, data);
         }
-        public static void ShowWall(this EntityComponent entityCompoennt, WallData data)
+        public static void ShowWall(this EntityComponent entityComponent, WallData data)
         {
-            entityCompoennt.ShowEntity(typeof(Wall), "Wall", Constant.AssetPriority.Room, data);
+            entityComponent.ShowEntity(typeof(Wall), "Wall", Constant.AssetPriority.RoomAsset, data);
         }
 
         public static void ShowEffect(this EntityComponent entityComponent, EffectData data)

@@ -25,8 +25,10 @@ namespace BBYGO
             public const int UISoundAsset = 30;
             public const int TextureAsset = 20;
 
-            public const int Room = 80;
+            public const int RoomAsset = 80;
             public const int EffectAsset = 80;
+
+            public const int PlayerAsset = 80;
         }
     }
 }

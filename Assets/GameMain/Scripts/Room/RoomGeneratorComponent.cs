@@ -76,6 +76,28 @@ namespace BBYGO
 
         }
 
+
+        public void HideAllRooms()
+        {
+            var roomEntities = RoomGroup.GetAllEntities();
+            for (int i = 0; i < roomEntities.Length; i++)
+            {
+                Log.Info(roomEntities[i].GetType());
+                var entity = roomEntities[i] as Entity;
+                entity.gameObject.SetActive(false);
+            }
+        }
+
+        public void ShowAllRooms()
+        {
+            var roomEntities = RoomGroup.GetAllEntities();
+            for (int i = 0; i < roomEntities.Length; i++)
+            {
+                var entity = roomEntities[i] as UnityGameFramework.Runtime.Entity;
+                entity.gameObject.SetActive(true);
+            }
+        }
+
         public void GenerateRooms()
         {
             _generatorPoint = InitialRoomPosition;
@@ -135,37 +157,8 @@ namespace BBYGO
             }
         }
 
-        public void HideAllRooms()
-        {
-            var roomEntities = RoomGroup.GetAllEntities();
-            for (int i = 0; i < roomEntities.Length; i++)
-            {
-                Log.Info(roomEntities[i].GetType());
-                var entity = roomEntities[i] as UnityGameFramework.Runtime.Entity;
-                entity.gameObject.SetActive(false);
-            }
-        }
-
-        public void ShowAllRooms()
-        {
-            var roomEntities = RoomGroup.GetAllEntities();
-            for (int i = 0; i < roomEntities.Length; i++)
-            {
-                var entity = roomEntities[i] as UnityGameFramework.Runtime.Entity;
-                entity.gameObject.SetActive(true);
-            }
-        }
-
         public void ClearAllRooms()
         {
-            //var wallGroup = GameEntry.Entity.GetEntityGroup("Wall");
-            //var wallEntities = wallGroup.GetAllEntities();
-            //for (int i = 0; i < wallEntities.Length; i++)
-            //{
-            //    GameEntry.Entity.HideEntity(wallEntities[i].Id);
-            //}
-
-            //var roomGroup = GameEntry.Entity.GetEntityGroup("Room");
             var roomEntities = RoomGroup.GetAllEntities();
             for (int i = 0; i < roomEntities.Length; i++)
             {

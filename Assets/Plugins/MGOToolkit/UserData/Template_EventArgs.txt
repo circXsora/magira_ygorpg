@@ -1,12 +1,12 @@
-/****************************************************
- *  Copyright © #CREATEYEAR# #AUTHORNAME#. All rights reserved.
- *------------------------------------------------------------------------
- *  作者:  circXsora
- *  邮箱:  circXsora@outlook.com
- *  日期:  #CREATETIME#
- *  项目:  #PROJECTNAME#
- *  功能:
-*****************************************************/
+//------------------------------------------------------------------------------
+//  <copyright file="#SCRIPTNAME#.cs" company="#COMPANYNAME#">
+//  作者:  #CREATORNAME#
+//  邮箱:  #EMAIL#
+//  日期:  #CREATETIME#
+//  项目:  #PROJECTNAME#
+//  功能:
+//  </copyright>
+//------------------------------------------------------------------------------
 
 using GameFramework;
 using GameFramework.Event;

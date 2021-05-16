@@ -15,13 +15,15 @@ using UnityEngine;
 
 namespace BBYGO
 {
+    /// <summary>
+    /// 战斗触发器
+    /// </summary>
 	public class BattleTrigger : MonoBehaviour 
 	{
         public event EventHandler OnTouchedWithPlayer;
-
-        private void OnTriggerEnter(Collider other)
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            var player = other.gameObject.GetComponent<Player>();
+            var player = collision.gameObject.GetComponent<Player>();
             if (player != null)
             {
                 OnTouchedWithPlayer?.Invoke(this, null);

@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
@@ -17,6 +18,10 @@ namespace SBG.SpeedScript
         #endregion
 
         private static string _defaultNamespace = "CoolCompany.CoolGame";
+        private static string _creatorName = "你的名字";
+        private static string _companyName = "你的公司名";
+        private static string _projectName = "你的项目名";
+        private static string _email = "你的邮箱";
         private static string _ignoreFolder = "Scripts";
         private static bool _useFolderNames = false;
         private static bool _usePlayerSettings = true;
@@ -135,6 +140,30 @@ namespace SBG.SpeedScript
                 fileData = fileData.Replace("#SCRIPTNAME!EDITOR#", fileNameNoEditor);
             }
 
+            if (fileData.Contains("#CREATORNAME#"))
+            {
+                fileData = fileData.Replace("#CREATORNAME#", _creatorName);
+            }
+
+            if (fileData.Contains("#COMPANYNAME#"))
+            {
+                fileData = fileData.Replace("#COMPANYNAME#", _companyName);
+            }
+
+            if (fileData.Contains("#EMAIL#"))
+            {
+                fileData = fileData.Replace("#EMAIL#", _email);
+            }
+
+            if (fileData.Contains("#PROJECTNAME#"))
+            {
+                fileData = fileData.Replace("#PROJECTNAME#", _projectName);
+            }
+            if (fileData.Contains("#CREATETIME#"))
+            {
+                fileData = fileData.Replace("#CREATETIME#", DateTime.Now.ToString());
+            }
+            
             File.WriteAllText(systemPath, fileData);
         }
 
@@ -156,6 +185,14 @@ namespace SBG.SpeedScript
                     _ignoreFolder = content[1];
                     _useFolderNames = content[2] == "1";
                     _usePlayerSettings = content[3] == "1";
+                    if (content.Length >= 5)
+                        _creatorName = content[4];
+                    if (content.Length >= 6)
+                        _companyName = content[5];
+                    if (content.Length >= 7)
+                        _projectName = content[6];
+                    if (content.Length >= 8)
+                        _email = content[7];
                 }
 
                 if (_usePlayerSettings)

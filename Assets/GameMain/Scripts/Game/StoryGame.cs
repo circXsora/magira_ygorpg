@@ -46,7 +46,6 @@ namespace BBYGO
             GameEntry.Sound.StopMusic();
             base.Shutdown();
         }
-
         public override void Update(float elapseSeconds, float realElapseSeconds)
         {
             base.Update(elapseSeconds, realElapseSeconds);
@@ -55,10 +54,8 @@ namespace BBYGO
         #region 事件处理
         private void OnPlayerTouchedMonsterHanlder(object sender, GameEventArgs e)
         {
-            GameEntry.RoomManager.HideAllRooms();
-            var player = GameEntry.Entity.GetEntity(playerId.Value);
-            player.gameObject.SetActive(false);
-            Log.Info("隐藏当前信息");
+            HideMazeScene();
+            InitBattleScene();
         }
 
         private void OnOPPlayFinishHandler(object sender, GameEventArgs e)
@@ -66,12 +63,41 @@ namespace BBYGO
             GameEntry.UI.CloseUIForm(videoFormId.Value);
             GameEntry.Sound.PlayMusic(MusicID.Main);
 
-            playerId = GameEntry.Entity.GenerateSerialId();
-            GameEntry.Entity.ShowPlayer(new PlayerData(playerId.Value, 60000));
-            GameEntry.RoomManager.GenerateRooms();
+            InitMazeScene();
         }
         #endregion
 
+        #region 游戏逻辑
+        public void InitMazeScene()
+        {
+            playerId = GameEntry.Entity.GenerateSerialId();
+            GameEntry.Entity.ShowPlayer(new PlayerData(playerId.Value, 10000));
+            GameEntry.RoomManager.GenerateRooms();
+        }
 
+        public void HideMazeScene()
+        {
+            GameEntry.RoomManager.HideAllRooms();
+            var player = GameEntry.Entity.GetEntity(playerId.Value);
+            player.gameObject.SetActive(false);
+        }
+
+        public void ShowMazeScene()
+        {
+            GameEntry.RoomManager.ShowAllRooms();
+            var player = GameEntry.Entity.GetEntity(playerId.Value);
+            player.gameObject.SetActive(true);
+        }
+
+        public void InitBattleScene()
+        {
+
+        }
+
+        public void DestroyBattleScene()
+        {
+
+        }
+        #endregion
     }
 }
