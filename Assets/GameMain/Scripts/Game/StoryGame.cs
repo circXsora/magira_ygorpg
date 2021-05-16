@@ -71,7 +71,9 @@ namespace BBYGO
         public void InitMazeScene()
         {
             playerId = GameEntry.Entity.GenerateSerialId();
-            GameEntry.Entity.ShowPlayer(new PlayerData(playerId.Value, 10000));
+            var playerData = new PlayerData(playerId.Value, 10000);
+            playerData.MonsterDatas = new MonsterData[1] { new MonsterData(4) };
+            GameEntry.Entity.ShowPlayer(playerData);
             GameEntry.RoomManager.GenerateRooms();
         }
 
@@ -91,7 +93,9 @@ namespace BBYGO
 
         public void InitBattleScene()
         {
-
+            var player = GameEntry.Entity.GetEntity(playerId.Value);
+            
+            GameEntry.UI.OpenUIForm(AssetUtility.GetUIFormAsset("BattleForm"), "Battle", new BattleFormParams((player.Logic as Player).MonsterDatas));
         }
 
         public void DestroyBattleScene()

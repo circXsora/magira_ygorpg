@@ -18,6 +18,8 @@ namespace BBYGO
         private Animator _animator;
         private SpriteRenderer _spriteRenderer;
 
+        public MonsterData[] MonsterDatas { get; set; }
+
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
@@ -31,6 +33,7 @@ namespace BBYGO
 
             PlayerData playerData = userData as PlayerData;
             _speed = playerData.Speed;
+            MonsterDatas = playerData.MonsterDatas;
             Log.Info("=========速度为" + _speed);
             Name = Utility.Text.Format("Player ({0})", Id.ToString());
         }

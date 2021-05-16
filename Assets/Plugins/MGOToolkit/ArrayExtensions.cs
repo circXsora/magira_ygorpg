@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace MGO
 {
-    public static class ArrayExtension
+    public static class ArrayExtensions
     {
         public static TSource Random1<TSource>(this IEnumerable<TSource> source)
         {

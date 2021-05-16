@@ -9,13 +9,27 @@
 //------------------------------------------------------------------------------
 namespace BBYGO
 {
-	using System.Collections;
-	using System.Collections.Generic;
-	using UnityEngine;
-	using UnityGameFramework.Runtime;
+    using MGO;
+    using System.Collections;
+    using System.Collections.Generic;
+    using UnityEngine;
+    using UnityGameFramework.Runtime;
 
-	public class BattleForm : UGuiForm
-	{
-		
-	}
+    public class BattleForm : UGuiForm
+    {
+        [SerializeField] private GameObject _playerHUDGroup;
+        public GameObject PlayerHUDGroup { get => _playerHUDGroup; set => _playerHUDGroup = value; }
+
+        BattleFormParams _battleFormParams;
+
+        protected override void OnOpen(object userData)
+        {
+            base.OnOpen(userData);
+            _battleFormParams = userData as BattleFormParams;
+            Log.Info(_battleFormParams.PlayerMonsterDatas);
+            var getNextCell = UguiUtility.CreateCellGenerator(PlayerHUDGroup.transform.GetChild(0).gameObject, PlayerHUDGroup.transform);
+            var cell = getNextCell();
+            Log.Info(cell);
+        }
+    }
 }

@@ -16,6 +16,7 @@ namespace BBYGO
     {
         [SerializeField]
         private float _speed = 0f;
+        public MonsterData[] MonsterDatas { get; set; }
 
         public PlayerData(int entityId, int typeId)
             : base(entityId, typeId)
