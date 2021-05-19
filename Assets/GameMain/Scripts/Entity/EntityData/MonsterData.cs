@@ -8,6 +8,7 @@
  *  功能:
 *****************************************************/
 
+using GameFramework;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,10 +17,11 @@ namespace BBYGO
 {
     public class MonsterData : EntityData
     {
-        public int Level;
-        public MonsterData(int typeId, int level = 1) : base(GameEntry.Entity.GenerateSerialId(), typeId)
+        public DRMonster EntryData { get; set; }
+
+        public MonsterData(int typeId) : base(GameEntry.Entity.GenerateSerialId(), typeId)
         {
-            Level = level;
+            EntryData = GameEntry.DataTable.GetDataTable<DRMonster>().GetDataRow(typeId);
         }
     }
 }

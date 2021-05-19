@@ -354,6 +354,7 @@ GameObject:
   - component: {fileID: 1617163822524117878}
   - component: {fileID: 1617163822524117880}
   - component: {fileID: 1617163822524117881}
+  - component: {fileID: 7958012703291541229}
   m_Layer: 5
   m_Name: PlayerMonsterHUD
   m_TagString: Untagged
@@ -421,6 +422,23 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7958012703291541229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1617163822524117879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec0746b938e91134cb82896512d49f72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _uiControls:
+  - {fileID: 1617163823720835982}
+  - {fileID: 1617163823297042704}
+  - {fileID: 1617163821832553188}
+  - {fileID: 1617163823501684906}
 --- !u!1 &1617163823067935041
 GameObject:
   m_ObjectHideFlags: 0

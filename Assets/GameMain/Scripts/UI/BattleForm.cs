@@ -13,6 +13,7 @@ namespace BBYGO
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
+    using UnityEngine.UI;
     using UnityGameFramework.Runtime;
 
     public class BattleForm : UGuiForm
@@ -28,8 +29,21 @@ namespace BBYGO
             _battleFormParams = userData as BattleFormParams;
             Log.Info(_battleFormParams.PlayerMonsterDatas);
             var getNextCell = UguiUtility.CreateCellGenerator(PlayerHUDGroup.transform.GetChild(0).gameObject, PlayerHUDGroup.transform);
-            var cell = getNextCell();
-            Log.Info(cell);
+            foreach (var data in _battleFormParams.PlayerMonsterDatas)
+            {
+                var cell = getNextCell();
+                var uiControlData = cell.GetComponent<UIControlData>();
+                var avatar = uiControlData.Get<Image>("Avatar");
+                GameEntry.Resource.LoadSprite(data.EntryData.SpriteAssetName, (sprite) => avatar.sprite = sprite);
+                var nameText = uiControlData.Get<TMPro.TMP_Text>("MonsterName");
+                nameText.text = data.EntryData.Name;
+                cell.gameObject.SetActive(true);
+            }
+        }
+
+        protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
+        {
+            base.OnUpdate(elapseSeconds, realElapseSeconds);
         }
     }
 }
