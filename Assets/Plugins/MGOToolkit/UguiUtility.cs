@@ -28,7 +28,7 @@ namespace MGO
             return GetNextCell;
             GameObject GetNextCell()
             {
-                if (cellParent.childCount < cellIndex)
+                if (cellParent.childCount <= cellIndex)
                 {
                     nextCell = GameObject.Instantiate(cell, cellParent);
                 }
@@ -36,7 +36,7 @@ namespace MGO
                 {
                     nextCell = cellParent.GetChild(cellIndex).gameObject;
                 }
-
+                cellIndex++;
                 return nextCell;
             }
         }

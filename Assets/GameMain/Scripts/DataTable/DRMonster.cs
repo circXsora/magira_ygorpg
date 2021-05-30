@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2021-05-14 21:29:28.106
+// 生成时间：2021-05-30 17:20:55.447
 //------------------------------------------------------------
 
 using GameFramework;
@@ -64,9 +64,9 @@ namespace BBYGO
         }
 
         /// <summary>
-        /// 获取。
+        /// 获取星级。
         /// </summary>
-        public int Rank
+        public int Star
         {
             get;
             private set;
@@ -96,7 +96,7 @@ namespace BBYGO
             AssetName = columnStrings[index++];
             Name = columnStrings[index++];
             SpriteAssetName = columnStrings[index++];
-            Rank = int.Parse(columnStrings[index++]);
+            Star = int.Parse(columnStrings[index++]);
             Introduction = columnStrings[index++];
 
             GeneratePropertyArray();
@@ -113,7 +113,7 @@ namespace BBYGO
                     AssetName = binaryReader.ReadString();
                     Name = binaryReader.ReadString();
                     SpriteAssetName = binaryReader.ReadString();
-                    Rank = binaryReader.Read7BitEncodedInt32();
+                    Star = binaryReader.Read7BitEncodedInt32();
                     Introduction = binaryReader.ReadString();
                 }
             }

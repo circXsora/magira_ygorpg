@@ -71,16 +71,18 @@ namespace SBG.SpeedScript
                 //string docsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
                 //return Path.Combine(docsPath, "Star Banner Games", "SpeedScript", "UserData", "Templates");
-                return Path.Combine(Application.dataPath, "Plugins", "MGOToolkit", "UserData", "Templates");
+                return Path.Combine(Application.dataPath, "Plugins", "Star Banner Games", "SpeedScript", "UserData", "Templates");
             }
         }
         public static string UserStructuresFolderPath
         {
             get
             {
-                string docsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                //string docsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
-                return Path.Combine(docsPath, "Star Banner Games", "SpeedScript", "UserData", "Folder Structures");
+                //return Path.Combine(docsPath, "Star Banner Games", "SpeedScript", "UserData", "Folder Structures");
+
+                return Path.Combine(Application.dataPath, "Plugins", "Star Banner Games", "SpeedScript", "UserData", "Templates");
             }
         }
 

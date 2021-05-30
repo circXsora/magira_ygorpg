@@ -72,7 +72,7 @@ namespace BBYGO
         {
             playerId = GameEntry.Entity.GenerateSerialId();
             var playerData = new PlayerData(playerId.Value, 10000);
-            playerData.MonsterDatas = new MonsterData[1] { new MonsterData(4) };
+            playerData.MonsterDatas = new MonsterData[] { new MonsterData(4, 3), new MonsterData(5) };
             GameEntry.Entity.ShowPlayer(playerData);
             GameEntry.RoomManager.GenerateRooms();
         }

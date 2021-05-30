@@ -82,7 +82,6 @@ namespace BBYGO
             var roomEntities = RoomGroup.GetAllEntities();
             for (int i = 0; i < roomEntities.Length; i++)
             {
-                Log.Info(roomEntities[i].GetType());
                 var entity = roomEntities[i] as Entity;
                 entity.gameObject.SetActive(false);
             }

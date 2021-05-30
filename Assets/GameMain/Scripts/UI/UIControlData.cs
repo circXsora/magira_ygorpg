@@ -19,30 +19,26 @@ namespace BBYGO
     {
         [SerializeField] private List<GameObject> _uiControls = new List<GameObject>();
 
-        private IDictionary<string, GameObject> _uiControlsDictionary;
+        private IDictionary<string, int> _name4Index = new Dictionary<string, int>();
 
         private void Awake()
         {
-            _uiControlsDictionary = new Dictionary<string, GameObject>();
-            foreach (var uiContorl in _uiControls)
+            _name4Index = new Dictionary<string, int>();
+            for (int i = 0; i < _uiControls.Count; i++)
             {
-                if (!_uiControlsDictionary.ContainsKey(uiContorl.name))
+                var uiContorl = _uiControls[i];
+                if (!_name4Index.ContainsKey(uiContorl.name))
                 {
-                    _uiControlsDictionary.Add(uiContorl.name, uiContorl);
-                }
-                else
-                {
-                    Log.Warning("UIContolData里添加了多个相同的元素");
+                    _name4Index.Add(uiContorl.name, i);
                 }
             }
-            _uiControls = null;
         }
 
         public T Get<T>(string name) where T : Component
         {
-            if (_uiControlsDictionary.TryGetValue(name, out var obj))
+            if (_name4Index.TryGetValue(name, out var index))
             {
-                return obj.GetComponent<T>();
+                return _uiControls[index].GetComponent<T>();
             }
             return null;
         }

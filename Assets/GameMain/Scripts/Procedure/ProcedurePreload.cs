@@ -26,6 +26,7 @@ namespace BBYGO
             "UIForm",
             "UISound",
             "Monster",
+            "MonsterLevel",
             "Player",
         };
 
