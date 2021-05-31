@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2021-05-30 17:20:55.451
+// 生成时间：2021-05-31 22:19:48.886
 //------------------------------------------------------------
 
 using GameFramework;
@@ -100,15 +100,6 @@ namespace BBYGO
         }
 
         /// <summary>
-        /// 获取物。
-        /// </summary>
-        public int Physics
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
         /// 获取魔。
         /// </summary>
         public int Witch
@@ -136,7 +127,6 @@ namespace BBYGO
             Speed = int.Parse(columnStrings[index++]);
             Stamina = int.Parse(columnStrings[index++]);
             Lucky = int.Parse(columnStrings[index++]);
-            Physics = int.Parse(columnStrings[index++]);
             Witch = int.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
@@ -157,7 +147,6 @@ namespace BBYGO
                     Speed = binaryReader.Read7BitEncodedInt32();
                     Stamina = binaryReader.Read7BitEncodedInt32();
                     Lucky = binaryReader.Read7BitEncodedInt32();
-                    Physics = binaryReader.Read7BitEncodedInt32();
                     Witch = binaryReader.Read7BitEncodedInt32();
                 }
             }

@@ -66,7 +66,6 @@ namespace BBYGO
                 uiControlData.Get<TMPro.TMP_Text>("SpeedText").text = levelData.Speed.ToString();
                 uiControlData.Get<TMPro.TMP_Text>("LuckyText").text = levelData.Lucky.ToString();
                 uiControlData.Get<TMPro.TMP_Text>("StaminaText").text = levelData.Stamina.ToString();
-                uiControlData.Get<TMPro.TMP_Text>("PhysicsText").text = levelData.Physics.ToString();
                 uiControlData.Get<TMPro.TMP_Text>("WitchText").text = levelData.Witch.ToString();
 
                 var starsPanel = uiControlData.Get<Transform>("MonsterStarsPanel");

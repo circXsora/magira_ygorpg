@@ -8,11 +8,13 @@
 //  </copyright>
 //------------------------------------------------------------------------------
 
+
+using BBYGO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace #PROJECTNAME#
+namespace #NAMESPACE#
 {
 	public class #SCRIPTNAME# : EntityData
 	{

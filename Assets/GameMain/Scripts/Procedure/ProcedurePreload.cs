@@ -20,6 +20,7 @@ namespace BBYGO
         public static readonly string[] DataTableNames = new string[]
         {
             "Entity",
+            "Camera",
             "Music",
             "Scene",
             "Sound",

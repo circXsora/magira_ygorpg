@@ -27,9 +27,12 @@ namespace BBYGO
             for (int i = 0; i < _uiControls.Count; i++)
             {
                 var uiContorl = _uiControls[i];
-                if (!_name4Index.ContainsKey(uiContorl.name))
+                if (uiContorl != null)
                 {
-                    _name4Index.Add(uiContorl.name, i);
+                    if (!_name4Index.ContainsKey(uiContorl.name))
+                    {
+                        _name4Index.Add(uiContorl.name, i);
+                    }
                 }
             }
         }

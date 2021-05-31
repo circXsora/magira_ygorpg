@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2021-05-31 22:19:48.854
+// 生成时间：2021-05-31 22:19:48.863
 //------------------------------------------------------------
 
 using GameFramework;
@@ -19,14 +19,14 @@ using UnityGameFramework.Runtime;
 namespace BBYGO
 {
     /// <summary>
-    /// 实体表。
+    /// 相机表。
     /// </summary>
-    public class DREntity : DataRowBase
+    public class DRCamera : DataRowBase
     {
         private int m_Id = 0;
 
         /// <summary>
-        /// 获取实体编号。
+        /// 获取相机编号。
         /// </summary>
         public override int Id
         {
@@ -45,6 +45,15 @@ namespace BBYGO
             private set;
         }
 
+        /// <summary>
+        /// 获取。
+        /// </summary>
+        public string Type
+        {
+            get;
+            private set;
+        }
+
         public override bool ParseDataRow(string dataRowString, object userData)
         {
             string[] columnStrings = dataRowString.Split(DataTableExtension.DataSplitSeparators);
@@ -58,6 +67,7 @@ namespace BBYGO
             m_Id = int.Parse(columnStrings[index++]);
             index++;
             AssetName = columnStrings[index++];
+            Type = columnStrings[index++];
 
             GeneratePropertyArray();
             return true;
@@ -71,6 +81,7 @@ namespace BBYGO
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
                     AssetName = binaryReader.ReadString();
+                    Type = binaryReader.ReadString();
                 }
             }
 

@@ -28,6 +28,7 @@ namespace BBYGO
 
         private int? videoFormId;
         private int? playerId;
+        private int? cameraId;
 
         public override void Initialize()
         {
@@ -74,6 +75,8 @@ namespace BBYGO
             var playerData = new PlayerData(playerId.Value, 10000);
             playerData.MonsterDatas = new MonsterData[] { new MonsterData(4, 3), new MonsterData(5) };
             GameEntry.Entity.ShowPlayer(playerData);
+            cameraId = GameEntry.Entity.GenerateSerialId();
+            GameEntry.Entity.ShowCamera(new CameraData(cameraId.Value, 1));
             GameEntry.RoomManager.GenerateRooms();
         }
 
@@ -82,6 +85,8 @@ namespace BBYGO
             GameEntry.RoomManager.HideAllRooms();
             var player = GameEntry.Entity.GetEntity(playerId.Value);
             player.gameObject.SetActive(false);
+            var camera = GameEntry.Entity.GetEntity(cameraId.Value);
+            camera.gameObject.SetActive(false);
         }
 
         public void ShowMazeScene()
@@ -89,6 +94,8 @@ namespace BBYGO
             GameEntry.RoomManager.ShowAllRooms();
             var player = GameEntry.Entity.GetEntity(playerId.Value);
             player.gameObject.SetActive(true);
+            var camera = GameEntry.Entity.GetEntity(cameraId.Value);
+            camera.gameObject.SetActive(true);
         }
 
         public void InitBattleScene()

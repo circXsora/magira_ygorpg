@@ -98,6 +98,7 @@ namespace BBYGO
         {
             entityComponent.ShowEntity(typeof(Room), "Room", Constant.AssetPriority.RoomAsset, data);
         }
+
         public static void ShowWall(this EntityComponent entityComponent, WallData data)
         {
             entityComponent.ShowEntity(typeof(Wall), "Wall", Constant.AssetPriority.RoomAsset, data);
@@ -106,6 +107,19 @@ namespace BBYGO
         public static void ShowEffect(this EntityComponent entityComponent, EffectData data)
         {
             entityComponent.ShowEntity(typeof(Effect), "Effect", Constant.AssetPriority.EffectAsset, data);
+        }
+
+        public static void ShowCamera(this EntityComponent entityComponent, CameraData data)
+        {
+            IDataTable<DRCamera> dtCamera = GameEntry.DataTable.GetDataTable<DRCamera>();
+            var drCamera = dtCamera.GetDataRow(data.TypeId);
+            if (drCamera == null)
+            {
+                Log.Warning("Can not load Camera id '{0}' from data table.", data.TypeId.ToString());
+                return;
+            }
+
+            entityComponent.ShowEntity(data.Id, Type.GetType(drCamera.Type), AssetUtility.GetEntityAsset(drCamera.AssetName), "Camera", Constant.AssetPriority.SceneAsset, data);
         }
 
         private static void ShowEntity(this EntityComponent entityComponent, Type logicType, string entityGroup, int priority, EntityData data)
