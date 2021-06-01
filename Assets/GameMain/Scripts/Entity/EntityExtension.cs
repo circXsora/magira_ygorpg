@@ -122,6 +122,13 @@ namespace BBYGO
             entityComponent.ShowEntity(data.Id, Type.GetType(drCamera.Type), AssetUtility.GetEntityAsset(drCamera.AssetName), "Camera", Constant.AssetPriority.SceneAsset, data);
         }
 
+        public static void ShowBattleField(this EntityComponent entityComponent, BattleFieldData data)
+        {
+            var dt = GameEntry.DataTable.GetDataTable<DRBattleField>();
+            var dr = dt.GetDataRow(data.TypeId);
+            entityComponent.ShowEntity(data.Id, typeof(BattleFieldLogic), AssetUtility.GetEntityAsset(dr.AssetName), "Battle", Constant.AssetPriority.SceneAsset, data);
+        }
+
         private static void ShowEntity(this EntityComponent entityComponent, Type logicType, string entityGroup, int priority, EntityData data)
         {
             if (data == null)

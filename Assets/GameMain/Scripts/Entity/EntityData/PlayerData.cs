@@ -12,10 +12,8 @@ using UnityEngine;
 namespace BBYGO
 {
     [Serializable]
-    public class PlayerData : EntityData
+    public class PlayerData : EntityData, ICloneable
     {
-        [SerializeField]
-        private float _speed = 0f;
         public MonsterData[] MonsterDatas { get; set; }
 
         public PlayerData(int entityId, int typeId)
@@ -27,16 +25,22 @@ namespace BBYGO
             {
                 throw new DataRowIsNullException("Player", TypeId);
             }
-            _speed = drPlayer.Speed;
+            Speed = drPlayer.Speed;
         }
 
         public float Speed
         {
-            get
-            {
-                return _speed;
-            }
+            get;
+            private set;
         }
 
+        public object Clone()
+        {
+            var newData = new PlayerData(GameEntry.Entity.GenerateSerialId(), TypeId)
+            {
+                MonsterDatas = this.MonsterDatas
+            };
+            return newData;
+        }
     }
 }

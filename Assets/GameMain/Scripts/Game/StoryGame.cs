@@ -28,7 +28,11 @@ namespace BBYGO
 
         private int? videoFormId;
         private int? playerId;
-        private int? cameraId;
+        private int? mazeCameraId;
+        private int? battleCameraId;
+
+        private Vector3 BattlePosition;
+        private Vector3 MazePosition;
 
         public override void Initialize()
         {
@@ -75,8 +79,8 @@ namespace BBYGO
             var playerData = new PlayerData(playerId.Value, 10000);
             playerData.MonsterDatas = new MonsterData[] { new MonsterData(4, 3), new MonsterData(5) };
             GameEntry.Entity.ShowPlayer(playerData);
-            cameraId = GameEntry.Entity.GenerateSerialId();
-            GameEntry.Entity.ShowCamera(new CameraData(cameraId.Value, 1));
+            mazeCameraId = GameEntry.Entity.GenerateSerialId();
+            GameEntry.Entity.ShowCamera(new CameraData(mazeCameraId.Value, 1));
             GameEntry.RoomManager.GenerateRooms();
         }
 
@@ -85,7 +89,7 @@ namespace BBYGO
             GameEntry.RoomManager.HideAllRooms();
             var player = GameEntry.Entity.GetEntity(playerId.Value);
             player.gameObject.SetActive(false);
-            var camera = GameEntry.Entity.GetEntity(cameraId.Value);
+            var camera = GameEntry.Entity.GetEntity(mazeCameraId.Value);
             camera.gameObject.SetActive(false);
         }
 
@@ -94,20 +98,29 @@ namespace BBYGO
             GameEntry.RoomManager.ShowAllRooms();
             var player = GameEntry.Entity.GetEntity(playerId.Value);
             player.gameObject.SetActive(true);
-            var camera = GameEntry.Entity.GetEntity(cameraId.Value);
+            var camera = GameEntry.Entity.GetEntity(mazeCameraId.Value);
             camera.gameObject.SetActive(true);
         }
 
         public void InitBattleScene()
         {
             var player = GameEntry.Entity.GetEntity(playerId.Value);
-            
-            GameEntry.UI.OpenUIForm(AssetUtility.GetUIFormAsset("BattleForm"), "Battle", new BattleFormParams((player.Logic as Player).MonsterDatas));
+            var playerData = (player.Logic as Player).PlayerData;
+            var battleCameraId = GameEntry.Entity.GenerateSerialId();
+            var battleFieldId = GameEntry.Entity.GenerateSerialId();
+            GameEntry.Entity.ShowBattleField(new BattleFieldData(battleFieldId, 1));
+            GameEntry.Entity.ShowCamera(new CameraData(battleCameraId, 2));
+            GameEntry.UI.OpenUIForm(AssetUtility.GetUIFormAsset("BattleForm"), "Battle", new BattleFormParams(playerData));
+            var battlePlayerData =  playerData.Clone() as PlayerData;
+            GameEntry.Entity.ShowPlayer(battlePlayerData);
+            var entity = GameEntry.Entity.GetEntity(battlePlayerData.Id);
+            GameEntry.Entity.AttachEntity(battlePlayerData.Id, battleFieldId, "PlayerPoint1");
         }
 
         public void DestroyBattleScene()
         {
-
+            GameEntry.Entity.HideEntity(battleCameraId.Value);
+            battleCameraId = null;
         }
         #endregion
     }

@@ -11,14 +11,12 @@ namespace BBYGO
     public class Player : UniversalEntityLogic
     {
 
-        private float _speed;
-
         private Vector2 _velocity;
         private Rigidbody2D _body;
         private Animator _animator;
         private SpriteRenderer _spriteRenderer;
 
-        public MonsterData[] MonsterDatas { get; set; }
+        public PlayerData PlayerData { get; private set; }
 
         protected override void OnInit(object userData)
         {
@@ -27,14 +25,19 @@ namespace BBYGO
             _animator = GetComponent<Animator>();
         }
 
+        protected override void OnAttachTo(EntityLogic parentEntity, Transform parentTransform, object userData)
+        {
+            base.OnAttachTo(parentEntity, parentTransform, userData);
+            var point = parentTransform.Find((string)userData);
+            transform.position = point.position;
+        }
+
         protected override void OnShow(object userData)
         {
             base.OnShow(userData);
 
-            PlayerData playerData = userData as PlayerData;
-            _speed = playerData.Speed;
-            MonsterDatas = playerData.MonsterDatas;
-            Log.Info("=========速度为" + _speed);
+            PlayerData = userData as PlayerData;
+            Log.Info("=========速度为" + PlayerData.Speed);
             Name = Utility.Text.Format("Player ({0})", Id.ToString());
         }
 
@@ -55,7 +58,7 @@ namespace BBYGO
             }
             _animator.SetBool("Run", _velocity.sqrMagnitude > 0);
 
-            _body.velocity = _velocity * _speed;
+            _body.velocity = _velocity * PlayerData.Speed;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)

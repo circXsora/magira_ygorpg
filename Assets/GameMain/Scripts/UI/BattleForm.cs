@@ -27,9 +27,8 @@ namespace BBYGO
         {
             base.OnOpen(userData);
             _battleFormParams = userData as BattleFormParams;
-            Log.Info(_battleFormParams.PlayerMonsterDatas);
             var getNextCell = UguiUtility.CreateCellGenerator(PlayerHUDGroup.transform.GetChild(0).gameObject, PlayerHUDGroup.transform);
-            foreach (var data in _battleFormParams.PlayerMonsterDatas)
+            foreach (var data in _battleFormParams.PlayerData.MonsterDatas)
             {
                 var cell = getNextCell();
                 var uiControlData = cell.GetComponent<UIControlData>();

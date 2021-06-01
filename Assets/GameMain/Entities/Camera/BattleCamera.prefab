@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2257159986399540339}
   - component: {fileID: 2257159986399540334}
   m_Layer: 0
-  m_Name: MazeCamera
+  m_Name: MazeCamera 1
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
