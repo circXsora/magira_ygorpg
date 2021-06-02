@@ -17,5 +17,15 @@ namespace BBYGO
 	public class BattleFieldLogic : EntityLogic
 	{
 
-	}
+        protected override void OnShow(object userData)
+        {
+            base.OnShow(userData);
+
+        }
+
+        protected override void OnAttachTo(EntityLogic parentEntity, Transform parentTransform, object userData)
+        {
+            base.OnAttachTo(parentEntity, parentTransform, userData);
+        }
+    }
 }

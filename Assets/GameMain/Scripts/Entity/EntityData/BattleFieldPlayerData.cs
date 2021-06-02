@@ -12,14 +12,16 @@ using UnityEngine;
 namespace BBYGO
 {
     [Serializable]
-    public class PlayerData : EntityData
+    public class BattleFieldPlayerData : EntityData
     {
         public MonsterData[] MonsterDatas { get; set; }
-        public DRPlayer GetEntryData() => GameEntry.DataTable.GetDataTable<DRPlayer>().GetDataRow(TypeId);
-        public PlayerData(int entityId, int typeId)
+        public string PointName { get; set; }
+        public int OwnerId { get; }
+
+        public BattleFieldPlayerData(int entityId, int typeId, int ownerId)
             : base(entityId, typeId)
         {
-
+            OwnerId = ownerId;
         }
     }
 }

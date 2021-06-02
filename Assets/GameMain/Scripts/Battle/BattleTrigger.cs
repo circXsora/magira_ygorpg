@@ -23,7 +23,7 @@ namespace BBYGO
         public event EventHandler OnTouchedWithPlayer;
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            var player = collision.gameObject.GetComponent<Player>();
+            var player = collision.gameObject.GetComponent<PlayerLogic>();
             if (player != null)
             {
                 OnTouchedWithPlayer?.Invoke(this, null);

@@ -8,7 +8,7 @@ namespace BBYGO
     /// <summary>
     /// 玩家
     /// </summary>
-    public class Player : UniversalEntityLogic
+    public class PlayerLogic : UniversalEntityLogic
     {
 
         private Vector2 _velocity;
@@ -17,6 +17,7 @@ namespace BBYGO
         private SpriteRenderer _spriteRenderer;
 
         public PlayerData PlayerData { get; private set; }
+        public float Speed { get; private set; }
 
         protected override void OnInit(object userData)
         {
@@ -35,9 +36,8 @@ namespace BBYGO
         protected override void OnShow(object userData)
         {
             base.OnShow(userData);
-
             PlayerData = userData as PlayerData;
-            Log.Info("=========速度为" + PlayerData.Speed);
+            Speed = PlayerData.GetEntryData().Speed;
             Name = Utility.Text.Format("Player ({0})", Id.ToString());
         }
 
@@ -58,7 +58,7 @@ namespace BBYGO
             }
             _animator.SetBool("Run", _velocity.sqrMagnitude > 0);
 
-            _body.velocity = _velocity * PlayerData.Speed;
+            _body.velocity = _velocity * Speed;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
