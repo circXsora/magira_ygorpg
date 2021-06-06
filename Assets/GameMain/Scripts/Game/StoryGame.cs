@@ -110,11 +110,20 @@ namespace BBYGO
             var battleFieldId = GameEntry.Entity.GenerateSerialId();
             GameEntry.Entity.ShowBattleField(new BattleFieldData(battleFieldId, 1));
             GameEntry.UI.OpenUIForm(AssetUtility.GetUIFormAsset("BattleForm"), "Battle", new BattleFormParams(playerData));
-            var battlePlayerData =  new BattleFieldPlayerData(GameEntry.Entity.GenerateSerialId(), 10000, battleFieldId);
+            var battlePlayerData = new BattleFieldPlayerData(GameEntry.Entity.GenerateSerialId(), 10000, battleFieldId);
             battlePlayerData.PointName = "PlayerPoint1";
             GameEntry.Entity.ShowBattleFieldPlayer(battlePlayerData);
             var entity = GameEntry.Entity.GetEntity(battlePlayerData.Id);
             GameEntry.Entity.ShowCamera(new CameraData(battleCameraId, 2));
+
+            int i = 1;
+            foreach (var monsterData in playerData.MonsterDatas)
+            {
+                var battlePlayerMonsterData1 = new BattleFieldMonsterData(GameEntry.Entity.GenerateSerialId(), monsterData.TypeId);
+                battlePlayerMonsterData1.OwnerId = battleFieldId;
+                battlePlayerMonsterData1.PointName = "PlayerMonsterPoint" + i++;
+                GameEntry.Entity.ShowBattleFieldMonster(battlePlayerMonsterData1);
+            }
         }
 
         public void DestroyBattleScene()

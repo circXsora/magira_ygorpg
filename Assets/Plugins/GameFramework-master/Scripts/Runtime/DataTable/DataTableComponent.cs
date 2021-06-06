@@ -192,6 +192,13 @@ namespace UnityGameFramework.Runtime
             return m_DataTableManager.GetDataTable<T>();
         }
 
+
+        public T GetDataRow<T>(int typeId) where T : IDataRow
+        {
+            var dt = m_DataTableManager.GetDataTable<T>();
+            return dt.GetDataRow(typeId);
+        }
+
         /// <summary>
         /// 获取数据表。
         /// </summary>
@@ -212,6 +219,7 @@ namespace UnityGameFramework.Runtime
         {
             return m_DataTableManager.GetDataTable<T>(name);
         }
+
 
         /// <summary>
         /// 获取数据表。

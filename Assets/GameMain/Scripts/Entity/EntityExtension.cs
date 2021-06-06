@@ -114,6 +114,26 @@ namespace BBYGO
 
         }
 
+        public static void ShowBattleFieldMonster(this EntityComponent entityComponent, BattleFieldMonsterData data)
+        {
+            if (data == null)
+            {
+                Log.Warning("Data is invalid.");
+                return;
+            }
+
+            IDataTable<DRMonster> dtEntity = GameEntry.DataTable.GetDataTable<DRMonster>();
+            DRMonster drEntity = dtEntity.GetDataRow(data.TypeId);
+            if (drEntity == null)
+            {
+                Log.Warning("Can not load entity id '{0}' from data table.", data.TypeId.ToString());
+                return;
+            }
+
+            entityComponent.ShowEntity(data.Id, typeof(BattleFieldMonsterLogic), AssetUtility.GetEntityAsset(drEntity.AssetName), "Monster", Constant.AssetPriority.PlayerAsset, data);
+
+        }
+
         public static void ShowRoom(this EntityComponent entityComponent, RoomData data)
         {
             entityComponent.ShowEntity(typeof(Room), "Room", Constant.AssetPriority.RoomAsset, data);
