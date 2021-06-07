@@ -22,8 +22,12 @@ namespace BBYGO
             resourceComponent.LoadAsset(AssetUtility.GetTextureAsset(spriteSimpleName), new GameFramework.Resource.LoadAssetCallbacks(
                 (name, asset, duration, userData) =>
                 {
-                    var texture = asset as Texture2D;
-                    var sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+                    Sprite sprite = asset as Sprite;
+                    if (sprite == null)
+                    {
+                        var texture = asset as Texture2D;
+                        sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+                    }
                     onLoaded?.Invoke(sprite);
                 }
                 ));

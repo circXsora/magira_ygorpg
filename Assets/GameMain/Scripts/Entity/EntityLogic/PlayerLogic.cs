@@ -65,9 +65,9 @@ namespace BBYGO
         {
             // Log.Info("与" + collision.name + "碰撞");
             var entity = collision.GetComponent<UniversalEntityLogic>();
-            if (entity is Room)
+            if (entity is RoomLogic)
             {
-                GameEntry.Event.Raise(this, PlayerArrivedRoomEventArgs.Create(entity as Room));
+                GameEntry.Event.Raise(this, PlayerArrivedRoomEventArgs.Create(entity as RoomLogic));
             }
         }
     }

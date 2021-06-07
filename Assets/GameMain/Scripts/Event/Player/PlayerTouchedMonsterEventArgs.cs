@@ -19,7 +19,7 @@ namespace BBYGO
 	public sealed class PlayerTouchedMonsterEventArgs : GameEventArgs
 	{
         public static readonly int EventId = typeof(PlayerTouchedMonsterEventArgs).GetHashCode();
-        
+        public RoomData roomData;
         public override int Id => EventId;
 
         /// <summary>
@@ -30,9 +30,10 @@ namespace BBYGO
 
         }
 
-        public static PlayerTouchedMonsterEventArgs Create(/*在这里加入构造参数*/)
+        public static PlayerTouchedMonsterEventArgs Create(RoomData roomData)
         {
             PlayerTouchedMonsterEventArgs eventArgs = ReferencePool.Acquire<PlayerTouchedMonsterEventArgs>();
+            eventArgs.roomData = roomData;
             return eventArgs;
         }
 

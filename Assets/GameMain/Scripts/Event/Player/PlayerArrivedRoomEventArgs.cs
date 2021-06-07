@@ -22,7 +22,7 @@ namespace BBYGO
         
         public override int Id => EventId;
 
-        public Room Room;
+        public RoomLogic Room;
 
         /// <summary>
         /// 你不应该调用构造函数而应该调用Create静态方法
@@ -32,7 +32,7 @@ namespace BBYGO
 
         }
 
-        public static PlayerArrivedRoomEventArgs Create(Room room)
+        public static PlayerArrivedRoomEventArgs Create(RoomLogic room)
         {
             PlayerArrivedRoomEventArgs eventArgs = ReferencePool.Acquire<PlayerArrivedRoomEventArgs>();
             eventArgs.Room = room;

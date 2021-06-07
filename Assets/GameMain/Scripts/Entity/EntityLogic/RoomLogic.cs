@@ -5,11 +5,12 @@ using UnityGameFramework.Runtime;
 
 namespace BBYGO
 {
-    public class Room : UniversalEntityLogic
+    public class RoomLogic : UniversalEntityLogic
     {
+        private RoomData _data;
         private TMPro.TMP_Text _stepText;
         private Transform[] _doors = new Transform[4];
-        private Wall _wall;
+        private WallLogic _wall;
 
         private bool _battled = false;
         private BattleTrigger _battleTrigger;
@@ -32,14 +33,13 @@ namespace BBYGO
 
         private void OnTouchWithPlayerHandler(object sender, System.EventArgs e)
         {
-            // TODO:发送战斗触发器与玩家接触到的消息
-            GameEntry.Event.Raise(this, PlayerTouchedMonsterEventArgs.Create());
+            GameEntry.Event.Raise(this, PlayerTouchedMonsterEventArgs.Create(_data));
         }
 
         protected override void OnShow(object userData)
         {
             base.OnShow(userData);
-            RoomData _data = userData as RoomData;
+            _data = userData as RoomData;
 
             for (int i = 0; i < _data.DoorsActiveInfos.Length; i++)
             {
@@ -63,9 +63,9 @@ namespace BBYGO
         {
             base.OnAttached(childEntity, parentTransform, userData);
 
-            if (childEntity is Wall)
+            if (childEntity is WallLogic)
             {
-                _wall = childEntity as Wall;
+                _wall = childEntity as WallLogic;
             }
         }
 

@@ -34,6 +34,8 @@ namespace BBYGO
         private Vector3 BattlePosition;
         private Vector3 MazePosition;
 
+        private RoomData roomData;
+
         public override void Initialize()
         {
             base.Initialize();
@@ -59,6 +61,8 @@ namespace BBYGO
         #region 事件处理
         private void OnPlayerTouchedMonsterHanlder(object sender, GameEventArgs e)
         {
+            var te = e as PlayerTouchedMonsterEventArgs;
+            roomData = te.roomData;
             HideMazeScene();
             InitBattleScene();
         }
@@ -123,6 +127,15 @@ namespace BBYGO
                 battlePlayerMonsterData1.OwnerId = battleFieldId;
                 battlePlayerMonsterData1.PointName = "PlayerMonsterPoint" + i++;
                 GameEntry.Entity.ShowBattleFieldMonster(battlePlayerMonsterData1);
+            }
+
+            i = 1;
+            foreach (var enemyMonsterData in roomData.MonsterDatas)
+            {
+                var battleMonsterData1 = new BattleFieldMonsterData(GameEntry.Entity.GenerateSerialId(), enemyMonsterData.TypeId);
+                battleMonsterData1.OwnerId = battleFieldId;
+                battleMonsterData1.PointName = "EnemyMonsterPoint" + i++;
+                GameEntry.Entity.ShowBattleFieldMonster(battleMonsterData1);
             }
         }
 

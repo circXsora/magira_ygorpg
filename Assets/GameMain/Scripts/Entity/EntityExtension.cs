@@ -136,12 +136,12 @@ namespace BBYGO
 
         public static void ShowRoom(this EntityComponent entityComponent, RoomData data)
         {
-            entityComponent.ShowEntity(typeof(Room), "Room", Constant.AssetPriority.RoomAsset, data);
+            entityComponent.ShowEntity(typeof(RoomLogic), "Room", Constant.AssetPriority.RoomAsset, data);
         }
 
         public static void ShowWall(this EntityComponent entityComponent, WallData data)
         {
-            entityComponent.ShowEntity(typeof(Wall), "Wall", Constant.AssetPriority.RoomAsset, data);
+            entityComponent.ShowEntity(typeof(WallLogic), "Wall", Constant.AssetPriority.RoomAsset, data);
         }
 
         public static void ShowEffect(this EntityComponent entityComponent, EffectData data)
