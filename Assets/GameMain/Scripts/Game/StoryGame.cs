@@ -10,6 +10,8 @@ using GameFramework.DataTable;
 using GameFramework.Event;
 using Stateless;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
@@ -31,10 +33,7 @@ namespace BBYGO
         private int? mazeCameraId;
         private int? battleCameraId;
 
-        private Vector3 BattlePosition;
-        private Vector3 MazePosition;
-
-        private RoomData roomData;
+        private RoomData touchedRoomData;
 
         public override void Initialize()
         {
@@ -62,7 +61,7 @@ namespace BBYGO
         private void OnPlayerTouchedMonsterHanlder(object sender, GameEventArgs e)
         {
             var te = e as PlayerTouchedMonsterEventArgs;
-            roomData = te.roomData;
+            touchedRoomData = te.roomData;
             HideMazeScene();
             InitBattleScene();
         }
@@ -77,6 +76,9 @@ namespace BBYGO
         #endregion
 
         #region 游戏逻辑
+
+        #region 迷宫逻辑
+
         public void InitMazeScene()
         {
             playerId = GameEntry.Entity.GenerateSerialId();
@@ -88,15 +90,6 @@ namespace BBYGO
             GameEntry.RoomManager.GenerateRooms();
         }
 
-        public void HideMazeScene()
-        {
-            GameEntry.RoomManager.HideAllRooms();
-            var player = GameEntry.Entity.GetEntity(playerId.Value);
-            player.gameObject.SetActive(false);
-            var camera = GameEntry.Entity.GetEntity(mazeCameraId.Value);
-            camera.gameObject.SetActive(false);
-        }
-
         public void ShowMazeScene()
         {
             GameEntry.RoomManager.ShowAllRooms();
@@ -106,8 +99,27 @@ namespace BBYGO
             camera.gameObject.SetActive(true);
         }
 
+        public void HideMazeScene()
+        {
+            GameEntry.RoomManager.HideAllRooms();
+            var player = GameEntry.Entity.GetEntity(playerId.Value);
+            player.gameObject.SetActive(false);
+            var camera = GameEntry.Entity.GetEntity(mazeCameraId.Value);
+            camera.gameObject.SetActive(false);
+            GameEntry.Sound.StopMusic();
+        }
+        #endregion
+
+        #region 战斗逻辑
+
+        private List<BattleFieldMonsterData> enemyMonsterDatas = new List<BattleFieldMonsterData>();
+        private List<BattleFieldMonsterData> myMonsterDatas = new List<BattleFieldMonsterData>();
+
         public void InitBattleScene()
         {
+            GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, EntitySuccessHandler);
+
+            GameEntry.Sound.PlayMusic(MusicID.Battle);
             var player = GameEntry.Entity.GetEntity(playerId.Value);
             var playerData = (player.Logic as PlayerLogic).PlayerData;
             var battleCameraId = GameEntry.Entity.GenerateSerialId();
@@ -123,19 +135,31 @@ namespace BBYGO
             int i = 1;
             foreach (var monsterData in playerData.MonsterDatas)
             {
-                var battlePlayerMonsterData1 = new BattleFieldMonsterData(GameEntry.Entity.GenerateSerialId(), monsterData.TypeId);
-                battlePlayerMonsterData1.OwnerId = battleFieldId;
-                battlePlayerMonsterData1.PointName = "PlayerMonsterPoint" + i++;
-                GameEntry.Entity.ShowBattleFieldMonster(battlePlayerMonsterData1);
+                var battlePlayerMonsterData = new BattleFieldMonsterData(GameEntry.Entity.GenerateSerialId(), monsterData.TypeId);
+                battlePlayerMonsterData.OwnerId = battleFieldId;
+                battlePlayerMonsterData.PointName = "PlayerMonsterPoint" + i++;
+                myMonsterDatas.Add(battlePlayerMonsterData);
+                GameEntry.Entity.ShowBattleFieldMonster(battlePlayerMonsterData);
             }
 
             i = 1;
-            foreach (var enemyMonsterData in roomData.MonsterDatas)
+            foreach (var enemyMonsterData in touchedRoomData.MonsterDatas)
             {
-                var battleMonsterData1 = new BattleFieldMonsterData(GameEntry.Entity.GenerateSerialId(), enemyMonsterData.TypeId);
-                battleMonsterData1.OwnerId = battleFieldId;
-                battleMonsterData1.PointName = "EnemyMonsterPoint" + i++;
-                GameEntry.Entity.ShowBattleFieldMonster(battleMonsterData1);
+                var battleMonsterData = new BattleFieldMonsterData(GameEntry.Entity.GenerateSerialId(), enemyMonsterData.TypeId);
+                battleMonsterData.OwnerId = battleFieldId;
+                battleMonsterData.PointName = "EnemyMonsterPoint" + i++;
+                enemyMonsterDatas.Add(battleMonsterData);
+                GameEntry.Entity.ShowBattleFieldMonster(battleMonsterData);
+            }
+        }
+
+        private void EntitySuccessHandler(object sender, GameEventArgs e)
+        {
+            var ne = e as ShowEntitySuccessEventArgs;
+            var data = enemyMonsterDatas.Find(d => d.Id == ne.Entity.Id);
+            if (data != null)
+            {
+                GameEntry.HPBar.ShowHPBar(ne.Entity.Logic, 1, 1);
             }
         }
 
@@ -143,7 +167,10 @@ namespace BBYGO
         {
             GameEntry.Entity.HideEntity(battleCameraId.Value);
             battleCameraId = null;
+            GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, EntitySuccessHandler);
         }
+        #endregion
+
         #endregion
     }
 }

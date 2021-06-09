@@ -14,10 +14,11 @@ using UnityEngine;
 
 namespace BBYGO
 {
-	public static class MusicID
-	{
-		public const int Menu = 1;
-		public const int Main = 2;
-		public const int About = 3;
-	}
+    public enum MusicID
+    {
+        Menu = 1,
+        Main = 2,
+        About = 3,
+        Battle = 4
+    }
 }

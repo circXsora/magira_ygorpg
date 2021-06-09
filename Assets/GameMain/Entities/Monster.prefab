@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 233526284}
   - component: {fileID: 233526287}
   - component: {fileID: 233526286}
-  m_Layer: 5
+  m_Layer: 11
   m_Name: DamageNumber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 2412868157514336533}
   - component: {fileID: 2412868157514336523}
   - component: {fileID: 2412868157514336532}
-  m_Layer: 5
+  m_Layer: 11
   m_Name: BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -332,7 +332,7 @@ GameObject:
   - component: {fileID: 2412868158590088227}
   - component: {fileID: 2412868158590088225}
   - component: {fileID: 2412868158590088226}
-  m_Layer: 5
+  m_Layer: 11
   m_Name: MonsterName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -468,7 +468,7 @@ GameObject:
   - component: {fileID: 2412868158600774592}
   - component: {fileID: 2412868158600774593}
   - component: {fileID: 2412868158600774594}
-  m_Layer: 5
+  m_Layer: 11
   m_Name: MonsterCavans
   m_TagString: Untagged
   m_Icon: {fileID: 0}

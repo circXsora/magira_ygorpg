@@ -39,6 +39,12 @@ namespace BBYGO
             return s_MusicSerialId;
         }
 
+        public static int? PlayMusic(this SoundComponent soundComponent, MusicID musicId, object userData = null)
+        {
+            return soundComponent.PlayMusic((int)musicId, userData);
+        }
+
+
         public static void StopMusic(this SoundComponent soundComponent)
         {
             if (!s_MusicSerialId.HasValue)

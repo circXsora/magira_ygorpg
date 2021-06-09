@@ -32,6 +32,8 @@ namespace UnityGameFramework.Runtime
             }
         }
 
+        public int Id => Entity.Id;
+
         /// <summary>
         /// 获取或设置实体名称。
         /// </summary>

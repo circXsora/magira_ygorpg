@@ -17,6 +17,10 @@ namespace BBYGO
 {
 	public class BattleCameraLogic : EntityLogic
 	{
-
-	}
+        protected override void OnShow(object userData)
+        {
+            base.OnShow(userData);
+            GameEntry.Scene.RegiseterBattleCamera(GetComponent<Camera>());
+        }
+    }
 }

@@ -28,6 +28,7 @@ namespace UnityGameFramework.Runtime
         private EventComponent m_EventComponent = null;
         private readonly SortedDictionary<string, int> m_SceneOrder = new SortedDictionary<string, int>(StringComparer.Ordinal);
         private Camera m_MainCamera = null;
+        private Camera m_BattleCamera = null;
         private Scene m_GameFrameworkScene = default(Scene);
 
         [SerializeField]
@@ -46,6 +47,8 @@ namespace UnityGameFramework.Runtime
                 return m_MainCamera;
             }
         }
+
+        public Camera BattleCamera => m_BattleCamera;
 
         /// <summary>
         /// 游戏框架组件初始化。
@@ -472,6 +475,11 @@ namespace UnityGameFramework.Runtime
         {
             Log.Warning("Unload scene failure, scene asset name '{0}'.", e.SceneAssetName);
             m_EventComponent.Raise(this, UnloadSceneFailureEventArgs.Create(e));
+        }
+
+        public void RegiseterBattleCamera(Camera camera)
+        {
+            m_BattleCamera = camera;
         }
     }
 }

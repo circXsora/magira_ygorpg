@@ -44,21 +44,23 @@ namespace BBYGO
         {
         }
 
-        private void Update()
-        {
-            for (int i = m_ActiveHPBarItems.Count - 1; i >= 0; i--)
-            {
-                HPBarItem hpBarItem = m_ActiveHPBarItems[i];
-                if (hpBarItem.Refresh())
-                {
-                    continue;
-                }
+        //private void Update()
+        //{
+        //    for (int i = m_ActiveHPBarItems.Count - 1; i >= 0; i--)
+        //    {
+        //        HPBarItem hpBarItem = m_ActiveHPBarItems[i];
+        //        if (hpBarItem.Refresh())
+        //        {
+        //            continue;
+        //        }
+        //        else
+        //        {
+        //            HideHPBar(hpBarItem);
+        //        }
+        //    }
+        //}
 
-                HideHPBar(hpBarItem);
-            }
-        }
-
-        public void ShowHPBar(UniversalEntityLogic entity, float fromHPRatio, float toHPRatio)
+        public void ShowHPBar(EntityLogic entity, float fromHPRatio, float toHPRatio)
         {
             if (entity == null)
             {
@@ -73,7 +75,7 @@ namespace BBYGO
                 m_ActiveHPBarItems.Add(hpBarItem);
             }
 
-            hpBarItem.Init(entity, m_CachedCanvas, fromHPRatio, toHPRatio);
+            hpBarItem.Init(entity, entity.Entity.transform.GetComponentInChildren<Canvas>(), fromHPRatio, toHPRatio);
         }
 
         private void HideHPBar(HPBarItem hpBarItem)
@@ -83,7 +85,7 @@ namespace BBYGO
             m_HPBarItemObjectPool.Unspawn(hpBarItem);
         }
 
-        private HPBarItem GetActiveHPBarItem(UniversalEntityLogic entity)
+        private HPBarItem GetActiveHPBarItem(EntityLogic entity)
         {
             if (entity == null)
             {
@@ -101,7 +103,7 @@ namespace BBYGO
             return null;
         }
 
-        private HPBarItem CreateHPBarItem(UniversalEntityLogic entity)
+        private HPBarItem CreateHPBarItem(EntityLogic entity)
         {
             HPBarItem hpBarItem = null;
             HPBarItemObject hpBarItemObject = m_HPBarItemObjectPool.Spawn();
