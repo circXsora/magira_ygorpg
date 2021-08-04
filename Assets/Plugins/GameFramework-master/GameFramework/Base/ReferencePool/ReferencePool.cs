@@ -94,12 +94,33 @@ namespace GameFramework
         /// <summary>
         /// 从引用池获取引用。
         /// </summary>
+        /// <typeparam name="T">引用类型。</typeparam>
+        /// <returns>引用。</returns>
+        public static T AcquireWithoutSpawn<T>() where T : class, IReference
+        {
+            return GetReferenceCollection(typeof(T)).AcquireWithoutSpawn<T>();
+        }
+
+        /// <summary>
+        /// 从引用池获取引用。
+        /// </summary>
         /// <param name="referenceType">引用类型。</param>
         /// <returns>引用。</returns>
         public static IReference Acquire(Type referenceType)
         {
             InternalCheckReferenceType(referenceType);
             return GetReferenceCollection(referenceType).Acquire();
+        }
+
+        /// <summary>
+        /// 从引用池获取引用。
+        /// </summary>
+        /// <typeparam name="T">引用类型。</typeparam>
+        /// <returns>引用。</returns>
+        public static IReference AcquireWithoutSpawn(Type referenceType)
+        {
+            InternalCheckReferenceType(referenceType);
+            return GetReferenceCollection(referenceType).AcquireWithoutSpawn();
         }
 
         /// <summary>
@@ -110,7 +131,7 @@ namespace GameFramework
         {
             if (reference == null)
             {
-                throw new GameFrameworkException("Reference is invalid.");
+                throw new System.ArgumentException("Reference is invalid.");
             }
 
             Type referenceType = reference.GetType();
@@ -188,17 +209,17 @@ namespace GameFramework
 
             if (referenceType == null)
             {
-                throw new GameFrameworkException("Reference type is invalid.");
+                throw new ArgumentNullException("Reference type is invalid.");
             }
 
             if (!referenceType.IsClass || referenceType.IsAbstract)
             {
-                throw new GameFrameworkException("Reference type is not a non-abstract class type.");
+                throw new ArgumentException("Reference type is not a non-abstract class type.");
             }
 
             if (!typeof(IReference).IsAssignableFrom(referenceType))
             {
-                throw new GameFrameworkException(Utility.Text.Format("Reference type '{0}' is invalid.", referenceType.FullName));
+                throw new ArgumentException(string.Format("Reference type '{0}' is invalid.", referenceType.FullName));
             }
         }
 
@@ -206,7 +227,7 @@ namespace GameFramework
         {
             if (referenceType == null)
             {
-                throw new GameFrameworkException("ReferenceType is invalid.");
+                throw new System.ArgumentException("ReferenceType is invalid.");
             }
 
             ReferenceCollection referenceCollection = null;

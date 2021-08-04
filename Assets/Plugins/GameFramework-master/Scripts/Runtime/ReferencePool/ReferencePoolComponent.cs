@@ -15,7 +15,7 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     [DisallowMultipleComponent]
     [AddComponentMenu("Game Framework/ReferencePool")]
-    public sealed class ReferencePoolComponent : GameFrameworkComponent
+    public sealed class ReferencePoolComponent : MonoBehaviour
     {
         [SerializeField]
         private ReferenceStrictCheckType m_EnableStrictCheck = ReferenceStrictCheckType.AlwaysEnable;
@@ -34,7 +34,7 @@ namespace UnityGameFramework.Runtime
                 ReferencePool.EnableStrictCheck = value;
                 if (value)
                 {
-                    Log.Info("Strict checking is enabled for the Reference Pool. It will drastically affect the performance.");
+                    Debug.Log("Strict checking is enabled for the Reference Pool. It will drastically affect the performance.");
                 }
             }
         }

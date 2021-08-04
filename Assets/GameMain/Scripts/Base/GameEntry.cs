@@ -6,18 +6,22 @@
 //------------------------------------------------------------
 
 using UnityEngine;
+using UnityGameFramework.Runtime;
 
 namespace BBYGO
 {
+
     /// <summary>
     /// 游戏入口。
     /// </summary>
     public partial class GameEntry : MonoBehaviour
     {
+
+        public ProcedureComponent Procedure { get; private set; }
+
         private void Start()
         {
-            InitBuiltinComponents();
-            InitCustomComponents();
+            Procedure = GetComponentInChildren<ProcedureComponent>();
         }
     }
 }
