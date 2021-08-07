@@ -17,11 +17,16 @@ namespace BBYGO
     public partial class GameEntry : MonoBehaviour
     {
 
-        public ProcedureComponent Procedure { get; private set; }
-
-        private void Start()
+        public static SoraProcedureComponent Procedure { get; private set; }
+        public static EventComponent Event { get; private set; }
+        public static SoraUIComponent UI { get; private set; }
+        public static SoraResourceComponent Resource { get; private set; }
+        private void Awake()
         {
-            Procedure = GetComponentInChildren<ProcedureComponent>();
+            Procedure = GetComponentInChildren<SoraProcedureComponent>();
+            Event = GetComponentInChildren<EventComponent>();
+            UI = GetComponentInChildren<SoraUIComponent>();
+            Resource = GetComponentInChildren<SoraResourceComponent>();
         }
     }
 }
