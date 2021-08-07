@@ -58,10 +58,6 @@ namespace UnityGameFramework.Runtime
             }
         }
 
-        private void Start()
-        {
-        }
-
         /// <summary>
         /// 获取事件处理函数的数量。
         /// </summary>

@@ -7,28 +7,24 @@
 //  功能:
 //  </copyright>
 //------------------------------------------------------------------------------
-using GameFramework.Fsm;
-using GameFramework.Procedure;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using static BBYGO.SoraProcedureComponent;
+using GameFramework.Event;
 
 namespace BBYGO
 {
-	public class MenuProcedure : SoraProcedureBase
+    public class MenuProcedure : SoraProcedureBase
     {
-        public override void OnInit()
-        {
-            base.OnInit();
-            UberDebug.Log("Menu Init");
-        }
 
-        public override void OnEnter()
+        public override async void OnEnter()
         {
             base.OnEnter();
-            UberDebug.Log("Menu Start");
-            GameEntry.UI.Open(UIType.MenuForm);
+            GameEntry.Event.Subscribe(GameStartButtonClickedEventArgs.EventId, OnGameStartButtonClicked);
+            await GameEntry.UI.Open(UIType.MenuForm);
+        }
+
+        private async void OnGameStartButtonClicked(object sender, GameEventArgs e)
+        {
+            await GameEntry.UI.Close(UIType.MenuForm);
+            ChangeState<GameProcedure>();
         }
 
         public override void OnUpdate(float elapseSeconds, float realElapseSeconds)
@@ -38,7 +34,7 @@ namespace BBYGO
 
         public override void OnLeave(bool isShutdown)
         {
-            GameEntry.UI.Close(UIType.MenuForm);
+            GameEntry.Event.Unsubscribe(GameStartButtonClickedEventArgs.EventId, OnGameStartButtonClicked);
             base.OnLeave(isShutdown);
         }
     }

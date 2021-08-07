@@ -1,5 +1,7 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace BBYGO
@@ -12,17 +14,26 @@ namespace BBYGO
     public class SoraUIComponent : UnityGameFramework.Runtime.GameFrameworkComponent
     {
         public Transform UIParent;
-
-        public void Open(UIType ui)
+        private readonly Dictionary<string, GameObject> uiFormsDic = new Dictionary<string, GameObject>();
+        public async Task Open(UIType ui)
         {
             var uiPrefab = GameEntry.Resource.Load<GameObject>("UI/UIForms/" + ui.ToString());
             var uiInstance = Instantiate(uiPrefab);
+            uiFormsDic.Add(ui.ToString(), uiInstance);
             uiInstance.transform.SetParent(UIParent);
+            var uiForm = uiInstance.GetComponent<SoraUIForm>();
+            await uiForm.Show();
         }
 
-        public void Close(UIType ui)
+        public async Task Close(UIType ui)
         {
-
+            if (uiFormsDic.TryGetValue(ui.ToString(), out var uiInstance))
+            {
+                uiFormsDic.Remove(ui.ToString());
+                var uiForm = uiInstance.GetComponent<SoraUIForm>();
+                await uiForm.Hide();
+                Destroy(uiInstance);
+            }
         }
     }
 }

@@ -9,6 +9,7 @@
 //------------------------------------------------------------------------------
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace BBYGO
@@ -18,6 +19,21 @@ namespace BBYGO
 		public T Load<T>(string path) where T : Object
         {
 			return Resources.Load<T>(path); 
+        }
+
+		public async Task<T> LoadAsync<T>(string path) where T : Object
+		{
+			var loadRequest = Resources.LoadAsync<T>(path);
+            while (!loadRequest.isDone)
+            {
+				await Task.Yield();
+            }
+			return (T) loadRequest.asset;
+		}
+
+		public Task<Texture> LoadBg(SoraUIForm.BgType bgType)
+        {
+			return LoadAsync<Texture>("UI/Background/" + bgType.ToString());
         }
 	}
 }

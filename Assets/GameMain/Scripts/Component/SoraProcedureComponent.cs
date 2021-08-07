@@ -14,66 +14,66 @@ using UnityEngine;
 
 namespace BBYGO
 {
+    public class SoraProcedureBase
+    {
+        /// <summary>
+        /// 初始化有限状态机状态基类的新实例。
+        /// </summary>
+        public SoraProcedureBase()
+        {
+        }
 
+        /// <summary>
+        /// 有限状态机状态初始化时调用。
+        /// </summary>
+        public virtual void OnInit()
+        {
+        }
+
+        /// <summary>
+        /// 有限状态机状态进入时调用。
+        /// </summary>
+        public virtual void OnEnter()
+        {
+        }
+
+        /// <summary>
+        /// 有限状态机状态轮询时调用。
+        /// </summary>
+        /// <param name="elapseSeconds">逻辑流逝时间，以秒为单位。</param>
+        /// <param name="realElapseSeconds">真实流逝时间，以秒为单位。</param>
+        public virtual void OnUpdate(float elapseSeconds, float realElapseSeconds)
+        {
+        }
+
+        /// <summary>
+        /// 有限状态机状态离开时调用。
+        /// </summary>
+        /// <param name="isShutdown">是否是关闭有限状态机时触发。</param>
+        public virtual void OnLeave(bool isShutdown)
+        {
+        }
+
+        /// <summary>
+        /// 有限状态机状态销毁时调用。
+        /// </summary>
+        public virtual void OnDestroy()
+        {
+        }
+
+        /// <summary>
+        /// 切换当前有限状态机状态。
+        /// </summary>
+        /// <typeparam name="TState">要切换到的有限状态机状态类型。</typeparam>
+        public void ChangeState<TState>() where TState : SoraProcedureBase
+        {
+            GameEntry.Procedure.ChangeState<TState>();
+        }
+    }
 
     public class SoraProcedureComponent : UnityGameFramework.Runtime.GameFrameworkComponent
     {
-        public class SoraProcedureBase
-        {
-            /// <summary>
-            /// 初始化有限状态机状态基类的新实例。
-            /// </summary>
-            public SoraProcedureBase()
-            {
-            }
 
-            /// <summary>
-            /// 有限状态机状态初始化时调用。
-            /// </summary>
-            public virtual void OnInit()
-            {
-            }
-
-            /// <summary>
-            /// 有限状态机状态进入时调用。
-            /// </summary>
-            public virtual void OnEnter()
-            {
-            }
-
-            /// <summary>
-            /// 有限状态机状态轮询时调用。
-            /// </summary>
-            /// <param name="elapseSeconds">逻辑流逝时间，以秒为单位。</param>
-            /// <param name="realElapseSeconds">真实流逝时间，以秒为单位。</param>
-            public virtual void OnUpdate(float elapseSeconds, float realElapseSeconds)
-            {
-            }
-
-            /// <summary>
-            /// 有限状态机状态离开时调用。
-            /// </summary>
-            /// <param name="isShutdown">是否是关闭有限状态机时触发。</param>
-            public virtual void OnLeave(bool isShutdown)
-            {
-            }
-
-            /// <summary>
-            /// 有限状态机状态销毁时调用。
-            /// </summary>
-            public virtual void OnDestroy()
-            {
-            }
-
-            /// <summary>
-            /// 切换当前有限状态机状态。
-            /// </summary>
-            /// <typeparam name="TState">要切换到的有限状态机状态类型。</typeparam>
-            public void ChangeState<TState>() where TState : SoraProcedureBase
-            {
-                GameEntry.Procedure.ChangeState<TState>();
-            }
-        }
 
         public SoraProcedureBase CurrentProcedure { get; private set; }
         public readonly SoraProcedureBase InitProcedure = new A_LaunchProcedure();
@@ -99,10 +99,7 @@ namespace BBYGO
 
         private void OnDisable()
         {
-            foreach (var state in _procedureDic.Values)
-            {
-                state.OnLeave(true);
-            }
+            CurrentProcedure.OnLeave(true);
         }
 
         public void ChangeState<TState>() where TState : SoraProcedureBase
@@ -118,7 +115,7 @@ namespace BBYGO
                 var newState = (SoraProcedureBase)Activator.CreateInstance<TState>();
                 newState.OnInit();
                 newState.OnEnter();
-                _procedureDic.Add(nameof(TState), newState);
+                _procedureDic.Add(newState.GetType().Name, newState);
                 CurrentProcedure = newState;
             }
         }
