@@ -18,7 +18,6 @@ namespace BBYGO
         public override void OnEnter()
         {
             base.OnEnter();
-            
         }
     }
 }

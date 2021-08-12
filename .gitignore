@@ -60,3 +60,5 @@ Build/
 crashlytics-build.properties
 
 CodeCoverage/
+Assets/Plugins
+Assets/Plugins/*
