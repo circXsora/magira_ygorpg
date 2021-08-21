@@ -21,6 +21,7 @@ namespace BBYGO
     public class MenuForm : SoraUIForm
     {
         public Button StartButton;
+        public Button EndButton;
         public RawImage BgImage;
 
 
@@ -31,12 +32,16 @@ namespace BBYGO
            {
                GameEntry.Event.Raise(this, GameStartButtonClickedEventArgs.Create());
            });
+            EndButton.onClick.AddListener(() =>
+            {
+                Application.Quit();
+            });
         }
 
         public override async Task Show()
         {
             var bgNames = Enum.GetValues(typeof(BgType));
-            var bg = await GameEntry.Resource.LoadBg((BgType) bgNames.Random1());
+            var bg = await GameEntry.Resource.LoadBg((BgType)bgNames.Random1());
             BgImage.texture = bg;
 
             await base.Show();

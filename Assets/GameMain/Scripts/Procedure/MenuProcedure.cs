@@ -23,8 +23,8 @@ namespace BBYGO
 
         private async void OnGameStartButtonClicked(object sender, GameEventArgs e)
         {
+            ChangeState<GameDemoProcedure>();
             await GameEntry.UI.Close(UIType.MenuForm);
-            ChangeState<GameProcedure>();
         }
 
         public override void OnUpdate(float elapseSeconds, float realElapseSeconds)

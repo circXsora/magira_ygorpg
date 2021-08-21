@@ -17,7 +17,7 @@ namespace BBYGO
         private readonly Dictionary<string, GameObject> uiFormsDic = new Dictionary<string, GameObject>();
         public async Task Open(UIType ui)
         {
-            var uiPrefab = GameEntry.Resource.Load<GameObject>("UI/UIForms/" + ui.ToString());
+            var uiPrefab = await GameEntry.Resource.LoadAsync<GameObject>("UI/UIForms/" + ui.ToString());
             var uiInstance = Instantiate(uiPrefab);
             uiFormsDic.Add(ui.ToString(), uiInstance);
             uiInstance.transform.SetParent(UIParent);

@@ -21,12 +21,16 @@ namespace BBYGO
         public static EventComponent Event { get; private set; }
         public static SoraUIComponent UI { get; private set; }
         public static SoraResourceComponent Resource { get; private set; }
+        public static EnvironmentComponent Environment { get; private set; }
+        public static CreaturesComponent Creatures { get; private set; }
         private void Awake()
         {
             Procedure = GetComponentInChildren<SoraProcedureComponent>();
             Event = GetComponentInChildren<EventComponent>();
             UI = GetComponentInChildren<SoraUIComponent>();
             Resource = GetComponentInChildren<SoraResourceComponent>();
+            Environment = GetComponentInChildren<EnvironmentComponent>();
+            Creatures = GetComponentInChildren<CreaturesComponent>();
         }
     }
 }

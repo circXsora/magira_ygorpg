@@ -24,8 +24,13 @@ namespace BBYGO
 		public async Task<T> LoadAsync<T>(string path) where T : Object
 		{
 			var loadRequest = Resources.LoadAsync<T>(path);
+			float startLoadTime = Time.realtimeSinceStartup;
             while (!loadRequest.isDone)
             {
+                if (Time.realtimeSinceStartup - startLoadTime > 2f)
+                {
+					throw new System.InvalidOperationException("加载超时!"+path);
+                }
 				await Task.Yield();
             }
 			return (T) loadRequest.asset;

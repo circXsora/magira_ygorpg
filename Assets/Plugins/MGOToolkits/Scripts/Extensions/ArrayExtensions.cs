@@ -24,7 +24,7 @@ namespace MGO
             }
             var index = Random.Range(0, source.Count);
             var enumerator = source.GetEnumerator();
-            for (int i = 0; i < index; i++)
+            for (int i = 0; i <= index; i++)
             {
                 enumerator.MoveNext();
             }
