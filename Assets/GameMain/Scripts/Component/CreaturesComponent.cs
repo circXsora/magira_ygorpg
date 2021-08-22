@@ -18,12 +18,13 @@ namespace BBYGO
     public class CreatureInfo
     {
         public int id;
+        public int entryId;
         public CreaturesType type;
     }
 
     public enum CreaturesType
     {
-        Monster, 
+        Monsters, 
         Player
     }
 

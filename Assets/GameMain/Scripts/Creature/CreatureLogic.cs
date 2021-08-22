@@ -29,11 +29,17 @@ namespace BBYGO
             this.info = info;
         }
 
-        public virtual async Task LoadView()
+        public Func<Task> LoadView;
+
+        public void SetView(CreatureView view)
         {
-            var instance = UnityEngine.Object.Instantiate( await GameEntry.Resource.LoadAsync<GameObject>("CreatureTemplates/" + info.type.ToString()), GameEntry.Creatures.transform);
-            view = instance.GetOrAddComponent<PlayerView>();
+            if (this.view != null)
+            {
+                throw new InvalidOperationException($"{this} 禁止赋值已经存在view的logic");
+            }
+            this.view = view;
         }
+        
 
         public virtual async Task Show()
         {

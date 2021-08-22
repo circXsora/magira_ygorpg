@@ -15,33 +15,6 @@ using UnityEngine;
 
 namespace BBYGO
 {
-    //   [CreateAssetMenu(fileName = "EnvironmentContext", menuName = "ScriptableObjects/EnvironmentContext")]
-    //   public class EnvironmentContextSO : SerializedScriptableObject
-    //{
-    //       [SerializeField]
-    //       private GameObject EnvironmentObject;
-    //       [SerializeField]
-    //       private PointInfo[] playerPointInfos;
-    //       [SerializeField]
-    //       private PointInfo[] enemyPointInfos;
-
-    //       [Serializable]
-    //	public class PointInfo 
-    //       {
-    //           [SerializeField]
-    //           private Transform transform;
-    //       }
-
-    //	public PointInfo GetPlayerPoint(int index)
-    //       {
-    //           return playerPointInfos[index];
-    //       }
-
-    //	public PointInfo GetEnemyPoint(int index)
-    //       {
-    //           return enemyPointInfos[index];
-    //       }
-    //   }
     public class EnvironmentContext : SerializedMonoBehaviour
     {
         [SerializeField]
@@ -49,12 +22,19 @@ namespace BBYGO
         [SerializeField]
         private PointInfo[] playerPointInfos;
         [SerializeField]
+        private PointInfo[] playerMonsterPointInfos;
+        [SerializeField]
         private PointInfo[] enemyPointInfos;
 
         [Serializable]
         public class PointInfo
         {
             public Transform transform;
+        }
+
+        public PointInfo GetPlayerMonsterPoint(int index)
+        {
+            return playerMonsterPointInfos[index];
         }
 
         public PointInfo GetPlayerPoint(int index)

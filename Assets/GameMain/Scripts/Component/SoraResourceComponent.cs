@@ -29,9 +29,13 @@ namespace BBYGO
             {
                 if (Time.realtimeSinceStartup - startLoadTime > 2f)
                 {
-					throw new System.InvalidOperationException("加载超时!"+path);
+					throw new System.InvalidOperationException("加载超时:"+path);
                 }
 				await Task.Yield();
+            }
+            if (loadRequest.asset == null)
+            {
+				throw new System.InvalidOperationException($"{path} 路径无效，对象不存在");
             }
 			return (T) loadRequest.asset;
 		}
