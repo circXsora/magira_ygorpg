@@ -23,6 +23,9 @@ namespace BBYGO
         public static SoraResourceComponent Resource { get; private set; }
         public static EnvironmentComponent Environment { get; private set; }
         public static CreaturesComponent Creatures { get; private set; }
+
+        public static Camera MainCamera;
+
         private void Awake()
         {
             Procedure = GetComponentInChildren<SoraProcedureComponent>();
@@ -31,6 +34,7 @@ namespace BBYGO
             Resource = GetComponentInChildren<SoraResourceComponent>();
             Environment = GetComponentInChildren<EnvironmentComponent>();
             Creatures = GetComponentInChildren<CreaturesComponent>();
+            MainCamera = GetComponentInChildren<Camera>();
         }
     }
 }

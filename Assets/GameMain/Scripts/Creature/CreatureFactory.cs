@@ -18,7 +18,7 @@ namespace BBYGO
 {
     public class CreatureFactory
     {
-        internal CreatureLogic Create(CreatureInfo info)
+        public async Task<CreatureLogic> Create(CreatureInfo info)
         {
             CreatureLogic logic;
 
@@ -31,9 +31,11 @@ namespace BBYGO
                         var sb = new StringBuilder();
                         var spriteTask = GameEntry.Resource.LoadAsync<Sprite>("Textures/" + info.type.ToString() + "/" + info.type.ToString() + "_" + info.entryId);
                         var instance = await LoadTemplateInstance();
-                        var creatureBindings = instance.GetComponent<CreatureBindings>();
-                        creatureBindings.mainRenderer.sprite = await spriteTask;
-                        logic.SetView(instance.GetOrAddComponent<PlayerView>());
+                        var view = instance.GetOrAddComponent<PlayerView>();
+
+                        view.Bindings = instance.GetComponent<CreatureBindings>();
+                        view.Bindings.mainRenderer.sprite = await spriteTask;
+                        logic.SetView(view);
                     };
                     return logic;
 

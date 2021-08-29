@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -8,20 +9,33 @@ namespace BBYGO
 {
     public enum UIType
     {
-        MenuForm
+        MenuForm,
+        MonsterCommandMenuForm
     }
 
     public class SoraUIComponent : UnityGameFramework.Runtime.GameFrameworkComponent
     {
         public Transform UIParent;
+        public Canvas MainCanvas { get; private set; }
         private readonly Dictionary<string, GameObject> uiFormsDic = new Dictionary<string, GameObject>();
-        public async Task Open(UIType ui)
+
+        private void Start()
+        {
+            MainCanvas = UIParent.GetComponent<Canvas>();
+        }
+
+        public async Task<SoraUIForm> Load(UIType ui)
         {
             var uiPrefab = await GameEntry.Resource.LoadAsync<GameObject>("UI/UIForms/" + ui.ToString());
             var uiInstance = Instantiate(uiPrefab);
             uiFormsDic.Add(ui.ToString(), uiInstance);
             uiInstance.transform.SetParent(UIParent);
-            var uiForm = uiInstance.GetComponent<SoraUIForm>();
+            return uiInstance.GetComponent<SoraUIForm>();
+        }
+
+        public async Task Open(UIType ui)
+        {
+            var uiForm = await Load(ui);
             await uiForm.Show();
         }
 
@@ -34,6 +48,19 @@ namespace BBYGO
                 await uiForm.Hide();
                 Destroy(uiInstance);
             }
+        }
+
+        public async Task SetBattleCommandMenuTo(CreatureView view)
+        {
+            var key = UIType.MonsterCommandMenuForm.ToString();
+            if (!uiFormsDic.TryGetValue(key, out var formObj))
+            {
+                await Load(UIType.MonsterCommandMenuForm);
+                formObj = uiFormsDic[key];
+            }
+            var form = formObj.GetComponent<MonsterCommandMenuForm>();
+            form.SetToView(view);
+            await form.Show();
         }
     }
 }

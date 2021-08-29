@@ -12,11 +12,20 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace BBYGO
 {
-    public abstract class CreatureView : MonoBehaviour
+    public abstract class CreatureView : MonoBehaviour, IPointerClickHandler
     {
+        public CreatureBindings Bindings { get; set; }
+
+        public event EventHandler<PointerEventData> OnPointerClicked;
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            OnPointerClicked?.Invoke(this, eventData);
+        }
         public virtual async Task Show()
         {
             gameObject.SetActive(true);

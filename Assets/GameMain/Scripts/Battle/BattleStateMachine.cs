@@ -9,6 +9,7 @@
 //------------------------------------------------------------------------------
 using Appccelerate.StateMachine;
 using Appccelerate.StateMachine.AsyncMachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -22,8 +23,8 @@ namespace BBYGO
         {
             BattleInit,
             BattleRunning,
-                PlayerTurn,
-                EnemyTurn,
+            PlayerTurn,
+            EnemyTurn,
             BattleOver
         }
 
@@ -38,7 +39,10 @@ namespace BBYGO
 
         private readonly AsyncPassiveStateMachine<States, Events> machine;
 
-        public BattleStateMachine()
+        public PlayerLogic[] Players { get; }
+        public MonsterLogic[] Enemies { get; }
+
+        public BattleStateMachine(PlayerLogic[] players, MonsterLogic[] enemies)
         {
             var builder = new StateMachineDefinitionBuilder<States, Events>();
 
@@ -62,11 +66,45 @@ namespace BBYGO
             builder.In(States.BattleRunning).On(Events.EnemyAllDead).Goto(States.BattleOver);
             #endregion
 
+            #region Actions
+            builder.In(States.BattleInit).ExecuteOnEntry(async () =>
+            {
+                await Task.Delay(1000);
+                await machine.Fire(Events.BattleInitFinished);
+            });
+
+            builder.In(States.PlayerTurn).ExecuteOnEntry(async () =>
+           {
+               await EnablePlayersAction();
+           }).ExecuteOnExit(async () =>
+           {
+               await DiablePlayersAction();
+           });
+            
+            #endregion
+
             builder
                 .WithInitialState(States.BattleInit);
 
             machine = builder.Build().CreatePassiveStateMachine();
+            Players = players;
+            Enemies = enemies;
+        }
 
+        private async Task EnablePlayersAction()
+        {
+            foreach (var player in Players)
+            {
+                await player.EnableAction();
+            }
+        }
+
+        private async Task DiablePlayersAction()
+        {
+            foreach (var player in Players)
+            {
+                await player.DisableAction();
+            }
         }
 
         public Task Start()

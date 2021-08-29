@@ -54,6 +54,7 @@ namespace BBYGO
             await playerLogic.Show();
             await playerMonster1Logic.Show();
             await playerMonster2Logic.Show();
+            (playerLogic as PlayerLogic).SetMonsters(new List<MonsterLogic>() { playerMonster1Logic as MonsterLogic, playerMonster2Logic as MonsterLogic });
             await enemyLogic.Show();
 
             RunBattleLogic();
@@ -61,7 +62,7 @@ namespace BBYGO
 
         public void RunBattleLogic()
         {
-            var stateMachine = new BattleStateMachine();
+            var stateMachine = new BattleStateMachine(new PlayerLogic[] { playerLogic as PlayerLogic }, new MonsterLogic[] { enemyLogic as MonsterLogic });
             stateMachine.Start();
         }
     }

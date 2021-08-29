@@ -7,11 +7,13 @@
 //  功能:
 //  </copyright>
 //------------------------------------------------------------------------------
+using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace BBYGO
 {
-    internal class PlayerView : CreatureView
+    public class PlayerView : CreatureView
     {
 
     }

@@ -7,16 +7,73 @@
 //  功能:
 //  </copyright>
 //------------------------------------------------------------------------------
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace BBYGO
 {
-    internal class PlayerLogic : CreatureLogic
+    public class PlayerLogic : CreatureLogic
     {
+
+        private bool canInput = false;
+
+        private List<MonsterLogic> monsters;
+
+
 
         public PlayerLogic(CreatureInfo info) : base(info)
         {
+
+        }
+
+        ~PlayerLogic()
+        {
+            var playerView = (View as PlayerView);
+            playerView.OnPointerClicked -= Player_OnPointerClicked;
+            foreach (var monster in monsters)
+            {
+                monster.View.OnPointerClicked -= MyMonster_OnPointerClicked;
+            }
+        }
+
+        public void SetMonsters(List<MonsterLogic> monsters)
+        {
+            this.monsters = monsters;
+            foreach (var monster in monsters)
+            {
+                monster.View.OnPointerClicked += MyMonster_OnPointerClicked; ;
+            }
+        }
+
+        public override void SetView(CreatureView view)
+        {
+            base.SetView(view);
+            var playerView = (view as PlayerView);
+            playerView.OnPointerClicked += Player_OnPointerClicked; ;
+        }
+
+        private void Player_OnPointerClicked(object sender, PointerEventData e)
+        {
+        }
+
+
+        private async void MyMonster_OnPointerClicked(object sender, PointerEventData e)
+        {
+            var monsterView = sender as CreatureView;
+            await GameEntry.UI.SetBattleCommandMenuTo(monsterView);
+        }
+
+        public async Task DisableAction()
+        {
+            canInput = false;
+        }
+
+        public async Task EnableAction()
+        {
+            canInput = true;
         }
 
     }

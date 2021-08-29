@@ -18,10 +18,10 @@ namespace BBYGO
     public abstract class CreatureLogic
     {
         private CreatureInfo info;
-        protected CreatureView view;
+        public CreatureView View { get; private set; }
 
-        public Vector3 Position { get; internal set; }
-        public Quaternion Rotation { get; internal set; }
+        public Vector3 Position { get; set; }
+        public Quaternion Rotation { get; set; }
 
 
         public CreatureLogic(CreatureInfo info)
@@ -31,35 +31,35 @@ namespace BBYGO
 
         public Func<Task> LoadView;
 
-        public void SetView(CreatureView view)
+        public virtual void SetView(CreatureView view)
         {
-            if (this.view != null)
+            if (this.View != null)
             {
                 throw new InvalidOperationException($"{this} 禁止赋值已经存在view的logic");
             }
-            this.view = view;
+            this.View = view;
         }
-        
+
 
         public virtual async Task Show()
         {
-            await view.Show();
+            await View.Show();
         }
 
         public virtual async Task Hide()
         {
-            await view.Hide();
+            await View.Hide();
         }
 
-        internal async void DestroyView()
+        public async void DestroyView()
         {
-            await view.Destroy();
+            await View.Destroy();
         }
 
-        internal void SetPoint(EnvironmentContext.PointInfo pointInfo)
+        public void SetPoint(EnvironmentContext.PointInfo pointInfo)
         {
-            view.transform.position = pointInfo.transform.position;
-            view.transform.rotation = pointInfo.transform.rotation;
+            View.transform.position = pointInfo.transform.position;
+            View.transform.rotation = pointInfo.transform.rotation;
         }
     }
 }

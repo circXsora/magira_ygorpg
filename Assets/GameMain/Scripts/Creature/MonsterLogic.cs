@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace BBYGO
 {
-    internal class MonsterLogic : CreatureLogic
+    public class MonsterLogic : CreatureLogic
     {
 
         public MonsterLogic(CreatureInfo info) : base(info)

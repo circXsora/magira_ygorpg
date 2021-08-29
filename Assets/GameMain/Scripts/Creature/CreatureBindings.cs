@@ -16,5 +16,6 @@ namespace BBYGO
 	public class CreatureBindings : MonoBehaviour
 	{
 		public SpriteRenderer mainRenderer;
+		public Transform CommandMenuPoint;
 	}
 }

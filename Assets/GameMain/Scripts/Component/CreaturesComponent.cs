@@ -37,7 +37,7 @@ namespace BBYGO
         public async Task<CreatureLogic> Load(CreatureInfo info)
         {
             info.id = idGenerator++;
-            var logic = factory.Create(info);
+            var logic = await factory.Create(info);
             await logic.LoadView();
             creaturesDic.Add(info.id, logic);
             return logic;
