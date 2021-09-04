@@ -1,35 +1,37 @@
-﻿//------------------------------------------------------------
+//------------------------------------------------------------
 // Game Framework
 // Copyright © 2013-2021 Jiang Yin. All rights reserved.
 // Homepage: https://gameframework.cn/
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using UnityEngine;
+
 namespace BBYGO
 {
     /// <summary>
     /// 关系类型。
     /// </summary>
-    public enum RelationType : byte
+    public class RelationTypeSO : ScriptableObject
     {
         /// <summary>
         /// 未知的。
         /// </summary>
-        Unknown,
+        //Unknown,
 
         /// <summary>
         /// 友好的。
         /// </summary>
-        Friendly,
+        //Friendly,
 
         /// <summary>
         /// 中立的。
         /// </summary>
-        Neutral,
+        //Neutral,
 
         /// <summary>
         /// 敌对的。
         /// </summary>
-        Hostile
+        //Hostile
     }
 }

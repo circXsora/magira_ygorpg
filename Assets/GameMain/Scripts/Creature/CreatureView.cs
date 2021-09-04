@@ -16,16 +16,29 @@ using UnityEngine.EventSystems;
 
 namespace BBYGO
 {
-    public abstract class CreatureView : MonoBehaviour, IPointerClickHandler
+    public abstract class CreatureView : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
         public CreatureBindings Bindings { get; set; }
 
         public event EventHandler<PointerEventData> OnPointerClicked;
+        public event EventHandler<PointerEventData> OnPointerExited;
+        public event EventHandler<PointerEventData> OnPointerEntered;
 
         public void OnPointerClick(PointerEventData eventData)
         {
             OnPointerClicked?.Invoke(this, eventData);
         }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            OnPointerExited?.Invoke(this, eventData);
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            OnPointerEntered?.Invoke(this, eventData);
+        }
+
         public virtual async Task Show()
         {
             gameObject.SetActive(true);
@@ -38,5 +51,7 @@ namespace BBYGO
         {
             Destroy(gameObject);
         }
+
+
     }
 }

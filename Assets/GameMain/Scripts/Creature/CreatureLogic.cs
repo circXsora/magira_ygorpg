@@ -40,7 +40,6 @@ namespace BBYGO
             this.View = view;
         }
 
-
         public virtual async Task Show()
         {
             await View.Show();

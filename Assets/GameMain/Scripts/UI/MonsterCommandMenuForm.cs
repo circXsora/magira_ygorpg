@@ -35,6 +35,25 @@ namespace BBYGO
             {
                 currentView = view;
                 Panel.anchoredPosition = PositionHelper.WorldPos2CanvasPos(view.Bindings.CommandMenuPoint.position);
+                AttackButton.onClick.AddListener(() =>
+                {
+                    GameEntry.Event.Raise(this, BattleMonsterCommandSendEventArgs.Create(view, GameEntry.Config.Battle.Attack));
+                });
+
+                DefendButton.onClick.AddListener(() =>
+                {
+                    GameEntry.Event.Raise(this, BattleMonsterCommandSendEventArgs.Create(view, GameEntry.Config.Battle.Defend));
+                });
+
+                SkillButton.onClick.AddListener(() =>
+                {
+                    GameEntry.Event.Raise(this, BattleMonsterCommandSendEventArgs.Create(view, GameEntry.Config.Battle.Skill));
+                });
+
+                EscapeButton.onClick.AddListener(() =>
+                {
+                    GameEntry.Event.Raise(this, BattleMonsterCommandSendEventArgs.Create(view, GameEntry.Config.Battle.Escape));
+                });
             }
         }
     }

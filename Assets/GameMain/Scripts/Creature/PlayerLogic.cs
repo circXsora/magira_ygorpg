@@ -7,6 +7,7 @@
 //  功能:
 //  </copyright>
 //------------------------------------------------------------------------------
+using GameFramework.Event;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -26,7 +27,7 @@ namespace BBYGO
 
         public PlayerLogic(CreatureInfo info) : base(info)
         {
-
+            GameEntry.Event.Subscribe(BattleMonsterCommandSendEventArgs.EventId, OnMonsterBattleCommandSend);
         }
 
         ~PlayerLogic()
@@ -36,6 +37,16 @@ namespace BBYGO
             foreach (var monster in monsters)
             {
                 monster.View.OnPointerClicked -= MyMonster_OnPointerClicked;
+            }
+            GameEntry.Event.Unsubscribe(BattleMonsterCommandSendEventArgs.EventId, OnMonsterBattleCommandSend);
+        }
+
+        private void OnMonsterBattleCommandSend(object sender, GameEventArgs e)
+        {
+            var ce = e as BattleMonsterCommandSendEventArgs;
+            if (ce.command == GameEntry.Config.Battle.Attack)
+            {
+                _ = GameEntry.UI.HideBattleCommandMenu();
             }
         }
 

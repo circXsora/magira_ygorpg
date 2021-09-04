@@ -50,6 +50,16 @@ namespace BBYGO
             }
         }
 
+        internal async Task HideBattleCommandMenu()
+        {
+            var key = UIType.MonsterCommandMenuForm.ToString();
+            if (uiFormsDic.TryGetValue(key, out var formObj))
+            {
+                var form = formObj.GetComponent<MonsterCommandMenuForm>();
+                await form.Hide();
+            }
+        }
+
         public async Task SetBattleCommandMenuTo(CreatureView view)
         {
             var key = UIType.MonsterCommandMenuForm.ToString();
