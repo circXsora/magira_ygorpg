@@ -13,29 +13,30 @@ using GameFramework.Event;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace BBYGO
 {
-	public sealed class BattleCreatureBeClickedEventArgs : GameEventArgs
+	public sealed class CreatureViewBeExitedEventArgs : GameEventArgs
 	{
-        public static readonly int EventId = typeof(BattleCreatureBeClickedEventArgs).GetHashCode();
+        public static readonly int EventId = typeof(CreatureViewBeExitedEventArgs).GetHashCode();
         
         public override int Id => EventId;
 
-        public CreatureView view;
+        public PointerEventData data;
 
         /// <summary>
         /// 你不应该调用构造函数而应该调用Create静态方法
         /// </summary>
-        public BattleCreatureBeClickedEventArgs()
+        public CreatureViewBeExitedEventArgs()
         {
 
         }
 
-        public static BattleCreatureBeClickedEventArgs Create(CreatureView view)
+        public static CreatureViewBeExitedEventArgs Create(PointerEventData data)
         {
-            BattleCreatureBeClickedEventArgs eventArgs = ReferencePool.Acquire<BattleCreatureBeClickedEventArgs>();
-            eventArgs.view = view;
+            CreatureViewBeExitedEventArgs eventArgs = ReferencePool.Acquire<CreatureViewBeExitedEventArgs>();
+            eventArgs.data = data;
             return eventArgs;
         }
 

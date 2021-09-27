@@ -34,7 +34,15 @@ namespace BBYGO
             if (currentView != view)
             {
                 currentView = view;
-                Panel.anchoredPosition = PositionHelper.WorldPos2CanvasPos(view.Bindings.CommandMenuPoint.position);
+                try
+                {
+                    Panel.anchoredPosition = PositionHelper.WorldPos2CanvasPos(view.Bindings.CommandMenuPoint.position);
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
                 AttackButton.onClick.AddListener(() =>
                 {
                     GameEntry.Event.Raise(this, BattleMonsterCommandSendEventArgs.Create(view, GameEntry.Config.Battle.Attack));

@@ -18,12 +18,11 @@ namespace BBYGO
 {
     public class PlayerLogic : CreatureLogic
     {
-
-        private bool canInput = false;
-
         private List<MonsterLogic> monsters;
 
+        public List<MonsterLogic> Monsters => monsters;
 
+        private bool canInput = true;
 
         public PlayerLogic(CreatureInfo info) : base(info)
         {
@@ -32,12 +31,6 @@ namespace BBYGO
 
         ~PlayerLogic()
         {
-            var playerView = (View as PlayerView);
-            playerView.OnPointerClicked -= Player_OnPointerClicked;
-            foreach (var monster in monsters)
-            {
-                monster.View.OnPointerClicked -= MyMonster_OnPointerClicked;
-            }
             GameEntry.Event.Unsubscribe(BattleMonsterCommandSendEventArgs.EventId, OnMonsterBattleCommandSend);
         }
 
@@ -55,27 +48,15 @@ namespace BBYGO
             this.monsters = monsters;
             foreach (var monster in monsters)
             {
-                monster.View.OnPointerClicked += MyMonster_OnPointerClicked; ;
+                monster.SetOwner(this);
             }
         }
 
-        public override void SetView(CreatureView view)
+        protected async override void OnMyViewBeClicked(CreatureViewBeExitedEventArgs e)
         {
-            base.SetView(view);
-            var playerView = (view as PlayerView);
-            playerView.OnPointerClicked += Player_OnPointerClicked; ;
+            //await GameEntry.UI.SetBattleCommandMenuTo(View);
         }
 
-        private void Player_OnPointerClicked(object sender, PointerEventData e)
-        {
-        }
-
-
-        private async void MyMonster_OnPointerClicked(object sender, PointerEventData e)
-        {
-            var monsterView = sender as CreatureView;
-            await GameEntry.UI.SetBattleCommandMenuTo(monsterView);
-        }
 
         public async Task DisableAction()
         {

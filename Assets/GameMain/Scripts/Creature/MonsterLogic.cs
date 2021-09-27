@@ -15,22 +15,32 @@ namespace BBYGO
 {
     public class MonsterLogic : CreatureLogic
     {
+        protected MonsterInfo monsterInfo;
         private bool selectable = false;
         private MaterialComponent.MaterialChanger changer;
-        public MonsterLogic(CreatureInfo info) : base(info)
+
+        public MonsterLogic(CreatureInfo info) : this(info, new MonsterInfo())
         {
         }
-        
+
+        public MonsterLogic(CreatureInfo info, MonsterInfo monsterInfo) : base(info)
+        {
+            this.monsterInfo = monsterInfo;
+        }
+
+        public void SetOwner(CreatureLogic owner)
+        {
+            monsterInfo.owner = owner;
+        }
+
         public override void SetView(CreatureView view)
         {
             base.SetView(view);
-            view.OnPointerEntered += OnPointerEntered;
-            view.OnPointerExited += OnPointerExited;
-            view.OnPointerClicked += OnPointerClicked;
             changer = GameEntry.Material.GetMaterialChanger(view.Bindings.mainRenderer);
         }
 
-        private void OnPointerClicked(object sender, PointerEventData e)
+
+        protected async override void OnMyViewBeClicked(CreatureViewBeExitedEventArgs e)
         {
             if (selectable)
             {
@@ -38,19 +48,19 @@ namespace BBYGO
             }
         }
 
-        private void OnPointerExited(object sender, PointerEventData e)
-        {
-            if (selectable)
-            {
-                changer.ChangeTo(MaterialComponent.MaterialType.Origin);
-            }
-        }
-
-        private void OnPointerEntered(object sender, PointerEventData e)
+        protected override void OnMyViewBeEntered(CreatureViewBeExitedEventArgs e)
         {
             if (selectable)
             {
                 changer.ChangeTo(MaterialComponent.MaterialType.Outline);
+            }
+        }
+
+        protected override void OnMyViewBeExited(CreatureViewBeExitedEventArgs e)
+        {
+            if (selectable)
+            {
+                changer.ChangeTo(MaterialComponent.MaterialType.Origin);
             }
         }
 

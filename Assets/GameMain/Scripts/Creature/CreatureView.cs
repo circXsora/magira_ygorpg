@@ -20,23 +20,19 @@ namespace BBYGO
     {
         public CreatureBindings Bindings { get; set; }
 
-        public event EventHandler<PointerEventData> OnPointerClicked;
-        public event EventHandler<PointerEventData> OnPointerExited;
-        public event EventHandler<PointerEventData> OnPointerEntered;
-
         public void OnPointerClick(PointerEventData eventData)
         {
-            OnPointerClicked?.Invoke(this, eventData);
+            GameEntry.Event.Raise(this, CreatureViewBeClickedEventArgs.Create(eventData));
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            OnPointerExited?.Invoke(this, eventData);
+            GameEntry.Event.Raise(this, CreatureViewBeExitedEventArgs.Create(eventData));
         }
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            OnPointerEntered?.Invoke(this, eventData);
+            GameEntry.Event.Raise(this, CreatureViewBeEnteredEventArgs.Create(eventData));
         }
 
         public virtual async Task Show()

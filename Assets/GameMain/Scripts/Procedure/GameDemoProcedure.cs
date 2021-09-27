@@ -62,8 +62,9 @@ namespace BBYGO
 
         public void RunBattleLogic()
         {
-            var stateMachine = new BattleStateMachine(new PlayerLogic[] { playerLogic as PlayerLogic }, new MonsterLogic[] { enemyLogic as MonsterLogic });
-            stateMachine.Start();
+            GameEntry.FSM.RunBattleFSM();
+            //var stateMachine = new BattleStateMachine(new PlayerLogic[] { playerLogic as PlayerLogic }, new MonsterLogic[] { enemyLogic as MonsterLogic });
+            //stateMachine.Start();
         }
     }
 }

@@ -91,6 +91,20 @@ namespace BBYGO
             #region Events
             builder.In(States.PlayerTurn).On(Events.MonsterBeSelect).Execute<CreatureView>((view) =>
             {
+                var playerMonsterLists = Players.Select(p => p.Monsters).ToList();
+                if (playerMonsterLists.Count > 0)
+                {
+                    var allPlayerMonstesrs = playerMonsterLists[0];
+                    for (int i = 1; i < playerMonsterLists.Count; i++)
+                    {
+                        allPlayerMonstesrs.Concat(playerMonsterLists[i]);
+                    }
+                    var playerMonster = allPlayerMonstesrs.First(m => m.View == view);
+                    if (playerMonster != null)
+                    {
+                        _ = GameEntry.UI.SetBattleCommandMenuTo(view);
+                    }
+                }
                 var enemy = Enemies.First(e => e.View == view);
                 if (enemy != null)
                 {
@@ -108,6 +122,7 @@ namespace BBYGO
 
             SubscribeEvents();
         }
+
         ~BattleStateMachine()
         {
             UnSubscribeEvnets();
@@ -116,19 +131,19 @@ namespace BBYGO
         private void SubscribeEvents()
         {
             GameEntry.Event.Subscribe(BattleMonsterCommandSendEventArgs.EventId, OnMonsterBattleCommandSend);
-            GameEntry.Event.Subscribe(BattleCreatureBeClickedEventArgs.EventId, OnBattleCreatureBeClicked);
+            GameEntry.Event.Subscribe(CreatureViewBeClickedEventArgs.EventId, OnBattleCreatureBeClicked);
         }
 
         private void UnSubscribeEvnets()
         {
             GameEntry.Event.Unsubscribe(BattleMonsterCommandSendEventArgs.EventId, OnMonsterBattleCommandSend);
-            GameEntry.Event.Unsubscribe(BattleCreatureBeClickedEventArgs.EventId, OnBattleCreatureBeClicked);
+            GameEntry.Event.Unsubscribe(CreatureViewBeClickedEventArgs.EventId, OnBattleCreatureBeClicked);
         }
 
         private void OnBattleCreatureBeClicked(object sender, GameEventArgs e)
         {
-            var @evnet = e as BattleCreatureBeClickedEventArgs;
-            _ = machine.Fire(Events.MonsterBeSelect, evnet.view);
+            var beClickedEvent = e as CreatureViewBeClickedEventArgs;
+            _ = machine.Fire(Events.MonsterBeSelect, beClickedEvent.data);
         }
 
         private void OnMonsterBattleCommandSend(object sender, GameEventArgs e)

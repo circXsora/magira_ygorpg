@@ -7,6 +7,7 @@
 //  功能:
 //  </copyright>
 //------------------------------------------------------------------------------
+using GameFramework.Event;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace BBYGO
 {
     public abstract class CreatureLogic
     {
-        private CreatureInfo info;
+        protected CreatureInfo info;
         public CreatureView View { get; private set; }
 
         public Vector3 Position { get; set; }
@@ -27,6 +28,50 @@ namespace BBYGO
         public CreatureLogic(CreatureInfo info)
         {
             this.info = info;
+            GameEntry.Event.Subscribe(CreatureViewBeClickedEventArgs.EventId, OnViewBeClicked);
+            GameEntry.Event.Subscribe(CreatureViewBeEnteredEventArgs.EventId, OnViewBeEntered);
+            GameEntry.Event.Subscribe(CreatureViewBeExitedEventArgs.EventId, OnViewBeExited);
+        }
+
+        ~CreatureLogic()
+        {
+            GameEntry.Event.Unsubscribe(CreatureViewBeClickedEventArgs.EventId, OnViewBeClicked);
+            GameEntry.Event.Unsubscribe(CreatureViewBeEnteredEventArgs.EventId, OnViewBeEntered);
+            GameEntry.Event.Unsubscribe(CreatureViewBeExitedEventArgs.EventId, OnViewBeExited);
+        }
+
+
+        private void OnViewBeClicked(object sender, GameEventArgs e)
+        {
+            OnMyViewBeClicked(e as CreatureViewBeExitedEventArgs);
+        }
+
+        protected virtual void OnMyViewBeClicked(CreatureViewBeExitedEventArgs e)
+        {
+
+        }
+
+        private void OnViewBeEntered(object sender, GameEventArgs e)
+        {
+            OnMyViewBeEntered(e as CreatureViewBeExitedEventArgs);
+        }
+
+        protected virtual void OnMyViewBeEntered(CreatureViewBeExitedEventArgs e)
+        {
+
+        }
+
+        private void OnViewBeExited(object sender, GameEventArgs e)
+        {
+            if (sender.Equals(View))
+            {
+                OnMyViewBeExited(e as CreatureViewBeExitedEventArgs);
+            }
+        }
+
+        protected virtual void OnMyViewBeExited(CreatureViewBeExitedEventArgs e)
+        {
+
         }
 
         public Func<Task> LoadView;
