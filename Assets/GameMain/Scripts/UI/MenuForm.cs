@@ -23,14 +23,14 @@ namespace BBYGO
         public Button StartButton;
         public Button EndButton;
         public RawImage BgImage;
-
+        public EventSO enterGameEvent;
 
 
         private void Awake()
         {
             StartButton.onClick.AddListener(() =>
            {
-               GameEntry.Event.Raise(this, GameStartButtonClickedEventArgs.Create());
+               enterGameEvent.Raise(this, null);
            });
             EndButton.onClick.AddListener(() =>
             {

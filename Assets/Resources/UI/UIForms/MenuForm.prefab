@@ -223,6 +223,7 @@ MonoBehaviour:
   StartButton: {fileID: 6260086196463832755}
   EndButton: {fileID: 8880252430523045961}
   BgImage: {fileID: 5061362177306021145}
+  enterGameEvent: {fileID: 11400000, guid: 4debdd48c71258a43ac6ddec81ef33fc, type: 2}
 --- !u!1 &2464647832681087721
 GameObject:
   m_ObjectHideFlags: 0
