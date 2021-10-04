@@ -18,7 +18,34 @@ namespace BBYGO
 {
     public class CreatureFactory
     {
-        public async Task<CreatureLogic> Create(CreatureInfo info)
+        public CreatureView CreateView(CreatureInfo info)
+        {
+            CreatureView view;
+
+            switch (info.type)
+            {
+                case CreaturesType.Monsters:
+                    { 
+                        var instance = GameObject.Instantiate(GameEntry.Creatures.MonsterTemplate, GameEntry.Creatures.transform);
+                        view = instance.GetOrAddComponent<MonsterView>();
+                        var sprite = GameEntry.Config.sprite.GetMonsterSprite(info.entryId);
+                        view.Bindings.mainRenderer.sprite = sprite;
+                    }
+                    break;
+                case CreaturesType.Player:
+                    {
+                        var instance = GameObject.Instantiate(GameEntry.Creatures.PlayerTemplate, GameEntry.Creatures.transform);
+                        view = instance.GetOrAddComponent<PlayerView>();
+                    }
+                    break;
+                default:
+                    throw new NotImplementedException("还没有这种类型的View");
+            }
+
+            return view;
+        }
+
+        public CreatureLogic CreateLogic(CreatureInfo info)
         {
             CreatureLogic logic;
 
@@ -26,35 +53,12 @@ namespace BBYGO
             {
                 case CreaturesType.Monsters:
                     logic = new MonsterLogic(info);
-                    logic.LoadView += async () =>
-                    {
-                        var sb = new StringBuilder();
-                        var spriteTask = GameEntry.Resource.LoadAsync<Sprite>("Textures/" + info.type.ToString() + "/" + info.type.ToString() + "_" + info.entryId);
-                        var instance = await LoadTemplateInstance();
-                        var view = instance.GetOrAddComponent<PlayerView>();
-
-                        view.Bindings = instance.GetComponent<CreatureBindings>();
-                        view.Bindings.mainRenderer.sprite = await spriteTask;
-                        logic.SetView(view);
-                    };
                     return logic;
-
                 case CreaturesType.Player:
                     logic = new PlayerLogic(info);
-                    logic.LoadView += async () =>
-                    {
-                        logic.SetView((await LoadTemplateInstance()).GetOrAddComponent<PlayerView>());
-                    };
                     return logic;
                 default:
-                    return null;
-            }
-
-            async Task<GameObject> LoadTemplateInstance()
-            {
-                var reource = await GameEntry.Resource.LoadAsync<GameObject>("CreatureTemplates/" + info.type.ToString());
-                var instance = UnityEngine.Object.Instantiate(reource, GameEntry.Creatures.transform);
-                return instance;
+                    throw new NotImplementedException("还没有这种类型的Logic");
             }
         }
     }

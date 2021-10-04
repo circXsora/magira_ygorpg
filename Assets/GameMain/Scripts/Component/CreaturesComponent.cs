@@ -38,27 +38,47 @@ namespace BBYGO
         private static int idGenerator = 0;
         private readonly Dictionary<int, CreatureLogic> creaturesDic = new Dictionary<int, CreatureLogic>();
         private readonly CreatureFactory factory = new CreatureFactory();
+        private EventSO LoadCreatureCompelteEvent;
 
-        public async Task<CreatureLogic> Load(CreatureInfo info)
+        [SerializeField]
+        private GameObject playerTemplate;
+
+        public GameObject PlayerTemplate => playerTemplate;
+
+        [SerializeField]
+        private GameObject monsterTemplate;
+
+        public GameObject MonsterTemplate => monsterTemplate;
+
+        private CreatureLogic CreateLogic(CreatureInfo info)
         {
-            info.id = idGenerator++;
-            var logic = await factory.Create(info);
-            await logic.LoadView();
-            creaturesDic.Add(info.id, logic);
+            var logic = factory.CreateLogic(info);
             return logic;
         }
 
-        public async Task Release(int id)
+        private CreatureView CreateView(CreatureInfo info)
         {
-            await Task.Run(() =>
+            var view = factory.CreateView(info);
+            return view;
+        }
+
+
+        public CreatureLogic Load(CreatureInfo info)
+        {
+            info.id = idGenerator++;
+            var logic = CreateLogic(info);
+            var view = CreateView(info);
+            logic.SetView(view);
+            return logic;
+        }
+
+        public void DestroyCreature(int creatureId)
+        {
+            if (creaturesDic.TryGetValue(creatureId, out var creatureLogic))
             {
-                if (creaturesDic.TryGetValue(id, out var creatureLogic))
-                {
-                    creaturesDic.Remove(id);
-                    creatureLogic.DestroyView();
-                }
+                creaturesDic.Remove(creatureId);
+                creatureLogic.DestroyView();
             }
-            );
         }
     }
 }

@@ -14,16 +14,16 @@ using UnityEngine;
 
 namespace BBYGO
 {
-	public class MaterialComponent : UnityGameFramework.Runtime.GameFrameworkComponent
-	{
-		public Material OutlineMaterial;
-		public Material DissolveMaterial;
+    public class MaterialComponent : UnityGameFramework.Runtime.GameFrameworkComponent
+    {
+        public Material OutlineMaterial;
+        public Material DissolveMaterial;
 
         public enum MaterialType
         {
-			Origin,
-			Outline,
-			Dissolve,
+            Origin,
+            Outline,
+            Dissolve,
         }
 
         public class MaterialChanger
@@ -34,7 +34,7 @@ namespace BBYGO
             public MaterialChanger(Renderer renderer)
             {
                 this.renderer = renderer;
-                origin = renderer.material;
+                origin = Instantiate(renderer.material);
             }
 
             public void ChangeTo(MaterialType materialType)
@@ -56,9 +56,9 @@ namespace BBYGO
             }
         }
 
-		public MaterialChanger GetMaterialChanger(Renderer renderer)
+        public MaterialChanger GetMaterialChanger(Renderer renderer)
         {
             return new MaterialChanger(renderer);
         }
-	}
+    }
 }

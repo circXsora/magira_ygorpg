@@ -25,22 +25,24 @@ namespace BBYGO
         private bool canInput = true;
 
         public PlayerLogic(CreatureInfo info) : base(info)
-        {
-            GameEntry.Event.Subscribe(BattleMonsterCommandSendEventArgs.EventId, OnMonsterBattleCommandSend);
-        }
+        { }
+        //public PlayerLogic(CreatureInfo info) : base(info)
+        //{
+        //    GameEntry.Event.Subscribe(BattleMonsterCommandSendEventArgs.EventId, OnMonsterBattleCommandSend);
+        //}
 
-        ~PlayerLogic()
-        {
-            GameEntry.Event.Unsubscribe(BattleMonsterCommandSendEventArgs.EventId, OnMonsterBattleCommandSend);
-        }
+        //~PlayerLogic()
+        //{
+        //    GameEntry.Event.Unsubscribe(BattleMonsterCommandSendEventArgs.EventId, OnMonsterBattleCommandSend);
+        //}
 
         private void OnMonsterBattleCommandSend(object sender, GameEventArgs e)
         {
-            var ce = e as BattleMonsterCommandSendEventArgs;
-            if (ce.command == GameEntry.Config.Battle.Attack)
-            {
-                _ = GameEntry.UI.HideBattleCommandMenu();
-            }
+            //var ce = e as BattleMonsterCommandSendEventArgs;
+            //if (ce.command == GameEntry.Config.Battle.Attack)
+            //{
+            //    _ = GameEntry.UI.HideBattleCommandMenu();
+            //}
         }
 
         public void SetMonsters(List<MonsterLogic> monsters)
@@ -52,10 +54,10 @@ namespace BBYGO
             }
         }
 
-        protected async override void OnMyViewBeClicked(CreatureViewBeExitedEventArgs e)
-        {
-            //await GameEntry.UI.SetBattleCommandMenuTo(View);
-        }
+        //protected async override void OnMyViewBeClicked(CreatureViewBeExitedEventArgs e)
+        //{
+        //    //await GameEntry.UI.SetBattleCommandMenuTo(View);
+        //}
 
 
         public async Task DisableAction()

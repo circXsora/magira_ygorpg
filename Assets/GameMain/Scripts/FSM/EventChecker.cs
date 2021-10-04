@@ -13,6 +13,7 @@ namespace BBYGO
         [RequiredField]
         public BBParameter<EventSO> @event;
 
+        public bool checkSenderValue = false;
         protected override string info
         {
             get { return string.Format("Event {0} Raised", @event.ToString()); }
@@ -20,24 +21,30 @@ namespace BBYGO
 
         protected override string OnInit()
         {
+            @event.value.AddListener(OnRaise);
             return null;
         }
 
         protected override void OnEnable()
         {
             base.OnEnable();
-            @event.value.AddListener(OnRaise);
         }
 
         protected override void OnDisable()
         {
-            @event.value.RemoveListener(OnRaise);
             base.OnDisable();
         }
 
         private void OnRaise(object sender, object e)
         {
-            YieldReturn(true);
+            if (!checkSenderValue)
+            {
+                YieldReturn(true);
+            }
+            else if (sender == blackboard.GetVariable("SenderCompareObject").value)
+            {
+                YieldReturn(true);
+            }
         }
 
         protected override bool OnCheck() { return false; }

@@ -28,56 +28,55 @@ namespace BBYGO
         public CreatureLogic(CreatureInfo info)
         {
             this.info = info;
-            GameEntry.Event.Subscribe(CreatureViewBeClickedEventArgs.EventId, OnViewBeClicked);
-            GameEntry.Event.Subscribe(CreatureViewBeEnteredEventArgs.EventId, OnViewBeEntered);
-            GameEntry.Event.Subscribe(CreatureViewBeExitedEventArgs.EventId, OnViewBeExited);
+            //GameEntry.Event.Subscribe(CreatureViewBeClickedEventArgs.EventId, OnViewBeClicked);
+            //GameEntry.Event.Subscribe(CreatureViewBeEnteredEventArgs.EventId, OnViewBeEntered);
+            //GameEntry.Event.Subscribe(CreatureViewBeExitedEventArgs.EventId, OnViewBeExited);
         }
 
         ~CreatureLogic()
         {
-            GameEntry.Event.Unsubscribe(CreatureViewBeClickedEventArgs.EventId, OnViewBeClicked);
-            GameEntry.Event.Unsubscribe(CreatureViewBeEnteredEventArgs.EventId, OnViewBeEntered);
-            GameEntry.Event.Unsubscribe(CreatureViewBeExitedEventArgs.EventId, OnViewBeExited);
+            //GameEntry.Event.Unsubscribe(CreatureViewBeClickedEventArgs.EventId, OnViewBeClicked);
+            //GameEntry.Event.Unsubscribe(CreatureViewBeEnteredEventArgs.EventId, OnViewBeEntered);
+            //GameEntry.Event.Unsubscribe(CreatureViewBeExitedEventArgs.EventId, OnViewBeExited);
         }
 
 
-        private void OnViewBeClicked(object sender, GameEventArgs e)
-        {
-            OnMyViewBeClicked(e as CreatureViewBeExitedEventArgs);
-        }
+        //private void OnViewBeClicked(object sender, GameEventArgs e)
+        //{
+        //    OnMyViewBeClicked(e as CreatureViewBeExitedEventArgs);
+        //}
 
-        protected virtual void OnMyViewBeClicked(CreatureViewBeExitedEventArgs e)
-        {
+        //protected virtual void OnMyViewBeClicked(CreatureViewBeExitedEventArgs e)
+        //{
 
-        }
+        //}
 
-        private void OnViewBeEntered(object sender, GameEventArgs e)
-        {
-            OnMyViewBeEntered(e as CreatureViewBeExitedEventArgs);
-        }
+        //private void OnViewBeEntered(object sender, GameEventArgs e)
+        //{
+        //    OnMyViewBeEntered(e as CreatureViewBeExitedEventArgs);
+        //}
 
-        protected virtual void OnMyViewBeEntered(CreatureViewBeExitedEventArgs e)
-        {
+        //protected virtual void OnMyViewBeEntered(CreatureViewBeExitedEventArgs e)
+        //{
 
-        }
+        //}
 
-        private void OnViewBeExited(object sender, GameEventArgs e)
-        {
-            if (sender.Equals(View))
-            {
-                OnMyViewBeExited(e as CreatureViewBeExitedEventArgs);
-            }
-        }
+        //private void OnViewBeExited(object sender, GameEventArgs e)
+        //{
+        //    if (sender.Equals(View))
+        //    {
+        //        OnMyViewBeExited(e as CreatureViewBeExitedEventArgs);
+        //    }
+        //}
 
-        protected virtual void OnMyViewBeExited(CreatureViewBeExitedEventArgs e)
-        {
+        //protected virtual void OnMyViewBeExited(CreatureViewBeExitedEventArgs e)
+        //{
 
-        }
-
-        public Func<Task> LoadView;
+        //}
 
         public virtual void SetView(CreatureView view)
         {
+            Debug.Assert(view != null);
             if (this.View != null)
             {
                 throw new InvalidOperationException($"{this} 禁止赋值已经存在view的logic");
@@ -100,8 +99,12 @@ namespace BBYGO
             await View.Destroy();
         }
 
-        public void SetPoint(EnvironmentContext.PointInfo pointInfo)
+        public void SetPoint(EnvironmentBindings.PointInfo pointInfo)
         {
+            if (View == null)
+            {
+                UberDebug.LogError("VIEW为空");
+            }
             View.transform.position = pointInfo.transform.position;
             View.transform.rotation = pointInfo.transform.rotation;
         }

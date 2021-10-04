@@ -5,6 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
@@ -16,9 +17,7 @@ namespace BBYGO
     /// </summary>
     public partial class GameEntry : MonoBehaviour
     {
-
-        public static SoraProcedureComponent Procedure { get; private set; }
-        public static EventComponent Event { get; private set; }
+        public static SoraEventComponent Event { get; private set; }
         public static SoraUIComponent UI { get; private set; }
         public static SoraResourceComponent Resource { get; private set; }
         public static EnvironmentComponent Environment { get; private set; }
@@ -26,12 +25,14 @@ namespace BBYGO
         public static ConfigComponent Config { get; private set; }
         public static MaterialComponent Material { get; private set; }
         public static FSMComponent FSM { get; private set; }
+        public static ContextComponent Context { get; private set; }
         public static Camera MainCamera;
 
         private void Awake()
         {
-            Procedure = GetComponentInChildren<SoraProcedureComponent>();
-            Event = GetComponentInChildren<EventComponent>();
+            TaskScheduler.UnobservedTaskException += (s, e) => Debug.LogException(e.Exception);
+
+            Event = GetComponentInChildren<SoraEventComponent>();
             UI = GetComponentInChildren<SoraUIComponent>();
             Resource = GetComponentInChildren<SoraResourceComponent>();
             Environment = GetComponentInChildren<EnvironmentComponent>();
@@ -40,6 +41,7 @@ namespace BBYGO
             MainCamera = GetComponentInChildren<Camera>();
             Material = GetComponentInChildren<MaterialComponent>();
             FSM = GetComponentInChildren<FSMComponent>();
+            Context = GetComponentInChildren<ContextComponent>();
         }
     }
 }

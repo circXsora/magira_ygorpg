@@ -1,38 +1,61 @@
+using BBYGO;
 using NodeCanvas.Framework;
+using System.Threading.Tasks;
 using ParadoxNotion.Design;
+using System.Collections.Generic;
+using System.ComponentModel;
+using UnityEngine;
 
+namespace NodeCanvas.Tasks.Actions
+{
 
-namespace NodeCanvas.Tasks.Actions{
+    public class InitBattle : ActionTask
+    {
+        private BattleContext battleContext;
+        public EventSO InitBattleCompleteEvent;
+        public async System.Threading.Tasks.Task Load()
+        {
+            battleContext.Init();
+            var loadEnvTask = GameEntry.Environment.Load(EnvironmentType.Environment_1);
+            battleContext.player = GameEntry.Creatures.Load(new CreatureInfo() { type = CreaturesType.Player }) as PlayerLogic;
+            battleContext.playerMonsters.Add(GameEntry.Creatures.Load(new CreatureInfo() { type = CreaturesType.Monsters, entryId = 1 }) as MonsterLogic);
+            battleContext.playerMonsters.Add(GameEntry.Creatures.Load(new CreatureInfo() { type = CreaturesType.Monsters, entryId = 2 }) as MonsterLogic);
+            battleContext.enemyMonsters.Add(GameEntry.Creatures.Load(new CreatureInfo() { type = CreaturesType.Monsters, entryId = 3 }) as MonsterLogic);
+             
+            battleContext.environment = await loadEnvTask;
+            var contexts = GameEntry.Environment.GetEnvironmentContext(EnvironmentType.Environment_1);
+            var context = contexts[0];
 
-	public class InitBattle : ActionTask{
+            battleContext.player.SetPoint(context.GetPlayerPoint(0));
+            for (int i = 0; i < battleContext.playerMonsters.Count; i++)
+            {
+                battleContext.playerMonsters[i].SetPoint(context.GetPlayerMonsterPoint(i));
+            }
+            for (int i = 0; i < battleContext.enemyMonsters.Count; i++)
+            {
+                battleContext.enemyMonsters[i].SetPoint(context.GetEnemyPoint(i));
+            }
 
-		//Use for initialization. This is called only once in the lifetime of the task.
-		//Return null if init was successfull. Return an error string otherwise
-		protected override string OnInit(){
-			UberDebug.Log("Battle Init!");
-			return null;
-		}
+            battleContext.player.SetMonsters(battleContext.playerMonsters);
+            await battleContext.player.Show();
+            for (int i = 0; i < battleContext.playerMonsters.Count; i++)
+            {
+                await battleContext.playerMonsters[i].Show();
+            }
+            for (int i = 0; i < battleContext.enemyMonsters.Count; i++)
+            {
+                await battleContext.enemyMonsters[i].Show();
+            }
 
-		//This is called once each time the task is enabled.
-		//Call EndAction() to mark the action as finished, either in success or failure.
-		//EndAction can be called from anywhere.
-		protected override void OnExecute(){
-			EndAction(true);
-		}
+            InitBattleCompleteEvent?.Raise(this, battleContext);
+        }
 
-		//Called once per frame while the action is active.
-		protected override void OnUpdate(){
-			
-		}
-
-		//Called when the task is disabled.
-		protected override void OnStop(){
-			
-		}
-
-		//Called when the task is paused.
-		protected override void OnPause(){
-			
-		}
-	}
+        protected override void OnExecute()
+        {
+            battleContext = GameEntry.Context.Battle;
+            battleContext.Init();
+            _ = Load();
+            base.OnExecute();
+        }
+    }
 }

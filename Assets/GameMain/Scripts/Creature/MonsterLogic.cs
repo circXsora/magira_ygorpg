@@ -7,6 +7,7 @@
 //  功能:
 //  </copyright>
 //------------------------------------------------------------------------------
+using NodeCanvas.Framework;
 using System;
 using System.Threading.Tasks;
 using UnityEngine.EventSystems;
@@ -16,8 +17,7 @@ namespace BBYGO
     public class MonsterLogic : CreatureLogic
     {
         protected MonsterInfo monsterInfo;
-        private bool selectable = false;
-        private MaterialComponent.MaterialChanger changer;
+        protected Blackboard blackboard;
 
         public MonsterLogic(CreatureInfo info) : this(info, new MonsterInfo())
         {
@@ -36,42 +36,9 @@ namespace BBYGO
         public override void SetView(CreatureView view)
         {
             base.SetView(view);
-            changer = GameEntry.Material.GetMaterialChanger(view.Bindings.mainRenderer);
-        }
-
-
-        protected async override void OnMyViewBeClicked(CreatureViewBeExitedEventArgs e)
-        {
-            if (selectable)
-            {
-
-            }
-        }
-
-        protected override void OnMyViewBeEntered(CreatureViewBeExitedEventArgs e)
-        {
-            if (selectable)
-            {
-                changer.ChangeTo(MaterialComponent.MaterialType.Outline);
-            }
-        }
-
-        protected override void OnMyViewBeExited(CreatureViewBeExitedEventArgs e)
-        {
-            if (selectable)
-            {
-                changer.ChangeTo(MaterialComponent.MaterialType.Origin);
-            }
-        }
-
-        public async Task ShowSelectable()
-        {
-            selectable = true;
-        }
-
-        public async Task HideSelectable()
-        {
-            selectable = false;
+            blackboard = view.GetComponent<Blackboard>();
+            blackboard.SetVariableValue(nameof(MaterialComponent.MaterialChanger), view.MaterialChanger);
+            blackboard.SetVariableValue("SenderCompareObject", view);
         }
     }
 }

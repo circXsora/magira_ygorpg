@@ -15,16 +15,9 @@ using UnityEngine;
 
 namespace BBYGO
 {
-    public class ConfigComponent : UnityGameFramework.Runtime.GameFrameworkComponent
+    public class ContextComponent : UnityGameFramework.Runtime.GameFrameworkComponent
     {
-        [Serializable]
-        public class SpriteConfig
-        {
-            [SerializeField]
-            private SpriteConfigSO monsterSpriteConfig;
-
-            public Sprite GetMonsterSprite(int id) => monsterSpriteConfig.sprites[id];
-        }
-        public SpriteConfig sprite;
+        private BattleContext battle = new BattleContext();
+        public BattleContext Battle => battle;
     }
 }

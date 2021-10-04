@@ -45,22 +45,22 @@ namespace BBYGO
                 }
                 AttackButton.onClick.AddListener(() =>
                 {
-                    GameEntry.Event.Raise(this, BattleMonsterCommandSendEventArgs.Create(view, GameEntry.Config.Battle.Attack));
+                    //GameEntry.Event.Raise(this, BattleMonsterCommandSendEventArgs.Create(view, GameEntry.Config.Battle.Attack));
                 });
 
                 DefendButton.onClick.AddListener(() =>
                 {
-                    GameEntry.Event.Raise(this, BattleMonsterCommandSendEventArgs.Create(view, GameEntry.Config.Battle.Defend));
+                    //GameEntry.Event.Raise(this, BattleMonsterCommandSendEventArgs.Create(view, GameEntry.Config.Battle.Defend));
                 });
 
                 SkillButton.onClick.AddListener(() =>
                 {
-                    GameEntry.Event.Raise(this, BattleMonsterCommandSendEventArgs.Create(view, GameEntry.Config.Battle.Skill));
+                    //GameEntry.Event.Raise(this, BattleMonsterCommandSendEventArgs.Create(view, GameEntry.Config.Battle.Skill));
                 });
 
                 EscapeButton.onClick.AddListener(() =>
                 {
-                    GameEntry.Event.Raise(this, BattleMonsterCommandSendEventArgs.Create(view, GameEntry.Config.Battle.Escape));
+                    //GameEntry.Event.Raise(this, BattleMonsterCommandSendEventArgs.Create(view, GameEntry.Config.Battle.Escape));
                 });
             }
         }

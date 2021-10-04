@@ -23,17 +23,21 @@ namespace BBYGO
     {
         [SerializeField]
         private Transform parent;
-        Dictionary<string, GameObject> environmentDic = new Dictionary<string, GameObject>();
-		public async Task Load(EnvironmentType environment)
+        [SerializeField]
+        private EventSO LoadEnvironmentComplete;
+        private Dictionary<string, GameObject> environmentDic = new Dictionary<string, GameObject>();
+		public async Task<GameObject> Load(EnvironmentType environment)
         {
             var env = await GameEntry.Resource.LoadAsync<GameObject>("Environments/" + environment.ToString());
             var instance = Instantiate(env, parent);
             environmentDic.Add(environment.ToString(), instance);
+            LoadEnvironmentComplete?.Raise(this, instance);
+            return instance;
         }
 
-        public EnvironmentContext[] GetEnvironmentContext(EnvironmentType environmentType)
+        public EnvironmentBindings[] GetEnvironmentContext(EnvironmentType environmentType)
         {
-            return environmentDic[environmentType.ToString()].GetComponentsInChildren<EnvironmentContext>();
+            return environmentDic[environmentType.ToString()].GetComponentsInChildren<EnvironmentBindings>();
         }
 
         public async Task Release(EnvironmentType environment)

@@ -29,7 +29,7 @@ public static class UnityExtension
         {
             component = gameObject.AddComponent<T>();
         }
-
+        Debug.Assert(component != null);
         return component;
     }
 

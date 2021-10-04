@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
   m_Name: BattleFSM
   m_EditorClassIdentifier: 
-  _serializedGraph: '{"type":"NodeCanvas.StateMachines.FSM","nodes":[{"_actionList":{"executionMode":1,"actions":[{"$type":"NodeCanvas.Tasks.Actions.InitBattle"}]},"_name":"BattleStart","_position":{"x":202.0,"y":154.0},"$type":"NodeCanvas.StateMachines.ActionState"}],"connections":[],"canvasGroups":[],"localBlackboard":{"_variables":{}}}'
-  _objectReferences: []
+  _serializedGraph: '{"type":"NodeCanvas.StateMachines.FSM","nodes":[{"_actionList":{"executionMode":1,"actions":[{"InitBattleCompleteEvent":1,"$type":"NodeCanvas.Tasks.Actions.InitBattle"}]},"_name":"BattleStart","_position":{"x":200.0,"y":154.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"0"},{"_actionList":{"executionMode":1,"actions":[{"$type":"NodeCanvas.Tasks.Actions.PlayerTurn"}]},"_name":"\u73a9\u5bb6\u56de\u5408","_position":{"x":366.0,"y":322.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"1"}],"connections":[{"_condition":{"event":{"_value":1},"$type":"BBYGO.EventChecker"},"_sourceNode":{"$ref":"0"},"_targetNode":{"$ref":"1"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"canvasGroups":[],"localBlackboard":{"_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: fa45afa5a2650d0438219390fb206ace, type: 2}
   _graphSource:
     _version: 3.2
     _category: 
     _comments: 
-    _translation: {x: 204, y: 56}
+    _translation: {x: 193, y: 46}
     _zoomFactor: 1
   _haltSerialization: 0

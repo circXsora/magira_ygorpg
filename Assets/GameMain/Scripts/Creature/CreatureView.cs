@@ -18,21 +18,31 @@ namespace BBYGO
 {
     public abstract class CreatureView : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
+
+        private MaterialComponent.MaterialChanger changer;
+        public MaterialComponent.MaterialChanger MaterialChanger => changer;
+
         public CreatureBindings Bindings { get; set; }
+
+        private void Awake()
+        {
+            Bindings = GetComponent<CreatureBindings>();
+            changer = GameEntry.Material.GetMaterialChanger(Bindings.mainRenderer);
+        }
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            GameEntry.Event.Raise(this, CreatureViewBeClickedEventArgs.Create(eventData));
+            GameEntry.Event.OnViewPointerClick.Raise(this, eventData);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            GameEntry.Event.Raise(this, CreatureViewBeExitedEventArgs.Create(eventData));
+            GameEntry.Event.OnViewPointerExit.Raise(this, eventData);
         }
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            GameEntry.Event.Raise(this, CreatureViewBeEnteredEventArgs.Create(eventData));
+            GameEntry.Event.OnViewPointerEnter.Raise(this, eventData);
         }
 
         public virtual async Task Show()

@@ -14,35 +14,47 @@ using UnityEngine;
 
 namespace BBYGO
 {
-	public class SoraResourceComponent : UnityGameFramework.Runtime.GameFrameworkComponent
-	{
-		public T Load<T>(string path) where T : Object
+    public class SoraResourceComponent : UnityGameFramework.Runtime.GameFrameworkComponent
+    {
+        public T Load<T>(string path) where T : Object
         {
-			return Resources.Load<T>(path); 
+            return Resources.Load<T>(path);
         }
 
-		public async Task<T> LoadAsync<T>(string path) where T : Object
-		{
-			var loadRequest = Resources.LoadAsync<T>(path);
-			float startLoadTime = Time.realtimeSinceStartup;
-            while (!loadRequest.isDone)
+        public async Task<T> LoadAsync<T>(string path) where T : Object
+        {
+            try
             {
-                if (Time.realtimeSinceStartup - startLoadTime > 2f)
+                var loadRequest = Resources.LoadAsync<T>(path);
+                if (loadRequest == null)
                 {
-					throw new System.InvalidOperationException("加载超时:"+path);
+                    throw new System.InvalidOperationException($"{path} 路径无效，对象不存在");
                 }
-				await Task.Yield();
-            }
-            if (loadRequest.asset == null)
-            {
-				throw new System.InvalidOperationException($"{path} 路径无效，对象不存在");
-            }
-			return (T) loadRequest.asset;
-		}
 
-		public Task<Texture> LoadBg(SoraUIForm.BgType bgType)
-        {
-			return LoadAsync<Texture>("UI/Background/" + bgType.ToString());
+                float startLoadTime = Time.realtimeSinceStartup;
+                while (!loadRequest.isDone)
+                {
+                    if (Time.realtimeSinceStartup - startLoadTime > 2f)
+                    {
+                        throw new System.InvalidOperationException("加载超时:" + path);
+                    }
+                    await Task.Yield();
+                }
+                if (loadRequest.asset == null)
+                {
+                    throw new System.InvalidOperationException($"{path} 路径无效，对象不存在");
+                }
+                return (T)loadRequest.asset;
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
         }
-	}
+
+        public Task<Texture> LoadBg(SoraUIForm.BgType bgType)
+        {
+            return LoadAsync<Texture>("UI/Background/" + bgType.ToString());
+        }
+    }
 }
