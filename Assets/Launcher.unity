@@ -193,7 +193,7 @@ MonoBehaviour:
     _version: 3.2
     _category: 
     _comments: 
-    _translation: {x: -26.885561, y: -112.91067}
+    _translation: {x: -3, y: 25}
     _zoomFactor: 1
   _firstActivation: 0
   _enableAction: 0
@@ -556,7 +556,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e9471dad5081ff42943ad9f3286c3a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  battleFSM: {fileID: 0}
   procedureFSM: {fileID: 19726908}
 --- !u!1 &651592008
 GameObject:
@@ -649,7 +648,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTemplate: {fileID: 664858019085435004, guid: ded0336851d58584b8e90ea735751493,
     type: 3}
-  monsterTemplate: {fileID: 2412868158288952095, guid: 8143355a7eab7ae4095583b09bb63ebd,
+  enemyMonsterTemplate: {fileID: 2412868158288952095, guid: 8143355a7eab7ae4095583b09bb63ebd,
+    type: 3}
+  playerMonsterTemplate: {fileID: 2412868158288952095, guid: fd9173a5eec719843b9f1b3f8da52d24,
     type: 3}
 --- !u!1 &761826194
 GameObject:
@@ -713,8 +714,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 817758395}
+  - component: {fileID: 817758396}
+  - component: {fileID: 817758397}
   m_Layer: 0
-  m_Name: Battle
+  m_Name: BattleContext
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -734,6 +737,56 @@ Transform:
   m_Father: {fileID: 1162907849}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &817758396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 817758394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2b36b1e3302e5049b729e84df73c01c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMonsters: []
+  enemyMonsters: []
+  environment: {fileID: 0}
+  playerTurn: 0
+  alreadyPlayerMonsterHovered: 0
+  pointerClickedMonster: {fileID: 0}
+--- !u!114 &817758397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 817758394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d4487f1cfc7d114e9eb271eace75d83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _parentBlackboard: {fileID: 0}
+  _serializedBlackboard: '{"_variables":{"PlayerTurn":{"_propertyPath":"BBYGO.BattleContext.playerTurn","_name":"PlayerTurn","_id":"eb045f3c-c057-4c54-aa59-d8a154fdd2f0","$type":"NodeCanvas.Framework.Variable`1[[System.Boolean,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"AlreadyPlayerMonsterHovered":{"_propertyPath":"BBYGO.BattleContext.alreadyPlayerMonsterHovered","_name":"AlreadyPlayerMonsterHovered","_id":"9640d80b-9bbe-46fd-a82f-8b879ee9dc2b","$type":"NodeCanvas.Framework.Variable`1[[System.Boolean,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"PointerClickedMonster":{"_propertyPath":"BBYGO.BattleContext.pointerClickedMonster","_name":"PointerClickedMonster","_id":"275fa2ff-53e2-42fb-9a20-07948db0c88f","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.GameObject,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}}}'
+  _objectReferences: []
+  _serializedVariables:
+  - _json: '{"_propertyPath":"BBYGO.BattleContext.playerTurn","_name":"PlayerTurn","_id":"eb045f3c-c057-4c54-aa59-d8a154fdd2f0","$type":"NodeCanvas.Framework.Variable`1[[System.Boolean,
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}'
+    _references: []
+  - _json: '{"_propertyPath":"BBYGO.BattleContext.alreadyPlayerMonsterHovered","_name":"AlreadyPlayerMonsterHovered","_id":"9640d80b-9bbe-46fd-a82f-8b879ee9dc2b","$type":"NodeCanvas.Framework.Variable`1[[System.Boolean,
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}'
+    _references: []
+  - _json: '{"_propertyPath":"BBYGO.BattleContext.pointerClickedMonster","_name":"PointerClickedMonster","_id":"275fa2ff-53e2-42fb-9a20-07948db0c88f","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.GameObject,
+      UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}'
+    _references: []
+  _UID: 17cb2f23-9b34-48a2-ba91-f524470c4bcb
+  _identifier: BattleContext
+  _singletonMode: 0
+  _dontDestroyOnLoad: 1
 --- !u!1 &974543291
 GameObject:
   m_ObjectHideFlags: 0
@@ -867,6 +920,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1560cacf27a3b24bb485833c9af76d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  battle: {fileID: 817758396}
 --- !u!1 &1412245095
 GameObject:
   m_ObjectHideFlags: 0

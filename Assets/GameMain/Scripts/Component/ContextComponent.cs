@@ -17,7 +17,8 @@ namespace BBYGO
 {
     public class ContextComponent : UnityGameFramework.Runtime.GameFrameworkComponent
     {
-        private BattleContext battle = new BattleContext();
+        [SerializeField]
+        private BattleContext battle;
         public BattleContext Battle => battle;
     }
 }

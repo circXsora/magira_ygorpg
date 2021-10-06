@@ -20,13 +20,13 @@ namespace BBYGO
         protected override string OnInit()
         {
             materialChanger = blackboard.GetVariable<MaterialComponent.MaterialChanger>(nameof(MaterialComponent.MaterialChanger)).value;
-            return base.OnInit();
+            return null;
         }
 
         protected override void OnExecute()
         {
-            base.OnExecute();
             materialChanger.ChangeTo(materialType);
+            EndAction(true);
         }
     }
 }

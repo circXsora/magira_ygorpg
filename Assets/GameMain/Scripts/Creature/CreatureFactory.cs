@@ -25,8 +25,19 @@ namespace BBYGO
             switch (info.type)
             {
                 case CreaturesType.Monsters:
-                    { 
-                        var instance = GameObject.Instantiate(GameEntry.Creatures.MonsterTemplate, GameEntry.Creatures.transform);
+                    {
+                        GameObject instance = null;
+                        switch (info.party)
+                        {
+                            case CreaturesParty.Player:
+                                instance = GameObject.Instantiate(GameEntry.Creatures.PlayerMonsterTemplate, GameEntry.Creatures.transform);
+                                break;
+                            case CreaturesParty.Enemy:
+                                instance = GameObject.Instantiate(GameEntry.Creatures.EnemyMonsterTemplate, GameEntry.Creatures.transform);
+                                break;
+                            default:
+                                throw new InvalidOperationException("没有这种阵营");
+                        }
                         view = instance.GetOrAddComponent<MonsterView>();
                         var sprite = GameEntry.Config.sprite.GetMonsterSprite(info.entryId);
                         view.Bindings.mainRenderer.sprite = sprite;

@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 5772098388979632218}
   - component: {fileID: 892722206456522626}
   m_Layer: 9
-  m_Name: Monster
+  m_Name: PlayerMonster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -380,9 +380,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _parentBlackboard: {fileID: 0}
-  _serializedBlackboard: '{"_variables":{}}'
+  _serializedBlackboard: '{"_variables":{"mySelf":{"_propertyPath":"UnityEngine.Transform.gameObject","_name":"mySelf","_id":"2dee70b4-cc61-4a4a-9048-8f392f9544da","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.GameObject,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}}}'
   _objectReferences: []
-  _serializedVariables: []
+  _serializedVariables:
+  - _json: '{"_propertyPath":"UnityEngine.Transform.gameObject","_name":"mySelf","_id":"2dee70b4-cc61-4a4a-9048-8f392f9544da","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.GameObject,
+      UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}'
+    _references: []
 --- !u!1 &2412868158590088236
 GameObject:
   m_ObjectHideFlags: 0

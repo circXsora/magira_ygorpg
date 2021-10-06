@@ -35,7 +35,15 @@ namespace BBYGO
 
         public async Task Open(UIType ui)
         {
-            var uiForm = await Load(ui);
+            SoraUIForm uiForm = null;
+            if (uiFormsDic.TryGetValue(ui.ToString(), out var uiInstance))
+            {
+                uiForm = uiInstance.GetComponent<SoraUIForm>();
+            }
+            else
+            {
+                uiForm = await Load(ui);
+            }
             await uiForm.Show();
         }
 
@@ -48,29 +56,6 @@ namespace BBYGO
                 await uiForm.Hide();
                 Destroy(uiInstance);
             }
-        }
-
-        internal async Task HideBattleCommandMenu()
-        {
-            var key = UIType.MonsterCommandMenuForm.ToString();
-            if (uiFormsDic.TryGetValue(key, out var formObj))
-            {
-                var form = formObj.GetComponent<MonsterCommandMenuForm>();
-                await form.Hide();
-            }
-        }
-
-        public async Task SetBattleCommandMenuTo(CreatureView view)
-        {
-            var key = UIType.MonsterCommandMenuForm.ToString();
-            if (!uiFormsDic.TryGetValue(key, out var formObj))
-            {
-                await Load(UIType.MonsterCommandMenuForm);
-                formObj = uiFormsDic[key];
-            }
-            var form = formObj.GetComponent<MonsterCommandMenuForm>();
-            form.SetToView(view);
-            await form.Show();
         }
     }
 }

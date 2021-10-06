@@ -20,6 +20,7 @@ namespace BBYGO
         public int id;
         public int entryId;
         public CreaturesType type;
+        public CreaturesParty party;
     }
 
     public class MonsterInfo
@@ -31,6 +32,12 @@ namespace BBYGO
     {
         Monsters, 
         Player
+    }
+
+    public enum CreaturesParty
+    {
+        Player,
+        Enemy,
     }
 
 	public class CreaturesComponent : UnityGameFramework.Runtime.GameFrameworkComponent
@@ -46,9 +53,14 @@ namespace BBYGO
         public GameObject PlayerTemplate => playerTemplate;
 
         [SerializeField]
-        private GameObject monsterTemplate;
+        private GameObject enemyMonsterTemplate;
 
-        public GameObject MonsterTemplate => monsterTemplate;
+        public GameObject EnemyMonsterTemplate => enemyMonsterTemplate;
+
+        [SerializeField]
+        private GameObject playerMonsterTemplate;
+
+        public GameObject PlayerMonsterTemplate => playerMonsterTemplate;
 
         private CreatureLogic CreateLogic(CreatureInfo info)
         {

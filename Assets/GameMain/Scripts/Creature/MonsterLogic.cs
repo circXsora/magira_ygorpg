@@ -14,6 +14,7 @@ using UnityEngine.EventSystems;
 
 namespace BBYGO
 {
+    [Serializable]
     public class MonsterLogic : CreatureLogic
     {
         protected MonsterInfo monsterInfo;
@@ -38,7 +39,6 @@ namespace BBYGO
             base.SetView(view);
             blackboard = view.GetComponent<Blackboard>();
             blackboard.SetVariableValue(nameof(MaterialComponent.MaterialChanger), view.MaterialChanger);
-            blackboard.SetVariableValue("SenderCompareObject", view);
         }
     }
 }

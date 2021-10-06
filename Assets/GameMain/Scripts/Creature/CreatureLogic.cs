@@ -16,6 +16,7 @@ using UnityEngine;
 
 namespace BBYGO
 {
+    [Serializable]
     public abstract class CreatureLogic
     {
         protected CreatureInfo info;

@@ -29,6 +29,12 @@ namespace BBYGO
 
         private CreatureView currentView;
 
+        public override Task Show()
+        {
+            SetToView(GameEntry.Context.Battle.pointerClickedMonster.GetComponent<CreatureView>());
+            return base.Show();
+        }
+
         public void SetToView(CreatureView view)
         {
             if (currentView != view)
@@ -40,7 +46,6 @@ namespace BBYGO
                 }
                 catch (Exception)
                 {
-
                     throw;
                 }
                 AttackButton.onClick.AddListener(() =>

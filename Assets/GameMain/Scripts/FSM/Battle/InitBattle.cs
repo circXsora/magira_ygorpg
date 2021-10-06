@@ -18,9 +18,9 @@ namespace NodeCanvas.Tasks.Actions
             battleContext.Init();
             var loadEnvTask = GameEntry.Environment.Load(EnvironmentType.Environment_1);
             battleContext.player = GameEntry.Creatures.Load(new CreatureInfo() { type = CreaturesType.Player }) as PlayerLogic;
-            battleContext.playerMonsters.Add(GameEntry.Creatures.Load(new CreatureInfo() { type = CreaturesType.Monsters, entryId = 1 }) as MonsterLogic);
-            battleContext.playerMonsters.Add(GameEntry.Creatures.Load(new CreatureInfo() { type = CreaturesType.Monsters, entryId = 2 }) as MonsterLogic);
-            battleContext.enemyMonsters.Add(GameEntry.Creatures.Load(new CreatureInfo() { type = CreaturesType.Monsters, entryId = 3 }) as MonsterLogic);
+            battleContext.playerMonsters.Add(GameEntry.Creatures.Load(new CreatureInfo() { type = CreaturesType.Monsters, entryId = 1 , party = CreaturesParty.Player}) as MonsterLogic);
+            battleContext.playerMonsters.Add(GameEntry.Creatures.Load(new CreatureInfo() { type = CreaturesType.Monsters, entryId = 2 , party = CreaturesParty.Player}) as MonsterLogic);
+            battleContext.enemyMonsters.Add(GameEntry.Creatures.Load(new CreatureInfo() { type = CreaturesType.Monsters, entryId = 3 , party = CreaturesParty.Enemy}) as MonsterLogic);
              
             battleContext.environment = await loadEnvTask;
             var contexts = GameEntry.Environment.GetEnvironmentContext(EnvironmentType.Environment_1);
@@ -55,7 +55,6 @@ namespace NodeCanvas.Tasks.Actions
             battleContext = GameEntry.Context.Battle;
             battleContext.Init();
             _ = Load();
-            base.OnExecute();
         }
     }
 }

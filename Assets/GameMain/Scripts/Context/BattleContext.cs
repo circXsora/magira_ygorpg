@@ -15,19 +15,38 @@ using System;
 
 namespace BBYGO
 {
-	public class BattleContext
+	public class BattleContext : MonoBehaviour
 	{
+
+		public bool InBattle { get; private set; }
 		public PlayerLogic player;
 		public List<MonsterLogic> playerMonsters = new List<MonsterLogic>();
 		public List<MonsterLogic> enemyMonsters = new List<MonsterLogic>();
 		public GameObject environment;
+		public bool playerTurn = false;
+		public bool alreadyPlayerMonsterHovered = false;
+		public GameObject pointerClickedMonster = null;
 
         public void Init()
+        {
+			ClearCore();
+			InBattle = true;
+		}
+
+		public void Clear()
+        {
+			ClearCore();
+			InBattle = false;
+		}
+
+		private void ClearCore()
         {
 			player = null;
 			playerMonsters.Clear();
 			enemyMonsters.Clear();
 			environment = null;
-        }
+			alreadyPlayerMonsterHovered = false;
+			pointerClickedMonster = null;
+		}
     }
 }

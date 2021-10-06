@@ -16,8 +16,8 @@ namespace BBYGO
 {
 	public class FSMComponent : UnityGameFramework.Runtime.GameFrameworkComponent
 	{
-		[SerializeField]
-		private GameObject battleFSM;
+		//[SerializeField]
+		//private GameObject battleFSM;
 
 		[SerializeField]
 		private GameObject procedureFSM;
@@ -28,10 +28,10 @@ namespace BBYGO
 			RunProcedureFSM();
         }
 
-        public void RunBattleFSM()
-        {
-			battleFSM.gameObject.SetActive(true);
-        }
+   //     public void RunBattleFSM()
+   //     {
+			//battleFSM.gameObject.SetActive(true);
+   //     }
 
 		public void RunProcedureFSM()
         {
