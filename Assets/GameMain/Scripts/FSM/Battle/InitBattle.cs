@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace NodeCanvas.Tasks.Actions
 {
-
+    [ParadoxNotion.Design.Category("Battle")]
     public class InitBattle : ActionTask
     {
         private BattleContext battleContext;

@@ -10,5 +10,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 595a4c8cd6920c142b1e28d03342e19d, type: 3}
-  m_Name: "\u6307\u9488\u79FB\u5230\u7269\u4F53\u5185"
+  m_Name: "\u6307\u9488\u79FB\u5230CreatureView\u5916"
   m_EditorClassIdentifier: 

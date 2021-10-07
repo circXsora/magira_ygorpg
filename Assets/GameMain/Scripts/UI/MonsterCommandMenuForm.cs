@@ -25,6 +25,15 @@ namespace BBYGO
         public Button SkillButton;
         public Button EscapeButton;
 
+        [SerializeField]
+        private EventSO attackCommandEvent;
+        [SerializeField]
+        private EventSO defendCommandEvent;
+        [SerializeField]
+        private EventSO skillCommandEvent;
+        [SerializeField]
+        private EventSO escapeCommandEvent;
+
         public RectTransform Panel;
 
         private CreatureView currentView;
@@ -50,22 +59,22 @@ namespace BBYGO
                 }
                 AttackButton.onClick.AddListener(() =>
                 {
-                    //GameEntry.Event.Raise(this, BattleMonsterCommandSendEventArgs.Create(view, GameEntry.Config.Battle.Attack));
+                    attackCommandEvent?.Raise(this, null);
                 });
 
                 DefendButton.onClick.AddListener(() =>
                 {
-                    //GameEntry.Event.Raise(this, BattleMonsterCommandSendEventArgs.Create(view, GameEntry.Config.Battle.Defend));
+                    defendCommandEvent?.Raise(this, null);
                 });
 
                 SkillButton.onClick.AddListener(() =>
                 {
-                    //GameEntry.Event.Raise(this, BattleMonsterCommandSendEventArgs.Create(view, GameEntry.Config.Battle.Skill));
+                    skillCommandEvent?.Raise(this, null);
                 });
 
                 EscapeButton.onClick.AddListener(() =>
                 {
-                    //GameEntry.Event.Raise(this, BattleMonsterCommandSendEventArgs.Create(view, GameEntry.Config.Battle.Escape));
+                    escapeCommandEvent?.Raise(this, null);
                 });
             }
         }

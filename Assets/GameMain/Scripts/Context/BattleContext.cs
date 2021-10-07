@@ -26,6 +26,7 @@ namespace BBYGO
 		public bool playerTurn = false;
 		public bool alreadyPlayerMonsterHovered = false;
 		public GameObject pointerClickedMonster = null;
+        public List<GameObject> selectMonsters;
 
         public void Init()
         {

@@ -17,28 +17,23 @@ namespace BBYGO
     [Serializable]
     public class MonsterLogic : CreatureLogic
     {
-        protected MonsterInfo monsterInfo;
-        protected Blackboard blackboard;
+        public CreatureLogic Owner { get; private set; }
 
-        public MonsterLogic(CreatureInfo info) : this(info, new MonsterInfo())
-        {
-        }
 
-        public MonsterLogic(CreatureInfo info, MonsterInfo monsterInfo) : base(info)
+
+        public MonsterLogic(CreatureInfo info) : base(info)
         {
-            this.monsterInfo = monsterInfo;
+
         }
 
         public void SetOwner(CreatureLogic owner)
         {
-            monsterInfo.owner = owner;
+            Owner = owner;
         }
 
         public override void SetView(CreatureView view)
         {
             base.SetView(view);
-            blackboard = view.GetComponent<Blackboard>();
-            blackboard.SetVariableValue(nameof(MaterialComponent.MaterialChanger), view.MaterialChanger);
         }
     }
 }

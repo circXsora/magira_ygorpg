@@ -23,11 +23,6 @@ namespace BBYGO
         public CreaturesParty party;
     }
 
-    public class MonsterInfo
-    {
-        public CreatureLogic owner;
-    }
-
     public enum CreaturesType
     {
         Monsters, 

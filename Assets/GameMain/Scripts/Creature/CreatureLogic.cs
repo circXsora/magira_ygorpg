@@ -24,56 +24,12 @@ namespace BBYGO
 
         public Vector3 Position { get; set; }
         public Quaternion Rotation { get; set; }
-
+        public bool Selectable { get => View.Selectable; set => View.Selectable = value; }
 
         public CreatureLogic(CreatureInfo info)
         {
             this.info = info;
-            //GameEntry.Event.Subscribe(CreatureViewBeClickedEventArgs.EventId, OnViewBeClicked);
-            //GameEntry.Event.Subscribe(CreatureViewBeEnteredEventArgs.EventId, OnViewBeEntered);
-            //GameEntry.Event.Subscribe(CreatureViewBeExitedEventArgs.EventId, OnViewBeExited);
         }
-
-        ~CreatureLogic()
-        {
-            //GameEntry.Event.Unsubscribe(CreatureViewBeClickedEventArgs.EventId, OnViewBeClicked);
-            //GameEntry.Event.Unsubscribe(CreatureViewBeEnteredEventArgs.EventId, OnViewBeEntered);
-            //GameEntry.Event.Unsubscribe(CreatureViewBeExitedEventArgs.EventId, OnViewBeExited);
-        }
-
-
-        //private void OnViewBeClicked(object sender, GameEventArgs e)
-        //{
-        //    OnMyViewBeClicked(e as CreatureViewBeExitedEventArgs);
-        //}
-
-        //protected virtual void OnMyViewBeClicked(CreatureViewBeExitedEventArgs e)
-        //{
-
-        //}
-
-        //private void OnViewBeEntered(object sender, GameEventArgs e)
-        //{
-        //    OnMyViewBeEntered(e as CreatureViewBeExitedEventArgs);
-        //}
-
-        //protected virtual void OnMyViewBeEntered(CreatureViewBeExitedEventArgs e)
-        //{
-
-        //}
-
-        //private void OnViewBeExited(object sender, GameEventArgs e)
-        //{
-        //    if (sender.Equals(View))
-        //    {
-        //        OnMyViewBeExited(e as CreatureViewBeExitedEventArgs);
-        //    }
-        //}
-
-        //protected virtual void OnMyViewBeExited(CreatureViewBeExitedEventArgs e)
-        //{
-
-        //}
 
         public virtual void SetView(CreatureView view)
         {

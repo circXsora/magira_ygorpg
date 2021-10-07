@@ -23,7 +23,7 @@ namespace BBYGO
         public MaterialComponent.MaterialChanger MaterialChanger => changer;
 
         public CreatureBindings Bindings { get; set; }
-
+        public bool Selectable { get; set; } = false;
         private void Awake()
         {
             Bindings = GetComponent<CreatureBindings>();
@@ -32,17 +32,26 @@ namespace BBYGO
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            GameEntry.Event.OnViewPointerClick.Raise(this, eventData);
+            if (Selectable)
+            {
+                GameEntry.Event.OnViewPointerClick.Raise(this, eventData);
+            }
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            GameEntry.Event.OnViewPointerExit.Raise(this, eventData);
+            if (Selectable)
+            {
+                GameEntry.Event.OnViewPointerExit.Raise(this, eventData);
+            }
         }
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            GameEntry.Event.OnViewPointerEnter.Raise(this, eventData);
+            if (Selectable)
+            {
+                GameEntry.Event.OnViewPointerEnter.Raise(this, eventData);
+            }
         }
 
         public virtual async Task Show()

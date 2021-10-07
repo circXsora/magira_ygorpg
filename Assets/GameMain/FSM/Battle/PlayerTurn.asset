@@ -12,12 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
   m_Name: PlayerTurn
   m_EditorClassIdentifier: 
-  _serializedGraph: '{"type":"NodeCanvas.StateMachines.FSM","nodes":[{"_actionList":{"actions":[{"boolVariable":{"_name":"BattleContext/PlayerTurn","_targetVariableID":"eb045f3c-c057-4c54-aa59-d8a154fdd2f0"},"$type":"NodeCanvas.Tasks.Actions.SetBoolean"}]},"_name":"Init","_position":{"x":440.0,"y":369.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"0"},{"_actionList":{"executionMode":1,"actions":[]},"_name":"Idle","_position":{"x":726.0,"y":563.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"1"}],"connections":[{"_sourceNode":{"$ref":"0"},"_targetNode":{"$ref":"1"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"canvasGroups":[],"localBlackboard":{"_variables":{}}}'
-  _objectReferences: []
+  _serializedGraph: '{"type":"NodeCanvas.StateMachines.FSM","nodes":[{"_actionList":{"actions":[{"boolVariable":{"_name":"BattleContext/PlayerTurn","_targetVariableID":"eb045f3c-c057-4c54-aa59-d8a154fdd2f0"},"$type":"NodeCanvas.Tasks.Actions.SetBoolean"}]},"_name":"Init","_position":{"x":440.0,"y":369.0},"$type":"NodeCanvas.StateMachines.ActionState","$id":"0"},{"_actionList":{"executionMode":1,"actions":[{"$type":"NodeCanvas.Tasks.Actions.PlayerMonsterIdle"}]},"_name":"PlayerMonsterIdle","_position":{"x":600.2842,"y":584.8185},"$type":"NodeCanvas.StateMachines.ActionState","$id":"1"},{"_actionList":{"executionMode":1,"actions":[{"$type":"NodeCanvas.Tasks.Actions.SelectEnemy"}]},"_name":"SelectEnemy","_position":{"x":989.3214,"y":717.3247},"$type":"NodeCanvas.StateMachines.ActionState","$id":"2"},{"_actionList":{"executionMode":1,"actions":[{"$type":"NodeCanvas.Tasks.Actions.AttackMonster"}]},"_name":"AttakMonster","_position":{"x":783.7047,"y":866.4047},"$type":"NodeCanvas.StateMachines.ActionState","$id":"3"}],"connections":[{"_sourceNode":{"$ref":"0"},"_targetNode":{"$ref":"1"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"event":{"_value":1},"$type":"BBYGO.EventChecker"},"_sourceNode":{"$ref":"1"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"event":{"_value":2},"$type":"BBYGO.EventChecker"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"1"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"canvasGroups":[],"localBlackboard":{"_variables":{}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: d891afa24af13ec429a78a2835f85c0f, type: 2}
+  - {fileID: 11400000, guid: e9ac5f16fe4059148ab9d9df158de481, type: 2}
   _graphSource:
     _version: 3.2
     _category: 
     _comments: 
-    _translation: {x: -3, y: -9}
-    _zoomFactor: 0.75000906
+    _translation: {x: -214.99998, y: -189.99998}
+    _zoomFactor: 0.9141252
   _haltSerialization: 0

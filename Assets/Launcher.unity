@@ -755,6 +755,7 @@ MonoBehaviour:
   playerTurn: 0
   alreadyPlayerMonsterHovered: 0
   pointerClickedMonster: {fileID: 0}
+  selectMonsters: []
 --- !u!114 &817758397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -769,19 +770,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _parentBlackboard: {fileID: 0}
   _serializedBlackboard: '{"_variables":{"PlayerTurn":{"_propertyPath":"BBYGO.BattleContext.playerTurn","_name":"PlayerTurn","_id":"eb045f3c-c057-4c54-aa59-d8a154fdd2f0","$type":"NodeCanvas.Framework.Variable`1[[System.Boolean,
-    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"AlreadyPlayerMonsterHovered":{"_propertyPath":"BBYGO.BattleContext.alreadyPlayerMonsterHovered","_name":"AlreadyPlayerMonsterHovered","_id":"9640d80b-9bbe-46fd-a82f-8b879ee9dc2b","$type":"NodeCanvas.Framework.Variable`1[[System.Boolean,
-    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"PointerClickedMonster":{"_propertyPath":"BBYGO.BattleContext.pointerClickedMonster","_name":"PointerClickedMonster","_id":"275fa2ff-53e2-42fb-9a20-07948db0c88f","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.GameObject,
-    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}}}'
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}}}'
   _objectReferences: []
   _serializedVariables:
   - _json: '{"_propertyPath":"BBYGO.BattleContext.playerTurn","_name":"PlayerTurn","_id":"eb045f3c-c057-4c54-aa59-d8a154fdd2f0","$type":"NodeCanvas.Framework.Variable`1[[System.Boolean,
       mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}'
-    _references: []
-  - _json: '{"_propertyPath":"BBYGO.BattleContext.alreadyPlayerMonsterHovered","_name":"AlreadyPlayerMonsterHovered","_id":"9640d80b-9bbe-46fd-a82f-8b879ee9dc2b","$type":"NodeCanvas.Framework.Variable`1[[System.Boolean,
-      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}'
-    _references: []
-  - _json: '{"_propertyPath":"BBYGO.BattleContext.pointerClickedMonster","_name":"PointerClickedMonster","_id":"275fa2ff-53e2-42fb-9a20-07948db0c88f","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.GameObject,
-      UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}'
     _references: []
   _UID: 17cb2f23-9b34-48a2-ba91-f524470c4bcb
   _identifier: BattleContext

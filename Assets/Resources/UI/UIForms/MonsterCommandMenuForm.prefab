@@ -225,6 +225,10 @@ MonoBehaviour:
   DefendButton: {fileID: 5426731174806794593}
   SkillButton: {fileID: 3205698210756552027}
   EscapeButton: {fileID: 3965672885074212098}
+  attackCommandEvent: {fileID: 11400000, guid: d891afa24af13ec429a78a2835f85c0f, type: 2}
+  defendCommandEvent: {fileID: 11400000, guid: 826aaa30beab06145a4258d6e0f5da3f, type: 2}
+  skillCommandEvent: {fileID: 11400000, guid: 9b9640de0fa99204cb1c663b604cdd0c, type: 2}
+  escapeCommandEvent: {fileID: 11400000, guid: 486bd1aebbb16cd4c9471e0ba0a84177, type: 2}
   Panel: {fileID: 7746587733885233354}
 --- !u!1001 &1746980885422031396
 PrefabInstance:
