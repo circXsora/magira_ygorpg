@@ -10,6 +10,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -50,6 +51,13 @@ namespace BBYGO
         [SerializeField]
         private GameObject enemyMonsterTemplate;
 
+        public CreatureLogic GetCreatureLogicByGameObjerct(GameObject pointerClickedMonster)
+        {
+            var view = pointerClickedMonster.GetComponent<CreatureView>();
+            var creature = creaturesDic.Values.First(c => c.View == view);
+            return creature;
+        }
+
         public GameObject EnemyMonsterTemplate => enemyMonsterTemplate;
 
         [SerializeField]
@@ -60,6 +68,7 @@ namespace BBYGO
         private CreatureLogic CreateLogic(CreatureInfo info)
         {
             var logic = factory.CreateLogic(info);
+            creaturesDic.Add(logic.Info.id, logic);
             return logic;
         }
 

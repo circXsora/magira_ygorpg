@@ -19,8 +19,6 @@ namespace BBYGO
     {
         public CreatureLogic Owner { get; private set; }
 
-
-
         public MonsterLogic(CreatureInfo info) : base(info)
         {
 

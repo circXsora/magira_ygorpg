@@ -4,6 +4,7 @@ using ParadoxNotion.Design;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using UnityEngine;
 
 namespace NodeCanvas.Tasks.Actions
@@ -12,19 +13,20 @@ namespace NodeCanvas.Tasks.Actions
     public class PlayerMonsterIdle : ActionTask
     {
         private BattleContext battleContext;
-
+        [RequiredField]
+        public EventSO onAllPlayerMonstersActionDone; 
         protected override void OnExecute()
         {
             battleContext = GameEntry.Context.Battle;
             GameEntry.Event.OnViewPointerClick.AddListener(OnViewPointerClick);
             GameEntry.Event.OnViewPointerEnter.AddListener(OnViewPointerEnter);
             GameEntry.Event.OnViewPointerExit.AddListener(OnViewPointerExit);
-            battleContext.playerMonsters.ForEach(m =>
-            {
-                m.Selectable = true;
-                m.View.MaterialChanger.ChangeTo(MaterialComponent.MaterialType.Origin);
-            });
             battleContext.alreadyPlayerMonsterHovered = false;
+            battleContext.playerMonsters.ForEach(m => m.Selectable = true);
+            if (battleContext.playerMonsters.All(m=> battleContext.monsterBattleTurnDatas[m].actionDone))
+            {
+                onAllPlayerMonstersActionDone?.Raise(this, null);
+            }
         }
 
         protected override void OnStop()

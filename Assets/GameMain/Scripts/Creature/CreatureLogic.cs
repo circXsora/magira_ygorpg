@@ -20,7 +20,9 @@ namespace BBYGO
     public abstract class CreatureLogic
     {
         protected CreatureInfo info;
+        public CreatureInfo Info => info;
         public CreatureView View { get; private set; }
+        public virtual CreatureAI AI { get; set; }
 
         public Vector3 Position { get; set; }
         public Quaternion Rotation { get; set; }

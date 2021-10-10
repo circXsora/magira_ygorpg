@@ -15,39 +15,45 @@ using System;
 
 namespace BBYGO
 {
-	public class BattleContext : MonoBehaviour
-	{
+    public class BattleContext : MonoBehaviour
+    {
 
-		public bool InBattle { get; private set; }
-		public PlayerLogic player;
-		public List<MonsterLogic> playerMonsters = new List<MonsterLogic>();
-		public List<MonsterLogic> enemyMonsters = new List<MonsterLogic>();
-		public GameObject environment;
-		public bool playerTurn = false;
-		public bool alreadyPlayerMonsterHovered = false;
-		public GameObject pointerClickedMonster = null;
+        public class BattleTurnData
+        {
+            public bool actionDone = false;
+        }
+
+        public bool InBattle { get; private set; }
+        public PlayerLogic player;
+        public List<MonsterLogic> playerMonsters = new List<MonsterLogic>();
+        public List<MonsterLogic> enemyMonsters = new List<MonsterLogic>();
+        public Dictionary<MonsterLogic, BattleTurnData> monsterBattleTurnDatas = new Dictionary<MonsterLogic, BattleTurnData>();
+        public GameObject environment;
+        public bool playerTurn = false;
+        public bool alreadyPlayerMonsterHovered = false;
+        public GameObject pointerClickedMonster = null;
         public List<GameObject> selectMonsters;
 
         public void Init()
         {
-			ClearCore();
-			InBattle = true;
-		}
+            ClearCore();
+            InBattle = true;
+        }
 
-		public void Clear()
+        public void Clear()
         {
-			ClearCore();
-			InBattle = false;
-		}
+            ClearCore();
+            InBattle = false;
+        }
 
-		private void ClearCore()
+        private void ClearCore()
         {
-			player = null;
-			playerMonsters.Clear();
-			enemyMonsters.Clear();
-			environment = null;
-			alreadyPlayerMonsterHovered = false;
-			pointerClickedMonster = null;
-		}
+            player = null;
+            playerMonsters.Clear();
+            enemyMonsters.Clear();
+            environment = null;
+            alreadyPlayerMonsterHovered = false;
+            pointerClickedMonster = null;
+        }
     }
 }

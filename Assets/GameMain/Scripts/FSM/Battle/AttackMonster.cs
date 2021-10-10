@@ -34,6 +34,8 @@ namespace NodeCanvas.Tasks.Actions
             seq.Append(battleContext.pointerClickedMonster.transform.DOMove(battleContext.selectMonsters[0].transform.position, moveTime));
             seq.Append(battleContext.pointerClickedMonster.transform.DOShakePosition(attackTime));
             seq.Append(battleContext.pointerClickedMonster.transform.DOMove(originPos, backTime));
+            var creature = GameEntry.Creatures.GetCreatureLogicByGameObjerct(battleContext.pointerClickedMonster);
+            battleContext.monsterBattleTurnDatas[creature as MonsterLogic].actionDone = true;
             seq.OnComplete(() => EndAction(true));
         }
 

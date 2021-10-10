@@ -30,10 +30,12 @@ namespace NodeCanvas.Tasks.Actions
             for (int i = 0; i < battleContext.playerMonsters.Count; i++)
             {
                 battleContext.playerMonsters[i].SetPoint(context.GetPlayerMonsterPoint(i));
+                battleContext.monsterBattleTurnDatas.Add(battleContext.playerMonsters[i], new BattleContext.BattleTurnData());
             }
             for (int i = 0; i < battleContext.enemyMonsters.Count; i++)
             {
                 battleContext.enemyMonsters[i].SetPoint(context.GetEnemyPoint(i));
+                battleContext.monsterBattleTurnDatas.Add(battleContext.enemyMonsters[i], new BattleContext.BattleTurnData());
             }
 
             battleContext.player.SetMonsters(battleContext.playerMonsters);
