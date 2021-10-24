@@ -23,6 +23,8 @@ namespace BBYGO
         public CreatureInfo Info => info;
         public CreatureView View { get; private set; }
         public virtual CreatureAI AI { get; set; }
+        public CreatureState CreatureState { get; set; }
+        public CreatureEntry EntryData { get; set; }
 
         public Vector3 Position { get; set; }
         public Quaternion Rotation { get; set; }
@@ -31,6 +33,7 @@ namespace BBYGO
         public CreatureLogic(CreatureInfo info)
         {
             this.info = info;
+            CreatureState = new CreatureState() { Hp = 50, MaxHp = 50 };
         }
 
         public virtual void SetView(CreatureView view)

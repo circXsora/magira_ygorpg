@@ -18,7 +18,10 @@ using UnityGameFramework.Runtime;
 using MGO;
 namespace BBYGO
 {
-    public class MenuForm : SoraUIForm
+    /// <summary>
+    /// 主菜单
+    /// </summary>
+    public class MainMenuForm : UIForm
     {
         public Button StartButton;
         public Button EndButton;

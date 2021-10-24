@@ -18,7 +18,7 @@ using UnityGameFramework.Runtime;
 using MGO;
 namespace BBYGO
 {
-    public class MonsterCommandMenuForm : SoraUIForm
+    public class MonsterCommandMenuForm : UIForm
     {
         public Button AttackButton;
         public Button DefendButton;

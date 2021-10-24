@@ -15,7 +15,7 @@ using UnityEngine;
 
 namespace BBYGO
 {
-	public class SoraUIForm : MonoBehaviour
+	public class UIForm : MonoBehaviour
 	{
         public enum BgType
         {

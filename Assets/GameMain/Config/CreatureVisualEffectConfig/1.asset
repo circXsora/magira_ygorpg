@@ -1,0 +1,155 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7ffeb5079bd6f9418bb945f690d5b87, type: 3}
+  m_Name: 1
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 5b921ca7ba29f2c439b5131454cba3b8, type: 2}
+    - {fileID: 11400000, guid: 7c3d992c5b1d2ce42a64ad1b4f91ae8e, type: 2}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: effectParams
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[BBYGO.VisualEffectTypeSO,
+        Assembly-CSharp],[BBYGO.VisualEffectParam, Assembly-CSharp]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.ObjectEqualityComparer`1[[BBYGO.VisualEffectTypeSO,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 10
+      Data: 0
+    - Name: $v
+      Entry: 7
+      Data: 2|BBYGO.VisualEffectParam, Assembly-CSharp
+    - Name: totalTime
+      Entry: 4
+      Data: 0.8
+    - Name: timePoints
+      Entry: 7
+      Data: 3|System.Collections.Generic.List`1[[BBYGO.VisualEffectParam+TimePoint,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 4|BBYGO.VisualEffectParam+TimePoint, Assembly-CSharp
+    - Name: startEffectTimePoint
+      Entry: 4
+      Data: 0.234
+    - Name: realEffectTimePoint
+      Entry: 4
+      Data: 0.307
+    - Name: endEffectTimePoint
+      Entry: 4
+      Data: 0.37
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: positionParam
+      Entry: 7
+      Data: 5|BBYGO.VisualEffectParam+PositionParam, Assembly-CSharp
+    - Name: move1Time
+      Entry: 4
+      Data: 0.2
+    - Name: move2Time
+      Entry: 4
+      Data: 0.5
+    - Name: move3Time
+      Entry: 4
+      Data: 0.1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 10
+      Data: 1
+    - Name: $v
+      Entry: 7
+      Data: 6|BBYGO.VisualEffectParam, Assembly-CSharp
+    - Name: totalTime
+      Entry: 4
+      Data: 0.5
+    - Name: timePoints
+      Entry: 7
+      Data: 7|System.Collections.Generic.List`1[[BBYGO.VisualEffectParam+TimePoint,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 8|BBYGO.VisualEffectParam+TimePoint, Assembly-CSharp
+    - Name: startEffectTimePoint
+      Entry: 4
+      Data: 0.302
+    - Name: realEffectTimePoint
+      Entry: 4
+      Data: 0.354
+    - Name: endEffectTimePoint
+      Entry: 4
+      Data: 0.417
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: positionParam
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 

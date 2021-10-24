@@ -27,6 +27,7 @@ namespace BBYGO
         public static FSMComponent FSM { get; private set; }
         public static ContextComponent Context { get; private set; }
         public static AIComponent AI { get; private set; }
+        public static VisualEffectComponent VisualEffect { get; private set; }
         public static Camera MainCamera;
 
         private void Awake()
@@ -44,6 +45,7 @@ namespace BBYGO
             FSM = GetComponentInChildren<FSMComponent>();
             AI = GetComponentInChildren<AIComponent>();
             Context = GetComponentInChildren<ContextComponent>();
+            VisualEffect = GetComponentInChildren<VisualEffectComponent>();
         }
     }
 }

@@ -7,6 +7,7 @@
 //  功能:
 //  </copyright>
 //------------------------------------------------------------------------------
+using MGO;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,6 +17,50 @@ using UnityEngine;
 
 namespace BBYGO
 {
+    public class MonsterState
+    {
+        public IntRange PhysicalAttackRange { get; set; }
+        public int PhysicalResistance { get; set; }
+        public int PhysicalCritical { get; set; }
+        public float PhysicalCriticalRatio { get; set; }
+
+        public IntRange MagicalAttackRange { get; set; }
+        public int MagicalResistance { get; set; }
+        public int MagicalCritical { get; set; }
+        public float MagicalCriticalRatio { get; set; }
+
+        public int Avoidance { get; set; }
+    }
+
+    public class MonsterEntry
+    {
+        public int? Star { get; set; }
+        public int? Rank { get; set; }
+    }
+
+    /// <summary>
+    /// 运行时会变化的信息
+    /// </summary>
+    public class CreatureState
+    {
+        public int Hp { get; set; }
+        public int MaxHp { get; set; }
+        public int Level { get; set; }
+        public int MaxLevel { get; set; }
+    }
+
+    /// <summary>
+    /// 具体的介绍和展示信息
+    /// </summary>
+    public class CreatureEntry
+    {
+        public string Name { get; set; }
+        public string Introduction { get; set; }
+    }
+
+    /// <summary>
+    /// 初始化信息，Id号等信息
+    /// </summary>
     public class CreatureInfo
     {
         public int id;
@@ -26,7 +71,7 @@ namespace BBYGO
 
     public enum CreaturesType
     {
-        Monsters, 
+        Monsters,
         Player
     }
 
@@ -36,12 +81,14 @@ namespace BBYGO
         Enemy,
     }
 
-	public class CreaturesComponent : UnityGameFramework.Runtime.GameFrameworkComponent
-	{
+    public class CreaturesComponent : UnityGameFramework.Runtime.GameFrameworkComponent
+    {
         private static int idGenerator = 0;
         private readonly Dictionary<int, CreatureLogic> creaturesDic = new Dictionary<int, CreatureLogic>();
         private readonly CreatureFactory factory = new CreatureFactory();
-        private EventSO LoadCreatureCompelteEvent;
+
+        [SerializeField]
+        private CreatureVisualEffectConfigSO visualEffectConfig;
 
         [SerializeField]
         private GameObject playerTemplate;
@@ -50,6 +97,15 @@ namespace BBYGO
 
         [SerializeField]
         private GameObject enemyMonsterTemplate;
+        public GameObject EnemyMonsterTemplate => enemyMonsterTemplate;
+
+        [SerializeField]
+        private GameObject playerMonsterTemplate;
+        public GameObject PlayerMonsterTemplate => playerMonsterTemplate;
+
+        [SerializeField]
+        private GameObject monsterUITemplate;
+        public GameObject MonsterUITemplate => monsterUITemplate;
 
         public CreatureLogic GetCreatureLogicByGameObjerct(GameObject pointerClickedMonster)
         {
@@ -57,14 +113,6 @@ namespace BBYGO
             var creature = creaturesDic.Values.First(c => c.View == view);
             return creature;
         }
-
-        public GameObject EnemyMonsterTemplate => enemyMonsterTemplate;
-
-        [SerializeField]
-        private GameObject playerMonsterTemplate;
-
-        public GameObject PlayerMonsterTemplate => playerMonsterTemplate;
-
         private CreatureLogic CreateLogic(CreatureInfo info)
         {
             var logic = factory.CreateLogic(info);
@@ -78,6 +126,10 @@ namespace BBYGO
             return view;
         }
 
+        public CreatureVisualEffectConfigSO GetCreatureVisualEffectConfig(int entryId)
+        {
+            return visualEffectConfig;
+        }
 
         public CreatureLogic Load(CreatureInfo info)
         {

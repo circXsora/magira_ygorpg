@@ -24,21 +24,21 @@ namespace BBYGO
             MainCanvas = UIParent.GetComponent<Canvas>();
         }
 
-        public async Task<SoraUIForm> Load(UIType ui)
+        public async Task<UIForm> Load(UIType ui)
         {
             var uiPrefab = await GameEntry.Resource.LoadAsync<GameObject>("UI/UIForms/" + ui.ToString());
             var uiInstance = Instantiate(uiPrefab);
             uiFormsDic.Add(ui.ToString(), uiInstance);
             uiInstance.transform.SetParent(UIParent);
-            return uiInstance.GetComponent<SoraUIForm>();
+            return uiInstance.GetComponent<UIForm>();
         }
 
         public async Task Open(UIType ui)
         {
-            SoraUIForm uiForm = null;
+            UIForm uiForm = null;
             if (uiFormsDic.TryGetValue(ui.ToString(), out var uiInstance))
             {
-                uiForm = uiInstance.GetComponent<SoraUIForm>();
+                uiForm = uiInstance.GetComponent<UIForm>();
             }
             else
             {
@@ -52,7 +52,7 @@ namespace BBYGO
             if (uiFormsDic.TryGetValue(ui.ToString(), out var uiInstance))
             {
                 uiFormsDic.Remove(ui.ToString());
-                var uiForm = uiInstance.GetComponent<SoraUIForm>();
+                var uiForm = uiInstance.GetComponent<UIForm>();
                 await uiForm.Hide();
                 Destroy(uiInstance);
             }

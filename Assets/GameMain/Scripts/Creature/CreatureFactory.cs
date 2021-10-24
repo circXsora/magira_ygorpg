@@ -38,9 +38,23 @@ namespace BBYGO
                             default:
                                 throw new InvalidOperationException("没有这种阵营");
                         }
-                        view = instance.GetOrAddComponent<MonsterView>();
+                        
+                        var monsterView = instance.GetOrAddComponent<MonsterView>();
+                        view = monsterView;
+
+                        monsterView.MonsterUI = GameObject.Instantiate(GameEntry.Creatures.MonsterUITemplate, GameEntry.Creatures.transform).GetComponent<MonsterUI>();
+                        monsterView.MonsterUI.transform.rotation = Quaternion.identity;
+                        monsterView.MonsterUI.gameObject.AddComponent<TragetTracker>().Target = monsterView.Bindings.MonsterUIPoint;
                         var sprite = GameEntry.Config.sprite.GetMonsterSprite(info.entryId);
-                        view.Bindings.mainRenderer.sprite = sprite;
+                        try
+                        {
+                            view.Bindings.mainRenderer.sprite = sprite;
+                        }
+                        catch (Exception)
+                        {
+
+                            throw;
+                        }
                     }
                     break;
                 case CreaturesType.Player:
@@ -52,7 +66,7 @@ namespace BBYGO
                 default:
                     throw new NotImplementedException("还没有这种类型的View");
             }
-
+            view.Info = info;
             return view;
         }
 

@@ -52,7 +52,7 @@ namespace BBYGO
             }
         }
 
-        public Task<Texture> LoadBg(SoraUIForm.BgType bgType)
+        public Task<Texture> LoadBg(UIForm.BgType bgType)
         {
             return LoadAsync<Texture>("UI/Background/" + bgType.ToString());
         }

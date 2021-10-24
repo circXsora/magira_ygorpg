@@ -193,7 +193,7 @@ MonoBehaviour:
     _version: 3.2
     _category: 
     _comments: 
-    _translation: {x: -3, y: 25}
+    _translation: {x: -38, y: -23}
     _zoomFactor: 1
   _firstActivation: 0
   _enableAction: 0
@@ -359,6 +359,49 @@ Transform:
   m_Father: {fileID: 1852670053}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &244100910
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 244100911}
+  - component: {fileID: 244100912}
+  m_Layer: 0
+  m_Name: VisualEffect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &244100911
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 244100910}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1852670053}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &244100912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 244100910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2e12099472e0a740b4dd0562f734e32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &322956493
 GameObject:
   m_ObjectHideFlags: 0
@@ -646,11 +689,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1723a8a0ff33bd4486d526a7f11df75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visualEffectConfig: {fileID: 11400000, guid: 9a881d9fd63a08b4b9ef8fd2590d6615, type: 2}
   playerTemplate: {fileID: 664858019085435004, guid: ded0336851d58584b8e90ea735751493,
     type: 3}
-  enemyMonsterTemplate: {fileID: 2412868158288952095, guid: 8143355a7eab7ae4095583b09bb63ebd,
+  enemyMonsterTemplate: {fileID: 2412868158288952095, guid: fd9173a5eec719843b9f1b3f8da52d24,
     type: 3}
   playerMonsterTemplate: {fileID: 2412868158288952095, guid: fd9173a5eec719843b9f1b3f8da52d24,
+    type: 3}
+  monsterUITemplate: {fileID: 1334196480563823480, guid: 88307848e3f2aa945acc29e043042974,
     type: 3}
 --- !u!1 &761826194
 GameObject:
@@ -869,6 +915,13 @@ MonoBehaviour:
   sprite:
     monsterSpriteConfig: {fileID: 11400000, guid: 38c82f7fc788b264681e875942159d3f,
       type: 2}
+  visualEffectType:
+    normalAttack1: {fileID: 11400000, guid: 5b921ca7ba29f2c439b5131454cba3b8, type: 2}
+    normalDefend1: {fileID: 11400000, guid: 13b656f3747ff5b44b38028ad4d73628, type: 2}
+    normalSufferDamage1: {fileID: 11400000, guid: 7c3d992c5b1d2ce42a64ad1b4f91ae8e,
+      type: 2}
+    normalSkill1: {fileID: 11400000, guid: 606bb8acd97365d49b1f277d450e8c43, type: 2}
+    normalEscape1: {fileID: 11400000, guid: adac46df0fc3d494998a858c6627a274, type: 2}
 --- !u!1 &1162907848
 GameObject:
   m_ObjectHideFlags: 0
@@ -1064,6 +1117,7 @@ Transform:
   - {fileID: 322956495}
   - {fileID: 120093242}
   - {fileID: 52875755}
+  - {fileID: 244100911}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

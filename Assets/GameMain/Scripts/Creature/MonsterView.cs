@@ -15,6 +15,8 @@ namespace BBYGO
 {
     public class MonsterView : CreatureView
     {
-
+        public MonsterUI MonsterUI { get; set; }
+        
+        public HPBarItem HPBar => MonsterUI.HPBar;
     }
 }

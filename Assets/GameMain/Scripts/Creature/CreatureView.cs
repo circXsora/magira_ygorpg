@@ -16,15 +16,17 @@ using UnityEngine.EventSystems;
 
 namespace BBYGO
 {
+
     public abstract class CreatureView : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
-
         private MaterialComponent.MaterialChanger changer;
         public MaterialComponent.MaterialChanger MaterialChanger => changer;
+        public CreatureVisualEffectConfigSO visualEffectConfig;
+        public CreatureInfo Info { get; set; }
 
         public CreatureBindings Bindings { get; set; }
         public bool Selectable { get; set; } = false;
-        private void Awake()
+        protected virtual void Awake()
         {
             Bindings = GetComponent<CreatureBindings>();
             changer = GameEntry.Material.GetMaterialChanger(Bindings.mainRenderer);
@@ -36,6 +38,15 @@ namespace BBYGO
             {
                 GameEntry.Event.OnViewPointerClick.Raise(this, eventData);
             }
+        }
+
+        public async Task PerformVisualEffect(VisualEffectTypeSO visualEffectType, TimePointHandler[] timePointCallbacks = null)
+        {
+            if (visualEffectConfig == null)
+            {
+                visualEffectConfig = GameEntry.Creatures.GetCreatureVisualEffectConfig(Info.entryId);
+            }
+            await GameEntry.VisualEffect.Perform(this, visualEffectConfig.effectParams[visualEffectType], timePointCallbacks);
         }
 
         public void OnPointerExit(PointerEventData eventData)

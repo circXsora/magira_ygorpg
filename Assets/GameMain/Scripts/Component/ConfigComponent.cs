@@ -25,6 +25,18 @@ namespace BBYGO
 
             public Sprite GetMonsterSprite(int id) => monsterSpriteConfig.sprites[id];
         }
+
+        [Serializable]
+        public class VisualEffectTypeConfig
+        {
+            public VisualEffectTypeSO normalAttack1;
+            public VisualEffectTypeSO normalDefend1;
+            public VisualEffectTypeSO normalSufferDamage1;
+            public VisualEffectTypeSO normalSkill1;
+            public VisualEffectTypeSO normalEscape1;
+        }
+
         public SpriteConfig sprite;
+        public VisualEffectTypeConfig visualEffectType;
     }
 }
