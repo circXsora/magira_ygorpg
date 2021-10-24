@@ -30,18 +30,24 @@ namespace BBYGO
             public float endEffectTimePoint;
         }
 
-        [Serializable]
-        public class PositionParam
+        public class SpecialEffectParam
         {
-            public float move1Time;
-            public float move2Time;
-            public float move3Time;
+            [Range(0, 1)]
+            public float showTimePoint;
+
+            public GameObject EffectTempalte;
+
+            public Vector3 offsetFromSelf;
         }
 
+        [LabelText("总时间")]
         public float totalTime;
 
+        [LabelText("效果时间点")]
         public List<TimePoint> timePoints;
 
-        public PositionParam positionParam;
+        [LabelText("特效")]
+        public List<SpecialEffectParam> specialEffectParams;
+
     }
 }

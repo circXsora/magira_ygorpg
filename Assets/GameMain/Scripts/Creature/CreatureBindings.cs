@@ -18,5 +18,6 @@ namespace BBYGO
 		public SpriteRenderer mainRenderer;
 		public Transform CommandMenuPoint;
 		public Transform MonsterUIPoint;
-	}
+		public Transform DamageTextPoint; 
+    }
 }

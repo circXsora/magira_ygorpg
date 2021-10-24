@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a7ffeb5079bd6f9418bb945f690d5b87, type: 3}
-  m_Name: 1
+  m_Name: Test
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -18,6 +18,7 @@ MonoBehaviour:
     ReferencedUnityObjects:
     - {fileID: 11400000, guid: 5b921ca7ba29f2c439b5131454cba3b8, type: 2}
     - {fileID: 11400000, guid: 7c3d992c5b1d2ce42a64ad1b4f91ae8e, type: 2}
+    - {fileID: 5176333327936009802, guid: 499f6c434fc3e5f408e6eede88b495b0, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -77,20 +78,8 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: positionParam
-      Entry: 7
-      Data: 5|BBYGO.VisualEffectParam+PositionParam, Assembly-CSharp
-    - Name: move1Time
-      Entry: 4
-      Data: 0.2
-    - Name: move2Time
-      Entry: 4
-      Data: 0.5
-    - Name: move3Time
-      Entry: 4
-      Data: 0.1
-    - Name: 
-      Entry: 8
+    - Name: specialEffectParams
+      Entry: 6
       Data: 
     - Name: 
       Entry: 8
@@ -106,20 +95,20 @@ MonoBehaviour:
       Data: 1
     - Name: $v
       Entry: 7
-      Data: 6|BBYGO.VisualEffectParam, Assembly-CSharp
+      Data: 5|BBYGO.VisualEffectParam, Assembly-CSharp
     - Name: totalTime
       Entry: 4
       Data: 0.5
     - Name: timePoints
       Entry: 7
-      Data: 7|System.Collections.Generic.List`1[[BBYGO.VisualEffectParam+TimePoint,
+      Data: 6|System.Collections.Generic.List`1[[BBYGO.VisualEffectParam+TimePoint,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 8|BBYGO.VisualEffectParam+TimePoint, Assembly-CSharp
+      Data: 7|BBYGO.VisualEffectParam+TimePoint, Assembly-CSharp
     - Name: startEffectTimePoint
       Entry: 4
       Data: 0.302
@@ -138,8 +127,45 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: positionParam
-      Entry: 6
+    - Name: specialEffectParams
+      Entry: 7
+      Data: 8|System.Collections.Generic.List`1[[BBYGO.VisualEffectParam+SpecialEffectParam,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 9|BBYGO.VisualEffectParam+SpecialEffectParam, Assembly-CSharp
+    - Name: showTimePoint
+      Entry: 4
+      Data: 0.25
+    - Name: EffectTempalte
+      Entry: 10
+      Data: 2
+    - Name: offsetFromSelf
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0.5
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
       Data: 
     - Name: 
       Entry: 8

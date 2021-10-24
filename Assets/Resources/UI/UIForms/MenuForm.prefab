@@ -218,8 +218,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 923ec5c702ec56e40acc72b9342027f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowAnimationTime: 0.8
-  HideAnimationTime: 0.8
+  ShowAnimationTime: 0.2
+  HideAnimationTime: 0.2
   StartButton: {fileID: 6260086196463832755}
   EndButton: {fileID: 8880252430523045961}
   BgImage: {fileID: 5061362177306021145}

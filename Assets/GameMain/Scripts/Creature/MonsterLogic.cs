@@ -83,6 +83,7 @@ namespace BBYGO
         {
             CreatureState.Hp = Mathf.Clamp(CreatureState.Hp - damageInfo.Damage, 0, CreatureState.MaxHp);
             MonsterView.HPBar.ShowHP(CreatureState.Hp, CreatureState.MaxHp);
+            _ = GameEntry.VisualEffect.PerformNumberTextEffect(View.Bindings.DamageTextPoint.position, damageInfo.Damage, GameEntry.Config.visualEffectType.normalSufferDamage1);
             await View.PerformVisualEffect(GameEntry.Config.visualEffectType.normalSufferDamage1);
         }
     }

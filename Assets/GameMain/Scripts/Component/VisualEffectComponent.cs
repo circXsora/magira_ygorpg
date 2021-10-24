@@ -30,10 +30,30 @@ namespace BBYGO
 
     public class VisualEffectComponent : UnityGameFramework.Runtime.GameFrameworkComponent
     {
+        public GameObject TextEffect1;
 
-        public void SetVisualEffectParam(CreatureView creatureView, VisualEffectParam visualEffectParam)
+        private GameObject GetTextEffect(VisualEffectTypeSO type)
         {
+            return TextEffect1;
+        }
 
+        public async Task PerformNumberTextEffect(Vector3 position, int nubmer, VisualEffectTypeSO type)
+        {
+            var textEffect = Instantiate(GetTextEffect(type), transform).GetComponent<NumberTextEffect>();
+            textEffect.transform.position = position;
+            textEffect.SetNumber(nubmer);
+            await textEffect.Run();
+        }
+
+        private async Task PerformSpeicalEffect(CreatureView creatureView, VisualEffectParam visualEffectParam)
+        {
+            var specialEffectParams = visualEffectParam.specialEffectParams;
+            for (int i = 0; i < specialEffectParams.Count; i++)
+            {
+                await Task.Delay((specialEffectParams[i].showTimePoint * visualEffectParam.totalTime).ToMillisecond());
+                var effect = Instantiate(specialEffectParams[i].EffectTempalte, transform);
+                effect.transform.position = creatureView.transform.position + specialEffectParams[i].offsetFromSelf;
+            }
         }
 
         public async Task Perform(CreatureView creatureView, VisualEffectParam visualEffectParam, TimePointHandler[] timePointCallbacks = null)
@@ -55,9 +75,14 @@ namespace BBYGO
                 }
             }
 
+            if (visualEffectParam.specialEffectParams != null)
+            {
+                _ = PerformSpeicalEffect(creatureView, visualEffectParam);
+            }
+
             if (timePointCallbacks != null)
             {
-                for (int i = 0; i < startTimePointTasks.Count; i++)
+                for (int i = 0; i < timePoints.Count; i++)
                 {
                     await startTimePointTasks[i];
                     timePointCallbacks[i].start?.Invoke(timePoints[i].startEffectTimePoint, totalTime, visualEffectParam);
