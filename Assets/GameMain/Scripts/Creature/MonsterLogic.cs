@@ -76,15 +76,18 @@ namespace BBYGO
 
         public async System.Threading.Tasks.Task SufferDamagePost(DamageInfo damageInfo)
         {
-            UberDebug.Log("遭受攻击结束");
+
         }
 
         public async System.Threading.Tasks.Task SufferDamage(DamageInfo damageInfo)
         {
             CreatureState.Hp = Mathf.Clamp(CreatureState.Hp - damageInfo.Damage, 0, CreatureState.MaxHp);
-            MonsterView.HPBar.ShowHP(CreatureState.Hp, CreatureState.MaxHp);
-            _ = GameEntry.VisualEffect.PerformNumberTextEffect(View.Bindings.DamageTextPoint.position, damageInfo.Damage, GameEntry.Config.visualEffectType.normalSufferDamage1);
-            await View.PerformVisualEffect(GameEntry.Config.visualEffectType.normalSufferDamage1);
+            await View.PerformVisualEffect(GameEntry.Config.visualEffectType.normalSufferDamage1, new TimePointHandler[] {
+                new TimePointHandler()
+                {
+                    realEffect = (a, b, c) => { MonsterView.HPBar.ShowHP(CreatureState.Hp, CreatureState.MaxHp);},
+                    end = (a,b,c)=>{ _ = GameEntry.VisualEffect.PerformNumberTextEffect(View.Bindings.DamageTextPoint.position, damageInfo.Damage, GameEntry.Config.visualEffectType.normalSufferDamage1);}
+                } });
         }
     }
 }

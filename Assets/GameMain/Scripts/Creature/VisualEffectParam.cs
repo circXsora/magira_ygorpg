@@ -40,6 +40,15 @@ namespace BBYGO
             public Vector3 offsetFromSelf;
         }
 
+        public class PositionEffectParam
+        {
+            [Range(0, 1)]
+            public float moveTimePoint;
+
+            public Vector3 moveOffset;
+            public float time;
+        }
+
         [LabelText("总时间")]
         public float totalTime;
 
@@ -48,6 +57,9 @@ namespace BBYGO
 
         [LabelText("特效")]
         public List<SpecialEffectParam> specialEffectParams;
+
+        [LabelText("移动参数")]
+        public List<PositionEffectParam> movePramas;
 
     }
 }

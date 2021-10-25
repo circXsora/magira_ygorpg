@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -56,6 +57,22 @@ namespace BBYGO
             }
         }
 
+        private async Task PerformMoveEffect(CreatureView creatureView, VisualEffectParam visualEffectParam)
+        {
+            var moveParams = visualEffectParam.movePramas;
+            var originPos = creatureView.transform.position;
+            var waitTasks = new List<Task>();
+            for (int i = 0; i < moveParams.Count; i++)
+            {
+                waitTasks.Add(Task.Delay((moveParams[i].moveTimePoint * visualEffectParam.totalTime).ToMillisecond()));
+            }
+            for (int i = 0; i < moveParams.Count; i++)
+            {
+                await waitTasks[i];
+                await creatureView.transform.DOMove(originPos + creatureView.transform.right.x * moveParams[i].moveOffset, moveParams[i].time).AsyncWaitForCompletion();
+            }
+        }
+
         public async Task Perform(CreatureView creatureView, VisualEffectParam visualEffectParam, TimePointHandler[] timePointCallbacks = null)
         {
             var task = Task.Delay(visualEffectParam.totalTime.ToMillisecond());
@@ -78,6 +95,11 @@ namespace BBYGO
             if (visualEffectParam.specialEffectParams != null)
             {
                 _ = PerformSpeicalEffect(creatureView, visualEffectParam);
+            }
+
+            if (visualEffectParam.movePramas != null)
+            {
+                _ = PerformMoveEffect(creatureView, visualEffectParam);
             }
 
             if (timePointCallbacks != null)

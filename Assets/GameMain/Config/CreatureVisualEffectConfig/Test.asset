@@ -81,6 +81,9 @@ MonoBehaviour:
     - Name: specialEffectParams
       Entry: 6
       Data: 
+    - Name: movePramas
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -114,10 +117,10 @@ MonoBehaviour:
       Data: 0.302
     - Name: realEffectTimePoint
       Entry: 4
-      Data: 0.354
+      Data: 0.421
     - Name: endEffectTimePoint
       Entry: 4
-      Data: 0.417
+      Data: 0.494
     - Name: 
       Entry: 8
       Data: 
@@ -139,7 +142,7 @@ MonoBehaviour:
       Data: 9|BBYGO.VisualEffectParam+SpecialEffectParam, Assembly-CSharp
     - Name: showTimePoint
       Entry: 4
-      Data: 0.25
+      Data: 0.193
     - Name: EffectTempalte
       Entry: 10
       Data: 2
@@ -158,6 +161,73 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: movePramas
+      Entry: 7
+      Data: 10|System.Collections.Generic.List`1[[BBYGO.VisualEffectParam+PositionEffectParam,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 11|BBYGO.VisualEffectParam+PositionEffectParam, Assembly-CSharp
+    - Name: moveTimePoint
+      Entry: 4
+      Data: 0.265
+    - Name: moveOffset
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: -0.3
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: time
+      Entry: 4
+      Data: 0.3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 12|BBYGO.VisualEffectParam+PositionEffectParam, Assembly-CSharp
+    - Name: moveTimePoint
+      Entry: 4
+      Data: 0.407
+    - Name: moveOffset
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: time
+      Entry: 4
+      Data: 0.3
     - Name: 
       Entry: 8
       Data: 
