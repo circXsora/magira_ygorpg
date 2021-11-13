@@ -10,7 +10,8 @@ namespace BBYGO
     public enum UIType
     {
         MenuForm,
-        MonsterCommandMenuForm
+        MonsterCommandMenuForm,
+        BattleForm,
     }
 
     public class SoraUIComponent : UnityGameFramework.Runtime.GameFrameworkComponent

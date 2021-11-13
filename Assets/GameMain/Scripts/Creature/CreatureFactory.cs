@@ -42,7 +42,7 @@ namespace BBYGO
                         var monsterView = instance.GetOrAddComponent<MonsterView>();
                         view = monsterView;
 
-                        monsterView.MonsterUI = GameObject.Instantiate(GameEntry.Creatures.MonsterUITemplate, GameEntry.Creatures.transform).GetComponent<MonsterUI>();
+                        monsterView.MonsterUI = GameObject.Instantiate(GameEntry.Creatures.MonsterUITemplate, GameEntry.Creatures.transform).GetComponent<MonsterHUD>();
                         monsterView.MonsterUI.transform.rotation = Quaternion.identity;
                         monsterView.MonsterUI.gameObject.AddComponent<TragetTracker>().Target = monsterView.Bindings.MonsterUIPoint;
                         var sprite = GameEntry.Config.sprite.GetMonsterSprite(info.entryId);

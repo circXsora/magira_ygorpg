@@ -14,7 +14,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 namespace BBYGO
 {
-	public class MonsterUI : UIItem
+	public class MonsterHUD : UIItem
 	{
 		[SerializeField]
 		private HPBarItem hpBar;

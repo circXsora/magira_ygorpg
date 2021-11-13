@@ -193,7 +193,6 @@ GameObject:
   m_Component:
   - component: {fileID: 22404694}
   - component: {fileID: 22228512}
-  - component: {fileID: 11431424}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -229,36 +228,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 162438}
   m_CullTransparentMesh: 1
---- !u!114 &11431424
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 162438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5079836f95c2a44b96fa331487ebb70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_OnHover:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4508556494545106788}
-        m_TargetAssemblyTypeName: bbygo.VideoForm, Assembly-CSharp
-        m_MethodName: OnBackgroundButtonClick
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &193354
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,7 +239,6 @@ GameObject:
   - component: {fileID: 22455944}
   - component: {fileID: 22254414}
   - component: {fileID: 22372286}
-  - component: {fileID: 4508556494545106788}
   m_Layer: 5
   m_Name: VideoForm
   m_TagString: Untagged
@@ -329,21 +297,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!114 &4508556494545106788
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 193354}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed8a95d8321a61e4b91868e0c232984c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  videoPlayer: {fileID: 882081594504645030}
-  rawImage: {fileID: 3409831027656189840}
-  TxtLabel: {fileID: 4472516113436434112}
 --- !u!1 &8482895440722849287
 GameObject:
   m_ObjectHideFlags: 0
@@ -411,9 +364,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u70B9\u51FB\u8DF3\u8FC7"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6a44f9d4ef1f01d4ba706e532c23a139, type: 2}
-  m_sharedMaterial: {fileID: 8326817128584535071, guid: 6a44f9d4ef1f01d4ba706e532c23a139,
-    type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 0}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

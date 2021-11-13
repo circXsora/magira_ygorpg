@@ -14,7 +14,7 @@ namespace NodeCanvas.Tasks.Actions
     {
         private BattleContext battleContext;
         [RequiredField]
-        public EventSO onAllPlayerMonstersActionDone; 
+        public EventSO onAllPlayerMonstersActionDone;
         protected override void OnExecute()
         {
             battleContext = GameEntry.Context.Battle;
@@ -22,8 +22,8 @@ namespace NodeCanvas.Tasks.Actions
             GameEntry.Event.OnViewPointerEnter.AddListener(OnViewPointerEnter);
             GameEntry.Event.OnViewPointerExit.AddListener(OnViewPointerExit);
             battleContext.alreadyPlayerMonsterHovered = false;
-            battleContext.playerMonsters.ForEach(m => m.Selectable = true);
-            if (battleContext.playerMonsters.All(m=> battleContext.monsterBattleTurnDatas[m].actionDone))
+            battleContext.playerMonsters.ForEach(m => m.Selectable = !battleContext.monsterBattleTurnDatas[m].actionDone);
+            if (battleContext.playerMonsters.All(m => battleContext.monsterBattleTurnDatas[m].actionDone))
             {
                 onAllPlayerMonstersActionDone?.Raise(this, null);
             }

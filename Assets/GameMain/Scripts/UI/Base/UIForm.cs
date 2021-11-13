@@ -8,6 +8,7 @@
 //  </copyright>
 //------------------------------------------------------------------------------
 using DG.Tweening;
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -15,7 +16,7 @@ using UnityEngine;
 
 namespace BBYGO
 {
-	public class UIForm : MonoBehaviour
+	public class UIForm : SerializedMonoBehaviour
 	{
         public enum BgType
         {
@@ -32,11 +33,15 @@ namespace BBYGO
         {
 			var cg = gameObject.GetOrAddComponent<CanvasGroup>();
 			await cg.DOFade(1, ShowAnimationTime).From(0).AsyncWaitForCompletion();
+			cg.blocksRaycasts = true;
+			cg.interactable = true;
 		}
 
 		public virtual async Task Hide()
         {
 			var cg = gameObject.GetOrAddComponent<CanvasGroup>();
+			cg.blocksRaycasts = false;
+			cg.interactable = false;
 			await cg.DOFade(0, HideAnimationTime).AsyncWaitForCompletion();
 		}
 	}
