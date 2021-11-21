@@ -71,6 +71,8 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -80,8 +82,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -102,9 +104,12 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
@@ -480,6 +485,23 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Map_Rooms_10: -7397407778448948245
+      Map_Rooms_5: -5594496446104165299
+      Map_Rooms_9: 2307809744202892654
+      Map_Rooms_11: 3770821545399775542
+      Map_Rooms_7: -7693611176905794970
+      Map_Rooms_0: 82112609994575795
+      Map_Rooms_8: -2357482666832143148
+      Map_Rooms_1: 4824950666759363485
+      Map_Rooms_2: 8482872779743554136
+      Map_Rooms_14: -6421519994765639668
+      Map_Rooms_6: -3352190592315383446
+      Map_Rooms_15: 1602141735546293391
+      Map_Rooms_4: -4640313662156113291
+      Map_Rooms_13: 2602222467518107405
+      Map_Rooms_3: 944222276072622355
+      Map_Rooms_12: -4709219048016288536
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -12,8 +12,8 @@ namespace BBYGO
 {
     public class AttackData
     {
-        public CreatureLogic Player { get; private set; }
-        public List<CreatureLogic> Targets { get; private set; }
+        public CreatureOldLogic Player { get; private set; }
+        public List<CreatureOldLogic> Targets { get; private set; }
         public int AttackValue { get; private set; }
     }
 }

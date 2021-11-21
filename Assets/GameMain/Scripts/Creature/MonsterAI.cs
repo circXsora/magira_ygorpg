@@ -15,7 +15,7 @@ namespace BBYGO
 {
     public class MonsterAI : CreatureAI 
     {
-        public MonsterAI(CreatureLogic owner) : base(owner)
+        public MonsterAI(CreatureOldLogic owner) : base(owner)
         {
         }
     }

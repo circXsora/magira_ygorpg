@@ -16,7 +16,7 @@ using UnityEngine.EventSystems;
 
 namespace BBYGO
 {
-    public class PlayerLogic : CreatureLogic
+    public class PlayerLogic : CreatureOldLogic
     {
         private List<MonsterLogic> monsters;
 

@@ -84,7 +84,7 @@ namespace BBYGO
     public class CreaturesComponent : UnityGameFramework.Runtime.GameFrameworkComponent
     {
         private static int idGenerator = 0;
-        private readonly Dictionary<int, CreatureLogic> creaturesDic = new Dictionary<int, CreatureLogic>();
+        private readonly Dictionary<int, CreatureOldLogic> creaturesDic = new Dictionary<int, CreatureOldLogic>();
         private readonly CreatureFactory factory = new CreatureFactory();
 
         [SerializeField]
@@ -107,13 +107,13 @@ namespace BBYGO
         private GameObject monsterUITemplate;
         public GameObject MonsterUITemplate => monsterUITemplate;
 
-        public CreatureLogic GetCreatureLogicByGameObjerct(GameObject pointerClickedMonster)
+        public CreatureOldLogic GetCreatureLogicByGameObjerct(GameObject pointerClickedMonster)
         {
             var view = pointerClickedMonster.GetComponent<CreatureView>();
             var creature = creaturesDic.Values.First(c => c.View == view);
             return creature;
         }
-        private CreatureLogic CreateLogic(CreatureInfo info)
+        private CreatureOldLogic CreateLogic(CreatureInfo info)
         {
             var logic = factory.CreateLogic(info);
             creaturesDic.Add(logic.Info.id, logic);
@@ -131,7 +131,7 @@ namespace BBYGO
             return visualEffectConfig;
         }
 
-        public CreatureLogic Load(CreatureInfo info)
+        public CreatureOldLogic Load(CreatureInfo info)
         {
             info.id = idGenerator++;
             var logic = CreateLogic(info);

@@ -14,13 +14,13 @@ namespace BBYGO
 {
     public class CreatureAI
     {
-        public CreatureLogic owner;
+        public CreatureOldLogic owner;
 
         private BehaviourTreeOwner behaviourTreeOwner;
         private BattleContext battle;
 
 
-        public CreatureAI(CreatureLogic owner)
+        public CreatureAI(CreatureOldLogic owner)
         {
             this.owner = owner;
         }

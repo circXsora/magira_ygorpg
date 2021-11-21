@@ -23,9 +23,9 @@ namespace BBYGO
     }
 
     [Serializable]
-    public class MonsterLogic : CreatureLogic
+    public class MonsterLogic : CreatureOldLogic
     {
-        public CreatureLogic Owner { get; private set; }
+        public CreatureOldLogic Owner { get; private set; }
         private MonsterView monsterView;
         public MonsterView MonsterView
         {
@@ -46,7 +46,7 @@ namespace BBYGO
             MonsterState = new MonsterState() { PhysicalAttackRange = new IntRange(1, 3) };
         }
 
-        public void SetOwner(CreatureLogic owner)
+        public void SetOwner(CreatureOldLogic owner)
         {
             Owner = owner;
         }

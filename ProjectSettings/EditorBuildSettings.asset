@@ -8,28 +8,28 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Launcher.unity
     guid: 2762a71e2b87f1e4fb33988b93d9393d
-  - enabled: 1
+  - enabled: 0
     path: Assets/GameMain/Scenes/Main.unity
     guid: 4473d81b14ddb0143addf0e6050d8491
-  - enabled: 1
+  - enabled: 0
     path: Assets/GameMain/Scenes/Menu.unity
     guid: b031b4f2980561542a7f7ba41391edc3
   - enabled: 0
-    path: Assets/GameMain/Scenes/Old/Battle.unity
-    guid: 91fb1740c8fa1be4c869e643a3d77cf5
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 0
-    path: Assets/GameMain/Scenes/Old/Faild.unity
-    guid: f4dfecae5cbe69143a495f927f95f5e9
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 0
-    path: Assets/GameMain/Scenes/Old/Free.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 0
-    path: Assets/GameMain/Scenes/Old/InventoryScene.unity
-    guid: 16abd53670ce44a59a37b5c975185be1
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 0
-    path: Assets/GameMain/Scenes/Old/Start.unity
-    guid: 1a538fdd4e3492f4184f1fb778dbec1b
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 0
-    path: Assets/GameMain/Scenes/Old/Success.unity
-    guid: b23fad742753baa40a86c3e98b039987
+    path: 
+    guid: 00000000000000000000000000000000
   m_configObjects: {}

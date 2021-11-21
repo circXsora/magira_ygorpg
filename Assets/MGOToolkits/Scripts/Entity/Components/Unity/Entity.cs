@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace MGO.Entity.Unity
 {
-    public class EntityView : MonoBehaviour, IEntityView
+    public class Entity : MonoBehaviour, IEntity
     {
-        protected IEntityViewBinder _entityViewBinder;
+        protected EntityComponentHolder entityComponentHolder;
+        protected EntityLogic logic;
 
         public Vector3 Position
         {
@@ -60,26 +61,47 @@ namespace MGO.Entity.Unity
 
         public virtual bool Inited { get; private set; } = false;
 
-        public virtual bool Active => gameObject.activeSelf;
-
-        public void ToActive()
-        {
-            gameObject.SetActive(true);
-        }
-
-        public void ToDeactive()
-        {
-            gameObject.SetActive(false);
-        }
-
-        public virtual void UpdateLogic(float logicDeltaTime, float realDeltaTime)
-        {
-
-        }
+        public virtual bool IsActive => gameObject.activeSelf;
 
         public virtual void Init()
         {
             Inited = true;
         }
+
+        public void Active()
+        {
+            gameObject.SetActive(true);
+        }
+
+        public void Deactive()
+        {
+            gameObject.SetActive(false);
+        }
+
+        public void Update(float logicDeltaTime, float realDeltaTime)
+        {
+            logic.Update(logicDeltaTime, realDeltaTime);
+        }
+
+        protected virtual void Update()
+        {
+            Update(Time.deltaTime, Time.unscaledDeltaTime);
+        }
+
+        public EntityComponentHolder GetComponentHolder()
+        {
+            if (entityComponentHolder == null)
+            {
+                entityComponentHolder = gameObject.AddComponent<EntityComponentHolder>();
+                entityComponentHolder.Owner = this;
+            }
+            return entityComponentHolder;
+        }
+
+        public ILogic GetLogic()
+        {
+            return logic;
+        }
+
     }
 }

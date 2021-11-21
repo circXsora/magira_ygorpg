@@ -17,7 +17,7 @@ using UnityEngine;
 namespace BBYGO
 {
     [Serializable]
-    public abstract class CreatureLogic
+    public abstract class CreatureOldLogic
     {
         protected CreatureInfo info;
         public CreatureInfo Info => info;
@@ -30,7 +30,7 @@ namespace BBYGO
         public Quaternion Rotation { get; set; }
         public bool Selectable { get => View.Selectable; set => View.Selectable = value; }
 
-        public CreatureLogic(CreatureInfo info)
+        public CreatureOldLogic(CreatureInfo info)
         {
             this.info = info;
             CreatureState = new CreatureState() { Hp = 50, MaxHp = 50 };

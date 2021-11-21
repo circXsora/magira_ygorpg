@@ -257,6 +257,8 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -265,12 +267,12 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
-    aniso: -1
-    mipBias: -100
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
-    wrapW: -1
+    wrapW: 0
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -288,9 +290,12 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
@@ -1968,6 +1973,85 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      retina_gold_43: 6164108194499164026
+      retina_gold_62: 4143302199642130540
+      retina_gold_31: -1133014389868076623
+      retina_gold_77: -1961547334475627551
+      retina_gold_5: 3699873621643803105
+      retina_gold_28: 2022976562266045259
+      retina_gold_53: -6712858271447448326
+      retina_gold_17: 9148902155809833030
+      retina_gold_32: 5638763936796975957
+      retina_gold_59: -8565866102736569708
+      retina_gold_65: 4703198049290156541
+      retina_gold_16: 1297844323868496908
+      retina_gold_40: 397589402332396939
+      retina_gold_39: 1708413736597556461
+      retina_gold_2: 2284970116477540294
+      retina_gold_55: -1239266152910980368
+      retina_gold_3: -3106898901082680365
+      retina_gold_19: -2255504758106618868
+      retina_gold_49: -6244553006524948409
+      retina_gold_13: 89087495936591768
+      retina_gold_26: 6620132868713820706
+      retina_gold_22: 1483244338426264305
+      retina_gold_50: -8952138013981111516
+      retina_gold_46: 8962160289593342338
+      retina_gold_1: 5192557647712760795
+      retina_gold_15: -6309980411468879727
+      retina_gold_18: 2524055010921020009
+      retina_gold_4: -4060691971912610144
+      retina_gold_25: 2345984342683588684
+      retina_gold_37: -4231696944861721342
+      retina_gold_30: 7673412341735964703
+      retina_gold_44: -3293625170912424769
+      retina_gold_21: 8415006784119176487
+      retina_gold_54: -5741580207639053007
+      retina_gold_8: 2608805825782690448
+      retina_gold_23: -3103005460713110258
+      retina_gold_10: 7879658002911648654
+      retina_gold_38: 2213547133213369831
+      retina_gold_71: 3456751011192814208
+      retina_gold_35: 3469348530819512072
+      retina_gold_67: 8308799482756499586
+      retina_gold_56: -7241018190227064774
+      retina_gold_75: 6170546350986631913
+      retina_gold_27: 7289375830318061511
+      retina_gold_48: 1488075478239928671
+      retina_gold_64: -3342554026484201752
+      retina_gold_45: -3217641614240569867
+      retina_gold_34: -3248102952532508711
+      retina_gold_61: 6227149110953605517
+      retina_gold_72: 1725678597955981817
+      retina_gold_57: -749640565791304515
+      retina_gold_63: -2044869373605247578
+      retina_gold_29: -4668886027419659466
+      retina_gold_14: -1174956920570574636
+      retina_gold_33: -2830000118157016136
+      retina_gold_66: -4323705229443331549
+      retina_gold_76: 2553687990202795567
+      retina_gold_0: -6852073894137212157
+      retina_gold_9: -5784765453140073824
+      retina_gold_36: 3760412201692422336
+      retina_gold_47: 6707588731909079600
+      retina_gold_41: 7773330294539936825
+      retina_gold_11: -3975262504054743245
+      retina_gold_42: 6830095873631494370
+      retina_gold_20: 3268330091281789512
+      retina_gold_7: 3560268930146594635
+      retina_gold_24: 1788259404851188931
+      retina_gold_74: -178434602664418105
+      retina_gold_69: 1845482662759751983
+      retina_gold_12: -8163625571258151385
+      retina_gold_60: 8397587781530263567
+      retina_gold_51: 1784836959623580398
+      retina_gold_73: 160842572475850851
+      retina_gold_52: 2721806691311452729
+      retina_gold_58: 1703349813324776409
+      retina_gold_70: 6630598182531758712
+      retina_gold_6: -641182758066148314
+      retina_gold_68: -7013234479966926036
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

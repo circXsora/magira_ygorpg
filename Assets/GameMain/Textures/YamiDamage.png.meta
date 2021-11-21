@@ -95,6 +95,8 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -104,11 +106,11 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
-    wrapW: -1
+    wrapW: 0
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -126,9 +128,12 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
@@ -672,6 +677,31 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      YamiDamage_1: -2422839542569887779
+      YamiDamage_20: -6154655720041648480
+      YamiDamage_14: 8874099153940714507
+      YamiDamage_7: 6824119750064399909
+      YamiDamage_2: 3665593120835939888
+      YamiDamage_12: 3590342397287425780
+      YamiDamage_23: -5975839253763942447
+      YamiDamage_4: -7583192327099147345
+      YamiDamage_19: -4038544363519295305
+      YamiDamage_21: 3350316036588552091
+      YamiDamage_0: -6651450415657200106
+      YamiDamage_11: 6419280088979656474
+      YamiDamage_13: -8820034045462591701
+      YamiDamage_6: 3768876154847292955
+      YamiDamage_17: 37758661140702823
+      YamiDamage_5: -8381835253979199194
+      YamiDamage_8: -1891716968835928359
+      YamiDamage_3: -2067403192859562613
+      YamiDamage_10: 3695306172501506317
+      YamiDamage_9: 26552556257125689
+      YamiDamage_15: 6165861929075251708
+      YamiDamage_22: -2628977019766926802
+      YamiDamage_18: 3717992168854289856
+      YamiDamage_16: 3301775655205102550
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

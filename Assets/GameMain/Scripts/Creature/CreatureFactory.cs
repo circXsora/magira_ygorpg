@@ -70,9 +70,9 @@ namespace BBYGO
             return view;
         }
 
-        public CreatureLogic CreateLogic(CreatureInfo info)
+        public CreatureOldLogic CreateLogic(CreatureInfo info)
         {
-            CreatureLogic logic;
+            CreatureOldLogic logic;
 
             switch (info.type)
             {

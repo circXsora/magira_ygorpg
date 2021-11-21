@@ -1,11 +1,10 @@
 using UnityEngine;
 namespace MGO.Entity
 {
-
-    public interface IEntityView
+    public interface IEntity
     {
         bool Inited { get; }
-        bool Active { get; }
+        bool IsActive { get; }
 
         Vector3 Position { get; set; }
         Vector3 LocalPosition { get; set; }
@@ -21,11 +20,13 @@ namespace MGO.Entity
 
         void Init();
 
-        void ToActive();
+        void Active();
 
-        void ToDeactive();
+        void Deactive();
 
-        void UpdateLogic(float logicDeltaTime, float realDeltaTime);
+        ILogic GetLogic();
+
+        void Update(float logicDeltaTime, float realDeltaTime);
 
     }
 }

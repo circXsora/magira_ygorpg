@@ -24,12 +24,12 @@ public class EntityTest
         // Use yield to skip a frame.
         yield return null;
         var entity = new GameObject();
-        IEntityView entityView = entity.AddComponent<EntityView>();
+        IEntity entityView = entity.AddComponent<Entity>();
 
-        entityView.ToActive();
+        entityView.Active();
         Assert.That(entity.activeSelf);
 
-        entityView.ToDeactive();
+        entityView.Deactive();
         Assert.That(!entity.activeSelf);
 
         entityView.Position = new Vector3(10, 10, 10);
