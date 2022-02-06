@@ -8,6 +8,7 @@
 //  </copyright>
 //------------------------------------------------------------------------------
 using GameFramework.Event;
+using MGO.Entity.Unity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -61,7 +62,7 @@ namespace BBYGO
             await View.Destroy();
         }
 
-        public void SetPoint(EnvironmentBindings.PointInfo pointInfo)
+        public void SetPoint(PointInfo pointInfo)
         {
             if (View == null)
             {

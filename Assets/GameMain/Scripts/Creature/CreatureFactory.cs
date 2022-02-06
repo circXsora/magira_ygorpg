@@ -18,73 +18,75 @@ namespace BBYGO
 {
     public class CreatureFactory
     {
-        public CreatureView CreateView(CreatureInfo info)
+        public CreatureLogic CreateLogic(CreatureInfo info)
         {
-            CreatureView view;
-
-            switch (info.type)
-            {
-                case CreaturesType.Monsters:
-                    {
-                        GameObject instance = null;
-                        switch (info.party)
-                        {
-                            case CreaturesParty.Player:
-                                instance = GameObject.Instantiate(GameEntry.Creatures.PlayerMonsterTemplate, GameEntry.Creatures.transform);
-                                break;
-                            case CreaturesParty.Enemy:
-                                instance = GameObject.Instantiate(GameEntry.Creatures.EnemyMonsterTemplate, GameEntry.Creatures.transform);
-                                break;
-                            default:
-                                throw new InvalidOperationException("没有这种阵营");
-                        }
-                        
-                        var monsterView = instance.GetOrAddComponent<MonsterView>();
-                        view = monsterView;
-
-                        monsterView.MonsterUI = GameObject.Instantiate(GameEntry.Creatures.MonsterUITemplate, GameEntry.Creatures.transform).GetComponent<MonsterHUD>();
-                        monsterView.MonsterUI.transform.rotation = Quaternion.identity;
-                        monsterView.MonsterUI.gameObject.AddComponent<TragetTracker>().Target = monsterView.Bindings.MonsterUIPoint;
-                        var sprite = GameEntry.Config.sprite.GetMonsterSprite(info.entryId);
-                        try
-                        {
-                            view.Bindings.mainRenderer.sprite = sprite;
-                        }
-                        catch (Exception)
-                        {
-
-                            throw;
-                        }
-                    }
-                    break;
-                case CreaturesType.Player:
-                    {
-                        var instance = GameObject.Instantiate(GameEntry.Creatures.PlayerTemplate, GameEntry.Creatures.transform);
-                        view = instance.GetOrAddComponent<PlayerView>();
-                    }
-                    break;
-                default:
-                    throw new NotImplementedException("还没有这种类型的View");
-            }
-            view.Info = info;
-            return view;
-        }
-
-        public CreatureOldLogic CreateLogic(CreatureInfo info)
-        {
-            CreatureOldLogic logic;
+            CreatureLogic logic;
 
             switch (info.type)
             {
                 case CreaturesType.Monsters:
                     logic = new MonsterLogic(info);
-                    return logic;
+                    break;
                 case CreaturesType.Player:
                     logic = new PlayerLogic(info);
-                    return logic;
+                    break;
                 default:
                     throw new NotImplementedException("还没有这种类型的Logic");
             }
+            return logic;
+
+        }
+
+        public CreatureEntity CreateEntity(CreatureInfo info)
+        {
+            var logic = CreateLogic(info);
+            GameObject instance = null;
+            CreatureEntity entity = null;
+            switch (logic.Info.type)
+            {
+                case CreaturesType.Monsters:
+                    if (info.party == CreaturesParty.Player)
+                    {
+                        instance = GameObject.Instantiate(GameEntry.Creatures.PlayerMonsterTemplate, GameEntry.Creatures.transform);
+                    }
+                    else
+                    {
+                        instance = GameObject.Instantiate(GameEntry.Creatures.EnemyMonsterTemplate, GameEntry.Creatures.transform);
+                    }
+                    entity = instance.GetOrAddComponent<MonsterEntity>();
+                    break;
+                case CreaturesType.Player:
+                    instance = GameObject.Instantiate(GameEntry.Creatures.PlayerTemplate, GameEntry.Creatures.transform);
+                    entity = instance.GetOrAddComponent<PlayerEntity>();
+                    break;
+                default:
+                    Debug.LogError("创建失败！没有这种类型的Creature");
+                    break;
+            }
+            if (entity != null)
+            {
+                entity.Logic = logic;
+
+                var holder = entity.GetComponentHolder();
+
+                var selection = holder.Add<UniverseEntitySelection>();
+                selection.CanSelect = false;
+
+                var materialChanger = holder.Add<MaterialChanger>();
+                materialChanger.SetRenderer(entity.MainRenderer);
+
+                var sprite = GameEntry.Config.sprite.GetMonsterSprite(info.entryId);
+                var spRenderer = entity.MainRenderer as SpriteRenderer;
+                if (spRenderer != null)
+                {
+                    spRenderer.sprite = sprite;
+                }
+            }
+            else
+            {
+                Debug.LogError("Entity Is null!");
+            }
+            return entity;
         }
     }
 }

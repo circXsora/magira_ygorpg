@@ -16,6 +16,15 @@ namespace BBYGO
 {
 	public class CreatureLogic : EntityLogic
 	{
+        public CreatureInfo Info { get; private set; }
+        public virtual CreatureAI AI { get; set; }
+        public CreatureState CreatureState { get; set; }
+        public CreatureEntry EntryData { get; set; }
 
-	}
+        public CreatureLogic(CreatureInfo info)
+        {
+            Info = info;
+            CreatureState = new CreatureState() { Hp = 50, MaxHp = 50 };
+        }
+    }
 }

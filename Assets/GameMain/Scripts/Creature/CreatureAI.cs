@@ -14,13 +14,13 @@ namespace BBYGO
 {
     public class CreatureAI
     {
-        public CreatureOldLogic owner;
+        public CreatureLogic owner;
 
         private BehaviourTreeOwner behaviourTreeOwner;
         private BattleContext battle;
 
 
-        public CreatureAI(CreatureOldLogic owner)
+        public CreatureAI(CreatureLogic owner)
         {
             this.owner = owner;
         }
@@ -34,9 +34,9 @@ namespace BBYGO
             var grahp = GameEntry.AI.GetBehaviourTreeGraph(owner);
             grahp.repeat = false;
             battle = GameEntry.Context.Battle;
-            battle.pointerClickedMonster = owner.View.gameObject;
+            //battle.pointerClickedMonster = owner.View.gameObject;
             battle.selectMonsters.Clear();
-            battle.selectMonsters.Add(battle.playerMonsters[0].View.gameObject);
+            //battle.selectMonsters.Add(battle.playerMonsters[0].View.gameObject);
             behaviourTreeOwner.StartBehaviour(grahp);
             await TaskExtensions.WaitUntil(() => grahp.rootStatus != NodeCanvas.Framework.Status.Running);
         }

@@ -24,15 +24,15 @@ namespace BBYGO
         }
 
         public bool InBattle { get; private set; }
-        public PlayerLogic player;
-        public List<MonsterLogic> playerMonsters = new List<MonsterLogic>();
-        public List<MonsterLogic> enemyMonsters = new List<MonsterLogic>();
-        public Dictionary<MonsterLogic, BattleTurnData> monsterBattleTurnDatas = new Dictionary<MonsterLogic, BattleTurnData>();
-        public GameObject environment;
+        public PlayerEntity player;
+        public List<MonsterEntity> playerMonsters = new List<MonsterEntity>();
+        public List<MonsterEntity> enemyMonsters = new List<MonsterEntity>();
+        public Dictionary<MonsterEntity, BattleTurnData> monsterBattleTurnDatas = new Dictionary<MonsterEntity, BattleTurnData>();
+        public EnvironmentEntity environment;
         public bool playerTurn = false;
         public bool alreadyPlayerMonsterHovered = false;
-        public GameObject pointerClickedMonster = null;
-        public List<GameObject> selectMonsters;
+        public MonsterEntity pointerClickedMonster = null;
+        public List<MonsterEntity> selectMonsters;
 
         public void Init()
         {

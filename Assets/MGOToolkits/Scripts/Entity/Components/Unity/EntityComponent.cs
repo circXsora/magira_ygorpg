@@ -13,9 +13,19 @@ using UnityEngine;
 
 namespace MGO.Entity.Unity
 {
-    public class EntityComponent : MonoBehaviour, IEntityComponent
+    public abstract class EntityComponent : MonoBehaviour, IEntityComponent
     {
         public Entity entity;
+
+        public virtual void OnAdd()
+        {
+
+        }
+
+        public virtual void OnRemove()
+        {
+
+        }
 
         public IEntity GetOwner()
         {

@@ -7,6 +7,7 @@
 //  功能:
 //  </copyright>
 //------------------------------------------------------------------------------
+using MGO.Entity.Unity;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections;
@@ -26,25 +27,25 @@ namespace BBYGO
         [SerializeField]
         private PointInfo[] enemyPointInfos;
 
-        [Serializable]
-        public class PointInfo
-        {
-            public Transform transform;
-        }
-
         public PointInfo GetPlayerMonsterPoint(int index)
         {
-            return playerMonsterPointInfos[index];
+            var point = playerMonsterPointInfos[index];
+            Debug.Assert(point != null);
+            return point;
         }
 
         public PointInfo GetPlayerPoint(int index)
         {
-            return playerPointInfos[index];
+            var point = playerPointInfos[index];
+            Debug.Assert(point != null);
+            return point;
         }
 
         public PointInfo GetEnemyPoint(int index)
         {
-            return enemyPointInfos[index];
+            var point = enemyPointInfos[index];
+            Debug.Assert(point != null);
+            return point;
         }
     }
 }

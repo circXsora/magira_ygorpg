@@ -14,8 +14,25 @@ using UnityEngine;
 
 namespace BBYGO
 {
-	public class CreatureEntity : Entity
-	{
+    public class CreatureEntity : Entity
+    {
+        public CreatureLogic CreatureLogic => Logic as CreatureLogic;
 
-	}
+        private Renderer mainRenderer;
+        public override Renderer MainRenderer
+        {
+            get
+            {
+                if (mainRenderer == null)
+                {
+                    mainRenderer = GetComponent<Renderer>();
+                    if (mainRenderer == null)
+                    {
+                        mainRenderer = transform.Find("MainRenderer").GetComponent<Renderer>();
+                    }
+                }
+                return mainRenderer;
+            }
+        }
+    }
 }

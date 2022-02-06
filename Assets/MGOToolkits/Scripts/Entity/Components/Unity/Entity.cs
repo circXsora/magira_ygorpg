@@ -1,12 +1,24 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 namespace MGO.Entity.Unity
 {
+
+    [Serializable]
+    public class PointInfo
+    {
+        public Transform transform;
+    }
+
     public class Entity : MonoBehaviour, IEntity
     {
-        protected EntityComponentHolder entityComponentHolder;
-        protected EntityLogic logic;
+        private EntityComponentHolder entityComponentHolder;
+
+        public virtual Renderer MainRenderer { get; protected set; }
+
+        public EntityLogic Logic { get; set; }
 
         public Vector3 Position
         {
@@ -65,27 +77,33 @@ namespace MGO.Entity.Unity
 
         public virtual void Init()
         {
+            if (Logic == null)
+            {
+                Debug.LogError("初始化失败！逻辑还未初始化！", this);
+            }
             Inited = true;
         }
 
-        public void Active()
+        public virtual async Task Active()
         {
             gameObject.SetActive(true);
         }
 
-        public void Deactive()
+        public virtual async Task Deactive()
         {
             gameObject.SetActive(false);
         }
 
-        public void Update(float logicDeltaTime, float realDeltaTime)
-        {
-            logic.Update(logicDeltaTime, realDeltaTime);
-        }
-
         protected virtual void Update()
         {
-            Update(Time.deltaTime, Time.unscaledDeltaTime);
+            if (!Inited)
+                return;
+            Logic.Update(Time.deltaTime, Time.unscaledDeltaTime);
+        }
+
+        public void SetPoint(PointInfo pointInfo)
+        {
+            Position = pointInfo.transform.position;
         }
 
         public EntityComponentHolder GetComponentHolder()
@@ -100,7 +118,7 @@ namespace MGO.Entity.Unity
 
         public ILogic GetLogic()
         {
-            return logic;
+            return Logic;
         }
 
     }

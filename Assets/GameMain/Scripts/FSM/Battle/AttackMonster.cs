@@ -21,28 +21,28 @@ namespace NodeCanvas.Tasks.Actions
             battleContext = GameEntry.Context.Battle;
             battleContext.enemyMonsters.ForEach(m =>
             {
-                m.Selectable = false;
+                //m.Selectable = false;
             });
 
             battleContext.playerMonsters.ForEach(m =>
             {
-                m.Selectable = false;
+                //m.Selectable = false;
             });
 
             var seq = DOTween.Sequence();
 
             var attacker = battleContext.pointerClickedMonster;
-            var attackerLogic = GameEntry.Creatures.GetCreatureLogicByGameObjerct(attacker) as MonsterLogic;
+            var attackerEntity = attacker.GetComponent<MonsterEntity>();
 
             var victim = battleContext.selectMonsters[0];
-            var victimLogic = GameEntry.Creatures.GetCreatureLogicByGameObjerct(victim) as MonsterLogic;
+            var victimEntity = victim.GetComponent<MonsterEntity>();
 
             var originPos = attacker.transform.position;
             var targetPos = originPos * 0.2f + victim.transform.position * 0.8f;
             await attacker.transform.DOMove(targetPos, moveTime).AsyncWaitForCompletion();
-            await attackerLogic.Attack(victimLogic);
+            await attackerEntity.MonsterLogic.Attack(victimEntity.MonsterLogic);
             await attacker.transform.DOMove(originPos, backTime).AsyncWaitForCompletion();
-            battleContext.monsterBattleTurnDatas[attackerLogic].actionDone = true;
+            battleContext.monsterBattleTurnDatas[attackerEntity].actionDone = true;
             EndAction(true);
         }
     }

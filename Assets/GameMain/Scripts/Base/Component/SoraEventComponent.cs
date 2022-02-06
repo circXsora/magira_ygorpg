@@ -4,11 +4,17 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace BBYGO
 {
     public class SoraEventComponent : UnityGameFramework.Runtime.GameFrameworkComponent
     {
-        public EventSO OnViewPointerEnter, OnViewPointerExit, OnViewPointerClick;
+        [FormerlySerializedAs("OnViewPointerEnter")]
+        public EventSO OnEntityPointerEnter;
+        [FormerlySerializedAs("OnViewPointerExit")]
+        public EventSO OnEntityPointerExit;
+        [FormerlySerializedAs("OnViewPointerClick")]
+        public EventSO OnEntityPointerClick;
     }
 }

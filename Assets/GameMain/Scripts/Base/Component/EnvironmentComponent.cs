@@ -26,13 +26,15 @@ namespace BBYGO
         [SerializeField]
         private EventSO LoadEnvironmentComplete;
         private Dictionary<string, GameObject> environmentDic = new Dictionary<string, GameObject>();
-		public async Task<GameObject> Load(EnvironmentType environment)
+		public async Task<EnvironmentEntity> Load(EnvironmentType environment)
         {
             var env = await GameEntry.Resource.LoadAsync<GameObject>("Environments/" + environment.ToString());
             var instance = Instantiate(env, parent);
+            var entity = instance.GetOrAddComponent<EnvironmentEntity>();
+            entity.Type = environment;
             environmentDic.Add(environment.ToString(), instance);
             LoadEnvironmentComplete?.Raise(this, instance);
-            return instance;
+            return entity;
         }
 
         public EnvironmentBindings[] GetEnvironmentContext(EnvironmentType environmentType)

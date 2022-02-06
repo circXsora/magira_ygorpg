@@ -16,43 +16,45 @@ namespace NodeCanvas.Tasks.Actions
         protected override void OnExecute()
         {
             battleContext = GameEntry.Context.Battle;
-            GameEntry.Event.OnViewPointerClick.AddListener(OnViewPointerClick);
-            GameEntry.Event.OnViewPointerEnter.AddListener(OnViewPointerEnter);
-            GameEntry.Event.OnViewPointerExit.AddListener(OnViewPointerExit);
+            GameEntry.Event.OnEntityPointerClick.AddListener(OnViewPointerClick);
+            GameEntry.Event.OnEntityPointerEnter.AddListener(OnViewPointerEnter);
+            GameEntry.Event.OnEntityPointerExit.AddListener(OnViewPointerExit);
             battleContext.enemyMonsters.ForEach(m =>
             {
-                m.Selectable = true;
+                //m.Selectable = true;
             });
         }
 
         protected override void OnStop()
         {
-            GameEntry.Event.OnViewPointerClick.RemoveListener(OnViewPointerClick);
-            GameEntry.Event.OnViewPointerEnter.RemoveListener(OnViewPointerEnter);
-            GameEntry.Event.OnViewPointerExit.RemoveListener(OnViewPointerExit);
+            GameEntry.Event.OnEntityPointerClick.RemoveListener(OnViewPointerClick);
+            GameEntry.Event.OnEntityPointerEnter.RemoveListener(OnViewPointerEnter);
+            GameEntry.Event.OnEntityPointerExit.RemoveListener(OnViewPointerExit);
             battleContext.enemyMonsters.ForEach(m =>
             {
-                m.Selectable = false;
-                m.View.MaterialChanger.ChangeTo(MaterialComponent.MaterialType.Origin);
+                //m.Selectable = false;
+                //m.View.MaterialChanger.ChangeTo(MaterialComponent.MaterialType.Origin);
             });
         }
 
         private void OnViewPointerClick(object sender, object e)
         {
-            var view = sender as CreatureView;
+            var entity = sender as MonsterEntity;
             battleContext.selectMonsters.Clear();
-            battleContext.selectMonsters.Add(view.gameObject);
-            view.MaterialChanger.ChangeTo(MaterialComponent.MaterialType.Origin);
+            battleContext.selectMonsters.Add(entity);
+            entity.GetComponentHolder().Get<MaterialChanger>().ChangeTo(MaterialType.Origin);
         }
 
         private void OnViewPointerExit(object sender, object e)
         {
-            (sender as CreatureView).MaterialChanger.ChangeTo(MaterialComponent.MaterialType.Origin);
+            var entity = sender as CreatureEntity;
+            entity.GetComponentHolder().Get<MaterialChanger>().ChangeTo(MaterialType.Origin);
         }
 
         private void OnViewPointerEnter(object sender, object data)
         {
-            (sender as CreatureView).MaterialChanger.ChangeTo(MaterialComponent.MaterialType.Outline);
+            var entity = sender as CreatureEntity;
+            entity.GetComponentHolder().Get<MaterialChanger>().ChangeTo(MaterialType.Origin);
         }
     }
 }

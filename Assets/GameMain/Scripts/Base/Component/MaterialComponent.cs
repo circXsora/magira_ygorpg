@@ -7,6 +7,7 @@
 //  功能:
 //  </copyright>
 //------------------------------------------------------------------------------
+using MGO.Entity.Unity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,51 +15,47 @@ using UnityEngine;
 
 namespace BBYGO
 {
+
+    public enum MaterialType
+    {
+        Origin,
+        Outline,
+        Dissolve,
+    }
+
     public class MaterialComponent : UnityGameFramework.Runtime.GameFrameworkComponent
     {
         public Material OutlineMaterial;
         public Material DissolveMaterial;
+    }
 
-        public enum MaterialType
+    public class MaterialChanger : EntityComponent
+    {
+        private Renderer entityRenderer;
+        private Material origin;
+
+        public void SetRenderer(Renderer entityrenderer)
         {
-            Origin,
-            Outline,
-            Dissolve,
+            this.entityRenderer = entityrenderer;
+            origin = GameObject.Instantiate(entityrenderer.material);
         }
 
-        public class MaterialChanger
+        public void ChangeTo(MaterialType materialType)
         {
-            private Renderer renderer;
-            private Material origin;
-
-            public MaterialChanger(Renderer renderer)
+            switch (materialType)
             {
-                this.renderer = renderer;
-                origin = Instantiate(renderer.material);
+                case MaterialType.Origin:
+                    entityRenderer.material = origin;
+                    break;
+                case MaterialType.Outline:
+                    entityRenderer.material = GameEntry.Material.OutlineMaterial;
+                    break;
+                case MaterialType.Dissolve:
+                    entityRenderer.material = GameEntry.Material.DissolveMaterial;
+                    break;
+                default:
+                    break;
             }
-
-            public void ChangeTo(MaterialType materialType)
-            {
-                switch (materialType)
-                {
-                    case MaterialType.Origin:
-                        renderer.material = origin;
-                        break;
-                    case MaterialType.Outline:
-                        renderer.material = GameEntry.Material.OutlineMaterial;
-                        break;
-                    case MaterialType.Dissolve:
-                        renderer.material = GameEntry.Material.DissolveMaterial;
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-
-        public MaterialChanger GetMaterialChanger(Renderer renderer)
-        {
-            return new MaterialChanger(renderer);
         }
     }
 }

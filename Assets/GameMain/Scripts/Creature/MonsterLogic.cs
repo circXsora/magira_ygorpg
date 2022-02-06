@@ -23,21 +23,10 @@ namespace BBYGO
     }
 
     [Serializable]
-    public class MonsterLogic : CreatureOldLogic
+    public class MonsterLogic : CreatureLogic
     {
-        public CreatureOldLogic Owner { get; private set; }
-        private MonsterView monsterView;
-        public MonsterView MonsterView
-        {
-            get
-            {
-                if (monsterView == null)
-                {
-                    monsterView = View as MonsterView;
-                }
-                return monsterView;
-            }
-        }
+        public CreatureLogic Owner { get; private set; }
+
         public MonsterState MonsterState { get; set; }
         public MonsterEntry MonsterEntry { get; set; }
 
@@ -46,14 +35,9 @@ namespace BBYGO
             MonsterState = new MonsterState() { PhysicalAttackRange = new IntRange(1, 3) };
         }
 
-        public void SetOwner(CreatureOldLogic owner)
+        public void SetOwner(CreatureLogic owner)
         {
             Owner = owner;
-        }
-
-        public override void SetView(CreatureView view)
-        {
-            base.SetView(view);
         }
 
         public async System.Threading.Tasks.Task Attack(MonsterLogic victimLogic)
@@ -62,11 +46,11 @@ namespace BBYGO
             {
                 Damage = MonsterState.PhysicalAttackRange.Random()
             };
-            await View.PerformVisualEffect(GameEntry.Config.visualEffectType.normalAttack1, new TimePointHandler[] { new TimePointHandler() {
-                start = (a,b,c)=>{ _ = victimLogic.SufferDamagePre(damageInfo); },
-                realEffect = (a,b,c)=>{ _ = victimLogic.SufferDamage(damageInfo); },
-                end = (a,b,c)=>{ _ = victimLogic.SufferDamagePost(damageInfo); },
-            } });
+            //await View.PerformVisualEffect(GameEntry.Config.visualEffectType.normalAttack1, new TimePointHandler[] { new TimePointHandler() {
+            //    start = (a,b,c)=>{ _ = victimLogic.SufferDamagePre(damageInfo); },
+            //    realEffect = (a,b,c)=>{ _ = victimLogic.SufferDamage(damageInfo); },
+            //    end = (a,b,c)=>{ _ = victimLogic.SufferDamagePost(damageInfo); },
+            //} });
         }
 
         public async System.Threading.Tasks.Task SufferDamagePre(DamageInfo damageInfo)
@@ -82,12 +66,12 @@ namespace BBYGO
         public async System.Threading.Tasks.Task SufferDamage(DamageInfo damageInfo)
         {
             CreatureState.Hp = Mathf.Clamp(CreatureState.Hp - damageInfo.Damage, 0, CreatureState.MaxHp);
-            await View.PerformVisualEffect(GameEntry.Config.visualEffectType.normalSufferDamage1, new TimePointHandler[] {
-                new TimePointHandler()
-                {
-                    realEffect = (a, b, c) => { MonsterView.HPBar.ShowHP(CreatureState.Hp, CreatureState.MaxHp);},
-                    end = (a,b,c)=>{ _ = GameEntry.VisualEffect.PerformNumberTextEffect(View.Bindings.DamageTextPoint.position, damageInfo.Damage, GameEntry.Config.visualEffectType.normalSufferDamage1);}
-                } });
+            //await View.PerformVisualEffect(GameEntry.Config.visualEffectType.normalSufferDamage1, new TimePointHandler[] {
+            //    new TimePointHandler()
+            //    {
+            //        realEffect = (a, b, c) => { MonsterView.HPBar.ShowHP(CreatureState.Hp, CreatureState.MaxHp);},
+            //        end = (a,b,c)=>{ _ = GameEntry.VisualEffect.PerformNumberTextEffect(View.Bindings.DamageTextPoint.position, damageInfo.Damage, GameEntry.Config.visualEffectType.normalSufferDamage1);}
+            //    } });
         }
     }
 }

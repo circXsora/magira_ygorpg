@@ -84,15 +84,14 @@ namespace BBYGO
     public class CreaturesComponent : UnityGameFramework.Runtime.GameFrameworkComponent
     {
         private static int idGenerator = 0;
-        private readonly Dictionary<int, CreatureOldLogic> creaturesDic = new Dictionary<int, CreatureOldLogic>();
-        private readonly CreatureFactory factory = new CreatureFactory();
+        private readonly Dictionary<int, CreatureEntity> creatures = new();
+        private readonly CreatureFactory factory = new();
 
         [SerializeField]
         private CreatureVisualEffectConfigSO visualEffectConfig;
 
         [SerializeField]
         private GameObject playerTemplate;
-
         public GameObject PlayerTemplate => playerTemplate;
 
         [SerializeField]
@@ -107,46 +106,14 @@ namespace BBYGO
         private GameObject monsterUITemplate;
         public GameObject MonsterUITemplate => monsterUITemplate;
 
-        public CreatureOldLogic GetCreatureLogicByGameObjerct(GameObject pointerClickedMonster)
+        public CreatureEntity CreateCreature(CreatureInfo creatureInfo)
         {
-            var view = pointerClickedMonster.GetComponent<CreatureView>();
-            var creature = creaturesDic.Values.First(c => c.View == view);
-            return creature;
-        }
-        private CreatureOldLogic CreateLogic(CreatureInfo info)
-        {
-            var logic = factory.CreateLogic(info);
-            creaturesDic.Add(logic.Info.id, logic);
-            return logic;
-        }
-
-        private CreatureView CreateView(CreatureInfo info)
-        {
-            var view = factory.CreateView(info);
-            return view;
+            return factory.CreateEntity(creatureInfo);
         }
 
         public CreatureVisualEffectConfigSO GetCreatureVisualEffectConfig(int entryId)
         {
             return visualEffectConfig;
-        }
-
-        public CreatureOldLogic Load(CreatureInfo info)
-        {
-            info.id = idGenerator++;
-            var logic = CreateLogic(info);
-            var view = CreateView(info);
-            logic.SetView(view);
-            return logic;
-        }
-
-        public void DestroyCreature(int creatureId)
-        {
-            if (creaturesDic.TryGetValue(creatureId, out var creatureLogic))
-            {
-                creaturesDic.Remove(creatureId);
-                creatureLogic.DestroyView();
-            }
         }
     }
 }

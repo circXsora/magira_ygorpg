@@ -9,9 +9,9 @@ namespace BBYGO
 {
     public class ChangeMaterial : ActionTask
     {
-        private MaterialComponent.MaterialChanger materialChanger;
+        private MaterialChanger materialChanger;
         [RequiredField]
-        public MaterialComponent.MaterialType materialType;
+        public MaterialType materialType;
         protected override string info
         {
             get { return string.Format("Change To {0} Material", materialType.ToString()); }
@@ -19,7 +19,7 @@ namespace BBYGO
 
         protected override string OnInit()
         {
-            materialChanger = blackboard.GetVariable<MaterialComponent.MaterialChanger>(nameof(MaterialComponent.MaterialChanger)).value;
+            materialChanger = blackboard.GetVariable<MaterialChanger>(nameof(MaterialChanger)).value;
             return null;
         }
 

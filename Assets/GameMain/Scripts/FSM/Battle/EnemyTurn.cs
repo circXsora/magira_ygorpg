@@ -11,14 +11,14 @@ namespace NodeCanvas.Tasks.Actions
         public EventSO onEnemyTurnComplete;
         private async System.Threading.Tasks.Task DoEnemiesAI()
         {
-            foreach (var e in battleContext.enemyMonsters)
-            {
-                if (e.AI == null)
-                {
-                    e.AI = new MonsterAI(e);
-                }
-                await e.AI.Run();
-            }
+            //foreach (var e in battleContext.enemyMonsters)
+            //{
+            //    if (e.AI == null)
+            //    {
+            //        e.AI = new MonsterAI(e);
+            //    }
+            //    await e.AI.Run();
+            //}
         }
 
         protected override void OnUpdate()

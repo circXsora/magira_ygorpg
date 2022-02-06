@@ -1,3 +1,5 @@
+using System;
+using System.Threading.Tasks;
 using UnityEngine;
 namespace MGO.Entity
 {
@@ -20,13 +22,10 @@ namespace MGO.Entity
 
         void Init();
 
-        void Active();
+        Task Active();
 
-        void Deactive();
+        Task Deactive();
 
         ILogic GetLogic();
-
-        void Update(float logicDeltaTime, float realDeltaTime);
-
     }
 }

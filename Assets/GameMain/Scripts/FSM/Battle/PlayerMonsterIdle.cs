@@ -18,11 +18,11 @@ namespace NodeCanvas.Tasks.Actions
         protected override void OnExecute()
         {
             battleContext = GameEntry.Context.Battle;
-            GameEntry.Event.OnViewPointerClick.AddListener(OnViewPointerClick);
-            GameEntry.Event.OnViewPointerEnter.AddListener(OnViewPointerEnter);
-            GameEntry.Event.OnViewPointerExit.AddListener(OnViewPointerExit);
+            GameEntry.Event.OnEntityPointerClick.AddListener(OnEntityPointerClick);
+            GameEntry.Event.OnEntityPointerEnter.AddListener(OnEntityPointerEnter);
+            GameEntry.Event.OnEntityPointerExit.AddListener(OnEntityPointerExit);
             battleContext.alreadyPlayerMonsterHovered = false;
-            battleContext.playerMonsters.ForEach(m => m.Selectable = !battleContext.monsterBattleTurnDatas[m].actionDone);
+            //battleContext.playerMonsters.ForEach(m => m.Selectable = !battleContext.monsterBattleTurnDatas[m].actionDone);
             if (battleContext.playerMonsters.All(m => battleContext.monsterBattleTurnDatas[m].actionDone))
             {
                 onAllPlayerMonstersActionDone?.Raise(this, null);
@@ -33,38 +33,41 @@ namespace NodeCanvas.Tasks.Actions
         {
             battleContext.playerMonsters.ForEach(m =>
             {
-                m.Selectable = false;
-                m.View.MaterialChanger.ChangeTo(MaterialComponent.MaterialType.Origin);
+                //m.Selectable = false;
+                //m.View.MaterialChanger.ChangeTo(MaterialComponent.MaterialType.Origin);
             });
-            GameEntry.Event.OnViewPointerClick.RemoveListener(OnViewPointerClick);
-            GameEntry.Event.OnViewPointerEnter.RemoveListener(OnViewPointerEnter);
-            GameEntry.Event.OnViewPointerExit.RemoveListener(OnViewPointerExit);
+            GameEntry.Event.OnEntityPointerClick.RemoveListener(OnEntityPointerClick);
+            GameEntry.Event.OnEntityPointerEnter.RemoveListener(OnEntityPointerEnter);
+            GameEntry.Event.OnEntityPointerExit.RemoveListener(OnEntityPointerExit);
             _ = GameEntry.UI.Close(UIType.MonsterCommandMenuForm);
         }
 
-        private void OnViewPointerClick(object sender, object e)
+        private void OnEntityPointerClick(object sender, object e)
         {
-            var view = (sender as CreatureView);
-            if (battleContext.pointerClickedMonster != view.gameObject)
+            var entity = (sender as CreatureEntity);
+            if (entity == null)
             {
-                battleContext.pointerClickedMonster?.GetComponent<CreatureView>().MaterialChanger.ChangeTo(MaterialComponent.MaterialType.Origin);
-                battleContext.pointerClickedMonster = view.gameObject;
+                Debug.LogError($"Clicked obj is not Entity, but {sender.GetType()}");
+            }
+            if (battleContext.pointerClickedMonster != entity)
+            {
+                if (battleContext.pointerClickedMonster != null)
+                {
+                    battleContext.pointerClickedMonster.GetComponentHolder().Get<MaterialChanger>().ChangeTo(MaterialType.Origin);
+                }
+                battleContext.pointerClickedMonster = entity as MonsterEntity;
                 _ = GameEntry.UI.Open(UIType.MonsterCommandMenuForm);
             }
         }
 
-        private void OnViewPointerExit(object sender, object e)
+        private void OnEntityPointerExit(object sender, object e)
         {
-            var view = (sender as CreatureView);
-            if (battleContext.pointerClickedMonster != view.gameObject)
-            {
-                view.MaterialChanger.ChangeTo(MaterialComponent.MaterialType.Origin);
-            }
+            (sender as CreatureEntity).GetComponentHolder().Get<MaterialChanger>().ChangeTo(MaterialType.Origin);
         }
 
-        private void OnViewPointerEnter(object sender, object data)
+        private void OnEntityPointerEnter(object sender, object data)
         {
-            (sender as CreatureView).MaterialChanger.ChangeTo(MaterialComponent.MaterialType.Outline);
+            (sender as CreatureEntity).GetComponentHolder().Get<MaterialChanger>().ChangeTo(MaterialType.Outline);
         }
     }
 }

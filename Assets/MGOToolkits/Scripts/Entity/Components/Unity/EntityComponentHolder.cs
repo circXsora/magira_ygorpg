@@ -14,6 +14,9 @@ using UnityEngine;
 
 namespace MGO.Entity.Unity
 {
+    /// <summary>
+    /// 实体组件管理器，用于管理Entity上的组件
+    /// </summary>
     public class EntityComponentHolder : MonoBehaviour
     {
         private List<EntityComponent> components = new List<EntityComponent>();
@@ -34,12 +37,14 @@ namespace MGO.Entity.Unity
             var comp = Owner.gameObject.AddComponent<T>();
             components.Add(comp);
             comp.entity = Owner;
+            comp.OnAdd();
             return comp;
         }
 
         public void Remove(EntityComponent component)
         {
             components.Remove(component);
+            component.OnRemove();
             Destroy(component);
         }
 

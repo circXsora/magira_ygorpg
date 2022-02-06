@@ -11,12 +11,12 @@ namespace BBYGO
 
     public class AIComponent : UnityGameFramework.Runtime.GameFrameworkComponent
     {
-        private Dictionary<CreatureOldLogic, BehaviourTreeOwner> creatureAIDic = new Dictionary<CreatureOldLogic, BehaviourTreeOwner>();
+        private Dictionary<CreatureLogic, BehaviourTreeOwner> creatureAIDic = new Dictionary<CreatureLogic, BehaviourTreeOwner>();
 
         [SerializeField]
         private BehaviourTree normalEnemyAI;
 
-        public BehaviourTreeOwner GetBehaviourTreeOwner(CreatureOldLogic logic)
+        public BehaviourTreeOwner GetBehaviourTreeOwner(CreatureLogic logic)
         {
             if (creatureAIDic.TryGetValue(logic, out var btOwner))
             {
@@ -34,7 +34,7 @@ namespace BBYGO
 
         }
 
-        public BehaviourTree GetBehaviourTreeGraph(CreatureOldLogic logic)
+        public BehaviourTree GetBehaviourTreeGraph(CreatureLogic logic)
         {
             if (logic.Info.party == CreaturesParty.Enemy && logic.Info.type == CreaturesType.Monsters)
             {
