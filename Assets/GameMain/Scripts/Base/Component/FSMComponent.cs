@@ -7,6 +7,7 @@
 //  功能:
 //  </copyright>
 //------------------------------------------------------------------------------
+using MGO;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,29 +15,11 @@ using UnityEngine;
 
 namespace BBYGO
 {
-	public class FSMComponent : UnityGameFramework.Runtime.GameFrameworkComponent
+	public class FSMComponent : GameFrameworkComponent
 	{
-		//[SerializeField]
-		//private GameObject battleFSM;
-
-		[SerializeField]
-		private GameObject procedureFSM;
-
         protected override void Awake()
         {
             base.Awake();
-			RunProcedureFSM();
         }
-
-   //     public void RunBattleFSM()
-   //     {
-			//battleFSM.gameObject.SetActive(true);
-   //     }
-
-		public void RunProcedureFSM()
-        {
-			procedureFSM.gameObject.SetActive(true);
-
-		}
 	}
 }

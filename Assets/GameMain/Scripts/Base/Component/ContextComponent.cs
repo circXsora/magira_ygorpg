@@ -7,6 +7,7 @@
 //  功能:
 //  </copyright>
 //------------------------------------------------------------------------------
+using MGO;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ using UnityEngine;
 
 namespace BBYGO
 {
-    public class ContextComponent : UnityGameFramework.Runtime.GameFrameworkComponent
+    public class ContextComponent : GameFrameworkComponent
     {
         [SerializeField]
         private BattleContext battle;

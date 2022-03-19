@@ -1,4 +1,5 @@
 using DG.Tweening;
+using MGO;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using UnityEngine.Serialization;
 
 namespace BBYGO
 {
-    public class SoraEventComponent : UnityGameFramework.Runtime.GameFrameworkComponent
+    public class SoraEventComponent : GameFrameworkComponent
     {
         [FormerlySerializedAs("OnViewPointerEnter")]
         public EventSO OnEntityPointerEnter;

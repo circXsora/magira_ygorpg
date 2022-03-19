@@ -21,7 +21,7 @@ namespace MGO
 
         public static ParallelWork Create(params Work[] works)
         {
-            var work = GameFramework.ReferencePool.AcquireWithoutSpawn<ParallelWork>() ?? new ParallelWork();
+            var work = ReferencePool.AcquireWithoutSpawn<ParallelWork>() ?? new ParallelWork();
             work.RunningWorks.AddRange(works);
             return work;
         }
@@ -68,11 +68,11 @@ namespace MGO
             base.Clear();
             foreach (var work in RunningWorks)
             {
-                GameFramework.ReferencePool.Release(work);
+                ReferencePool.Release(work);
             }
             foreach (var work in CompleteWorks)
             {
-                GameFramework.ReferencePool.Release(work);
+                ReferencePool.Release(work);
             }
             RunningWorks.Clear();
             CompleteWorks.Clear();

@@ -7,7 +7,6 @@
 //  功能:
 //  </copyright>
 //------------------------------------------------------------------------------
-using GameFramework.Event;
 using MGO.Entity.Unity;
 using System;
 using System.Collections;

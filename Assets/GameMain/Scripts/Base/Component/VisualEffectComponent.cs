@@ -1,4 +1,5 @@
 using DG.Tweening;
+using MGO;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ namespace BBYGO
         public ProgressHanlder end;
     }
 
-    public class VisualEffectComponent : UnityGameFramework.Runtime.GameFrameworkComponent
+    public class VisualEffectComponent : GameFrameworkComponent
     {
         public GameObject TextEffect1;
 

@@ -7,6 +7,7 @@
 //  功能:
 //  </copyright>
 //------------------------------------------------------------------------------
+using MGO;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ using UnityEngine;
 
 namespace BBYGO
 {
-    public class SoraResourceComponent : UnityGameFramework.Runtime.GameFrameworkComponent
+    public class SoraResourceComponent : GameFrameworkComponent
     {
         public T Load<T>(string path) where T : Object
         {

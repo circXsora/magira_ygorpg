@@ -1,4 +1,5 @@
 using DG.Tweening;
+using MGO;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace BBYGO
         BattleForm,
     }
 
-    public class SoraUIComponent : UnityGameFramework.Runtime.GameFrameworkComponent
+    public class SoraUIComponent : GameFrameworkComponent
     {
         public Transform UIParent;
         public Canvas MainCanvas { get; private set; }

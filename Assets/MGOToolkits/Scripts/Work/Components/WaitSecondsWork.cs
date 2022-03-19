@@ -11,7 +11,7 @@ namespace MGO
 
         public static WaitSecondsWork Create(float waitSeconds)
         {
-            var work = GameFramework.ReferencePool.AcquireWithoutSpawn<WaitSecondsWork>() ?? new WaitSecondsWork();
+            var work = ReferencePool.AcquireWithoutSpawn<WaitSecondsWork>() ?? new WaitSecondsWork();
             work.WaitSeconds = waitSeconds;
             work.LeftSeconds = waitSeconds;
             return work;

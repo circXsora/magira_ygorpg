@@ -8,7 +8,7 @@ namespace MGO
 
         public static WaitOneFrameWork Create(float waitSeconds)
         {
-            var work = GameFramework.ReferencePool.AcquireWithoutSpawn<WaitOneFrameWork>() ?? new WaitOneFrameWork();
+            var work = ReferencePool.AcquireWithoutSpawn<WaitOneFrameWork>() ?? new WaitOneFrameWork();
             return work;
         }
 

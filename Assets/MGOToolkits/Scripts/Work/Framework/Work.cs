@@ -7,7 +7,6 @@
 //  功能:
 //  </copyright>
 //------------------------------------------------------------------------------
-using GameFramework;
 using System;
 
 namespace MGO

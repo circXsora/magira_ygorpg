@@ -7,6 +7,7 @@
 //  功能:
 //  </copyright>
 //------------------------------------------------------------------------------
+using MGO;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -19,7 +20,7 @@ namespace BBYGO
         Environment_1,
     }
 
-    public class EnvironmentComponent : UnityGameFramework.Runtime.GameFrameworkComponent
+    public class EnvironmentComponent : GameFrameworkComponent
     {
         [SerializeField]
         private Transform parent;

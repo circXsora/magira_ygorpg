@@ -7,6 +7,7 @@
 //  功能:
 //  </copyright>
 //------------------------------------------------------------------------------
+using MGO;
 using MGO.Entity.Unity;
 using System;
 using System.Collections;
@@ -23,7 +24,7 @@ namespace BBYGO
         Dissolve,
     }
 
-    public class MaterialComponent : UnityGameFramework.Runtime.GameFrameworkComponent
+    public class MaterialComponent : GameFrameworkComponent
     {
         public Material OutlineMaterial;
         public Material DissolveMaterial;

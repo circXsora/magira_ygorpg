@@ -7,7 +7,6 @@
 //  功能:
 //  </copyright>
 //------------------------------------------------------------------------------
-using GameFramework.Event;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -36,14 +35,14 @@ namespace BBYGO
         //    GameEntry.Event.Unsubscribe(BattleMonsterCommandSendEventArgs.EventId, OnMonsterBattleCommandSend);
         //}
 
-        private void OnMonsterBattleCommandSend(object sender, GameEventArgs e)
-        {
+        //private void OnMonsterBattleCommandSend(object sender, GameEventArgs e)
+        //{
             //var ce = e as BattleMonsterCommandSendEventArgs;
             //if (ce.command == GameEntry.Config.Battle.Attack)
             //{
             //    _ = GameEntry.UI.HideBattleCommandMenu();
             //}
-        }
+        //}
 
         public void SetMonsters(List<MonsterLogic> monsters)
         {

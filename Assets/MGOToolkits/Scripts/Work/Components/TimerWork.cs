@@ -52,7 +52,7 @@ namespace MGO
         /// <returns></returns>
         public static TimerWork Create(float interval, Action workDelegate, Func<TimerWork, bool> endCondition, int loopTimes)
         {
-            var work = GameFramework.ReferencePool.AcquireWithoutSpawn<TimerWork>() ?? new TimerWork();
+            var work = ReferencePool.AcquireWithoutSpawn<TimerWork>() ?? new TimerWork();
             if (interval <= 0)
             {
                 throw new ArgumentException($"创建{nameof(TimerWork)}时，时间间隔参数{nameof(interval)}不正确，这个值应该大于0，但传入的值为{interval}。");

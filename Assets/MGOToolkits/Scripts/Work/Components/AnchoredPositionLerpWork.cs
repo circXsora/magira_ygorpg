@@ -24,7 +24,7 @@ namespace MGO
 
         public static AnchoredPositionLerpWork Create(RectTransform rectTransform, Vector2 target, float time)
         {
-            var work = GameFramework.ReferencePool.AcquireWithoutSpawn<AnchoredPositionLerpWork>() ?? new AnchoredPositionLerpWork();
+            var work = ReferencePool.AcquireWithoutSpawn<AnchoredPositionLerpWork>() ?? new AnchoredPositionLerpWork();
             work.RectTransform = rectTransform;
             work.Origin = rectTransform.anchoredPosition;
             work.Target = target;

@@ -24,7 +24,7 @@ namespace MGO
 
         public static LocalScaleLerpWork Create(Transform transform, Vector2 target, float time)
         {
-            var work = GameFramework.ReferencePool.AcquireWithoutSpawn<LocalScaleLerpWork>() ?? new LocalScaleLerpWork();
+            var work = ReferencePool.AcquireWithoutSpawn<LocalScaleLerpWork>() ?? new LocalScaleLerpWork();
             work.Transform = transform;
             work.Origin = transform.localScale;
             work.Target = target;

@@ -20,7 +20,7 @@ namespace MGO
 
         public static SimpleWork Create(Action<SimpleWork> workDelegate)
         {
-            var work = GameFramework.ReferencePool.AcquireWithoutSpawn<SimpleWork>() ?? new SimpleWork();
+            var work = ReferencePool.AcquireWithoutSpawn<SimpleWork>() ?? new SimpleWork();
             work._isComplete = false;
             work._workDelegate = workDelegate;
             return work;
@@ -28,7 +28,7 @@ namespace MGO
 
         public static SimpleWork Create(Action workDelegate)
         {
-            var work = GameFramework.ReferencePool.AcquireWithoutSpawn<SimpleWork>() ?? new SimpleWork();
+            var work = ReferencePool.AcquireWithoutSpawn<SimpleWork>() ?? new SimpleWork();
             work._isComplete = false;
             work._workDelegate = (_) => workDelegate?.Invoke();
             return work;

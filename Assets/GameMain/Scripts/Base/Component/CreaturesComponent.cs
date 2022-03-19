@@ -81,7 +81,7 @@ namespace BBYGO
         Enemy,
     }
 
-    public class CreaturesComponent : UnityGameFramework.Runtime.GameFrameworkComponent
+    public class CreaturesComponent : GameFrameworkComponent
     {
         private static int idGenerator = 0;
         private readonly Dictionary<int, CreatureEntity> creatures = new();

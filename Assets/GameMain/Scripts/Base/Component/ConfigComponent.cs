@@ -7,6 +7,7 @@
 //  功能:
 //  </copyright>
 //------------------------------------------------------------------------------
+using MGO;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ using UnityEngine;
 
 namespace BBYGO
 {
-    public class ConfigComponent : UnityGameFramework.Runtime.GameFrameworkComponent
+    public class ConfigComponent : GameFrameworkComponent
     {
         [Serializable]
         public class SpriteConfig

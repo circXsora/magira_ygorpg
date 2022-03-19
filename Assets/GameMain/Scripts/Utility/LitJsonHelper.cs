@@ -5,8 +5,8 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
-using GameFramework;
 using LitJson;
+using MGO;
 using System;
 
 namespace BBYGO

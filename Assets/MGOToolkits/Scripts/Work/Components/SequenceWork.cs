@@ -22,7 +22,7 @@ namespace MGO
 
         public static SequenceWork Create(params Work[] works)
         {
-            var work = GameFramework.ReferencePool.AcquireWithoutSpawn<SequenceWork>() ?? new SequenceWork();
+            var work = ReferencePool.AcquireWithoutSpawn<SequenceWork>() ?? new SequenceWork();
             if (works != null)
             {
                 work.Works.AddRange(works);
@@ -68,7 +68,7 @@ namespace MGO
             base.Clear();
             foreach (var work in Works)
             {
-                GameFramework.ReferencePool.Release(work);
+                ReferencePool.Release(work);
             }
             Works.Clear();
             CurrentWorkIndex = 0;

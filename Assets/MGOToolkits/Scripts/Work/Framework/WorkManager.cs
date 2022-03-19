@@ -36,7 +36,8 @@ namespace MGO
         /// <param name="work"></param>
         public virtual void ReleaseWork(Work work)
         {
-            GameFramework.ReferencePool.Release(work);
+            throw new System.NotImplementedException();
+            //GameFramework.ReferencePool.Release(work);
         }
         public virtual void Update(float elapseSeconds, float realElapseSeconds)
         {

@@ -1,4 +1,5 @@
 using DG.Tweening;
+using MGO;
 using NodeCanvas.BehaviourTrees;
 using System;
 using System.Collections;
@@ -9,7 +10,7 @@ using UnityEngine;
 namespace BBYGO
 {
 
-    public class AIComponent : UnityGameFramework.Runtime.GameFrameworkComponent
+    public class AIComponent : GameFrameworkComponent
     {
         private Dictionary<CreatureLogic, BehaviourTreeOwner> creatureAIDic = new Dictionary<CreatureLogic, BehaviourTreeOwner>();
 

@@ -10,7 +10,7 @@ namespace MGO
 
         public static WaitWork Create(Func<WaitWork, bool> completeCondition)
         {
-            var work = GameFramework.ReferencePool.AcquireWithoutSpawn<WaitWork>() ?? new WaitWork();
+            var work = ReferencePool.AcquireWithoutSpawn<WaitWork>() ?? new WaitWork();
             work._completeCondition = completeCondition ?? throw new ArgumentNullException("在等待工作中，完成条件被赋值为空。");
             return work;
         }
