@@ -53,7 +53,7 @@ namespace NodeCanvas.Tasks.Actions
             {
                 if (battleContext.pointerClickedMonster != null)
                 {
-                    battleContext.pointerClickedMonster.GetComponentHolder().Get<MaterialChanger>().ChangeTo(MaterialType.Origin);
+                    battleContext.pointerClickedMonster.GetGearHolder().Get<MaterialChanger>().ChangeTo(MaterialType.Origin);
                 }
                 battleContext.pointerClickedMonster = entity as MonsterEntity;
                 _ = GameEntry.UI.Open(UIType.MonsterCommandMenuForm);
@@ -62,12 +62,12 @@ namespace NodeCanvas.Tasks.Actions
 
         private void OnEntityPointerExit(object sender, object e)
         {
-            (sender as CreatureEntity).GetComponentHolder().Get<MaterialChanger>().ChangeTo(MaterialType.Origin);
+            (sender as CreatureEntity).GetGearHolder().Get<MaterialChanger>().ChangeTo(MaterialType.Origin);
         }
 
         private void OnEntityPointerEnter(object sender, object data)
         {
-            (sender as CreatureEntity).GetComponentHolder().Get<MaterialChanger>().ChangeTo(MaterialType.Outline);
+            (sender as CreatureEntity).GetGearHolder().Get<MaterialChanger>().ChangeTo(MaterialType.Outline);
         }
     }
 }

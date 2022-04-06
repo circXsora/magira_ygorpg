@@ -37,10 +37,10 @@ namespace BBYGO
 
         private CreatureView currentView;
 
-        public override Task Show()
+        protected override async Task ShowCore()
         {
             SetToView(GameEntry.Context.Battle.pointerClickedMonster.GetComponent<CreatureView>());
-            return base.Show();
+            await base.ShowCore();
         }
 
         public void SetToView(CreatureView view)

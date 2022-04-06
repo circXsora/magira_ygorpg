@@ -42,19 +42,19 @@ namespace NodeCanvas.Tasks.Actions
             var entity = sender as MonsterEntity;
             battleContext.selectMonsters.Clear();
             battleContext.selectMonsters.Add(entity);
-            entity.GetComponentHolder().Get<MaterialChanger>().ChangeTo(MaterialType.Origin);
+            entity.GetGearHolder().Get<MaterialChanger>().ChangeTo(MaterialType.Origin);
         }
 
         private void OnViewPointerExit(object sender, object e)
         {
             var entity = sender as CreatureEntity;
-            entity.GetComponentHolder().Get<MaterialChanger>().ChangeTo(MaterialType.Origin);
+            entity.GetGearHolder().Get<MaterialChanger>().ChangeTo(MaterialType.Origin);
         }
 
         private void OnViewPointerEnter(object sender, object data)
         {
             var entity = sender as CreatureEntity;
-            entity.GetComponentHolder().Get<MaterialChanger>().ChangeTo(MaterialType.Origin);
+            entity.GetGearHolder().Get<MaterialChanger>().ChangeTo(MaterialType.Origin);
         }
     }
 }

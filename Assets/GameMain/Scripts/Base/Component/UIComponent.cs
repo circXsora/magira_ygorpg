@@ -35,7 +35,7 @@ namespace BBYGO
             return uiInstance.GetComponent<UIForm>();
         }
 
-        public async Task Open(UIType ui)
+        public async Task<UIForm> Get(UIType ui)
         {
             UIForm uiForm = null;
             if (uiFormsDic.TryGetValue(ui.ToString(), out var uiInstance))
@@ -45,8 +45,14 @@ namespace BBYGO
             else
             {
                 uiForm = await Load(ui);
+                uiForm.Init();
             }
-            await uiForm.Show();
+            return uiForm;
+        }
+
+        public async Task Open(UIType ui)
+        {
+            await (await Get(ui)).Show();
         }
 
         public async Task Close(UIType ui)

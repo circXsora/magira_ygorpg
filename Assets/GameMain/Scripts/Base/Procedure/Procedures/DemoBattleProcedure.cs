@@ -16,5 +16,15 @@ namespace BBYGO
 	public class DemoBattleProcedure : ProcedureBase
 	{
 
+        private EnvironmentEntity envirnment;
+        private PlayerEntity player;
+        public override async void OnEnter()
+        {
+            envirnment = await GameEntry.Environment.Load(EnvironmentType.Environment_1);
+            _ = envirnment.Active();
+
+            
+            base.OnEnter();
+        }
     }
 }

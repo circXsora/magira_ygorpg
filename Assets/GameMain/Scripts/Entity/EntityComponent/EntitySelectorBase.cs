@@ -23,7 +23,7 @@ namespace BBYGO
         Select,
     }
 
-    public abstract class EntitySelectionBase : EntityComponent, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+    public abstract class EntitySelectorBase : EntityGear, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
         public virtual bool CanSelect { get; set; } = true;
         private SelectionState state = SelectionState.NotSelect;
@@ -59,7 +59,7 @@ namespace BBYGO
         }
     }
 
-    public class UniverseEntitySelection : EntitySelectionBase
+    public class UniverseEntitySelection : EntitySelectorBase
     {
         public override void OnPointerClick(PointerEventData eventData)
         {

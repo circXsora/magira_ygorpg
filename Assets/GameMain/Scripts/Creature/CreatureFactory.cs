@@ -68,7 +68,7 @@ namespace BBYGO
             {
                 entity.Logic = logic;
 
-                var holder = entity.GetComponentHolder();
+                var holder = entity.GetGearHolder();
 
                 var selection = holder.Add<UniverseEntitySelection>();
                 selection.CanSelect = false;

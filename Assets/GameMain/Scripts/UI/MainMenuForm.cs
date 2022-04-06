@@ -25,28 +25,14 @@ namespace BBYGO
         public Button StartButton;
         public Button EndButton;
         public RawImage BgImage;
-        public EventSO enterGameEvent;
 
-
-        private void Awake()
-        {
-            StartButton.onClick.AddListener(() =>
-           {
-               enterGameEvent.Raise(this, null);
-           });
-            EndButton.onClick.AddListener(() =>
-            {
-                Application.Quit();
-            });
-        }
-
-        public override async Task Show()
+        protected override async Task ShowCore()
         {
             var bgNames = Enum.GetValues(typeof(BgType));
             var bg = await GameEntry.Resource.LoadBg((BgType)bgNames.Random1());
             BgImage.texture = bg;
 
-            await base.Show();
+            await base.ShowCore();
         }
     }
 }

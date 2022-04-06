@@ -7,17 +7,43 @@
 //  功能:
 //  </copyright>
 //------------------------------------------------------------------------------
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace BBYGO
 {
-	public class MenuProcedure : ProcedureBase
-	{
-        public override void OnEnter()
+    public class MenuProcedure : ProcedureBase
+    {
+        MainMenuForm menuForm;
+
+        public override async void OnEnter()
         {
-            _  =GameEntry.UI.Open(UIType.MenuForm);
+            menuForm = await GameEntry.UI.Get(UIType.MenuForm) as MainMenuForm;
+            menuForm.StartButton.onClick.AddListener(OnStart);
+            menuForm.EndButton.onClick.AddListener(OnEnd);
+            _ = menuForm.Show();
+            base.OnEnter();
+        }
+
+        public override void OnLeave(bool isShutdown)
+        {
+            menuForm.StartButton.onClick.RemoveListener(OnStart);
+            menuForm.EndButton.onClick.RemoveListener(OnEnd);
+            _ = menuForm.Hide();
+            base.OnLeave(isShutdown);
+        }
+
+        private void OnStart()
+        {
+            Next();
+        }
+
+        private void OnEnd()
+        {
+            Application.Quit();
         }
     }
 }

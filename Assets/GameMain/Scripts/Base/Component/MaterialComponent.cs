@@ -30,7 +30,7 @@ namespace BBYGO
         public Material DissolveMaterial;
     }
 
-    public class MaterialChanger : EntityComponent
+    public class MaterialChanger : EntityGear
     {
         private Renderer entityRenderer;
         private Material origin;
