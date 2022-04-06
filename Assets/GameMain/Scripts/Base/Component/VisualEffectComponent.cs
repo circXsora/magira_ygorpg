@@ -29,8 +29,10 @@ namespace BBYGO
         /// </summary>
         public ProgressHanlder end;
     }
-
-    public class VisualEffectComponent : GameFrameworkComponent
+    /// <summary>
+    /// 管理一切视效管理
+    /// </summary>
+    public class VisualEffectComponent : GameComponent
     {
         public GameObject TextEffect1;
 

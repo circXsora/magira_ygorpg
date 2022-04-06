@@ -8,6 +8,7 @@
 //  </copyright>
 //------------------------------------------------------------------------------
 using MGO;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,19 +19,18 @@ namespace BBYGO
     /// 流程组件。
     /// </summary>
     [DisallowMultipleComponent]
-    [AddComponentMenu("Game Framework/Procedure")]
-    public sealed class ProcedureComponent : GameFrameworkComponent
+    public sealed class ProcedureComponent : GameComponent
     {
         private IProcedureManager m_ProcedureManager = null;
-        private ProcedureBaseSO m_EntranceProcedure = null;
+        private ProcedureBase m_EntranceProcedure = null;
+        private Listener<ProcedureEventArgs> procedureEndListener = null;
 
-        [SerializeField]
-        private ProcedureBaseSO[] m_ProcedureQueue = null;
+        private ProcedureBase[] m_ProcedureQueue = null;
 
         /// <summary>
         /// 获取当前流程。
         /// </summary>
-        public ProcedureBaseSO CurrentProcedure
+        public ProcedureBase CurrentProcedure
         {
             get
             {
@@ -55,8 +55,12 @@ namespace BBYGO
         protected override void Awake()
         {
             base.Awake();
+            m_ProcedureQueue = GetComponentsInChildren<ProcedureBase>();
+            m_EntranceProcedure = m_ProcedureQueue[0];
+            procedureEndListener = new Listener<ProcedureEventArgs>() { priority = 0, handler = OnProcedureEnd };
+            GameEntry.Event.ProcedureEnd.AddListener(procedureEndListener);
 
-            m_ProcedureManager = new ProcedureManager();
+            m_ProcedureManager = GameEntry.GameModule.GetInstance<ProcedureManager>();
             if (m_ProcedureManager == null)
             {
                 Log.Fatal("Procedure manager is invalid.");
@@ -69,6 +73,19 @@ namespace BBYGO
             m_ProcedureManager.Initialize(m_ProcedureQueue);
             m_ProcedureManager.StartProcedure(m_EntranceProcedure);
         }
+
+        private void OnDestroy()
+        {
+            GameEntry.Event.ProcedureEnd.RemoveListener(procedureEndListener);
+        }
+
+        public void OnProcedureEnd(object sender, ProcedureEventArgs arg)
+        {
+            var index = Array.IndexOf(m_ProcedureQueue, CurrentProcedure);
+            index++;
+            m_ProcedureManager.StartProcedure(m_ProcedureQueue[index]);
+        }
+
 
         /// <summary>
         /// 是否存在流程。
@@ -83,7 +100,7 @@ namespace BBYGO
         /// 是否存在流程。
         /// </summary>
         /// <returns>是否存在流程。</returns>
-        public bool HasProcedure(ProcedureBaseSO procedure)
+        public bool HasProcedure(ProcedureBase procedure)
         {
             return m_ProcedureManager.HasProcedure(procedure);
         }
@@ -92,7 +109,7 @@ namespace BBYGO
         /// 获取流程。
         /// </summary>
         /// <returns>要获取的流程。</returns>
-        public ProcedureBaseSO GetProcedure(string procedureName)
+        public ProcedureBase GetProcedure(string procedureName)
         {
             return m_ProcedureManager.GetProcedure(procedureName);
         }

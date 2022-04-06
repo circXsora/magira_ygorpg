@@ -15,7 +15,7 @@ namespace BBYGO
         BattleForm,
     }
 
-    public class SoraUIComponent : GameFrameworkComponent
+    public class UIComponent : GameComponent
     {
         public Transform UIParent;
         public Canvas MainCanvas { get; private set; }

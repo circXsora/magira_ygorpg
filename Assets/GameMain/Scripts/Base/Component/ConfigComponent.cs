@@ -4,7 +4,7 @@
 //  邮箱:  circXsora@outlook.com
 //  日期:  2021/8/15 17:57:05
 //  项目:  邦邦游戏王
-//  功能:
+//  功能:  用于管理一切静态数据
 //  </copyright>
 //------------------------------------------------------------------------------
 using MGO;
@@ -16,7 +16,7 @@ using UnityEngine;
 
 namespace BBYGO
 {
-    public class ConfigComponent : GameFrameworkComponent
+    public class ConfigComponent : GameComponent
     {
         [Serializable]
         public class SpriteConfig

@@ -34,7 +34,7 @@ namespace BBYGO
         {
             if (Selectable)
             {
-                GameEntry.Event.OnEntityPointerClick.Raise(this, eventData);
+                //GameEntry.Event.OnEntityPointerClick.Raise(this, eventData);
             }
         }
 
@@ -51,7 +51,7 @@ namespace BBYGO
         {
             if (Selectable)
             {
-                GameEntry.Event.OnEntityPointerExit.Raise(this, eventData);
+                //GameEntry.Event.OnEntityPointerExit.Raise(this, eventData);
             }
         }
 
@@ -59,7 +59,7 @@ namespace BBYGO
         {
             if (Selectable)
             {
-                GameEntry.Event.OnEntityPointerEnter?.Raise(this, eventData);
+                //GameEntry.Event.OnEntityPointerEnter?.Raise(this, eventData);
             }
         }
 

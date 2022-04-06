@@ -16,7 +16,7 @@ namespace BBYGO
         /// <summary>
         /// 获取当前流程。
         /// </summary>
-        ProcedureBaseSO CurrentProcedure
+        ProcedureBase CurrentProcedure
         {
             get;
         }
@@ -34,24 +34,30 @@ namespace BBYGO
         /// </summary>
         /// <param name="fsmManager">有限状态机管理器。</param>
         /// <param name="procedures">流程管理器包含的流程。</param>
-        void Initialize(params ProcedureBaseSO[] procedures);
+        void Initialize(params ProcedureBase[] procedures);
 
         /// <summary>
         /// 开始流程。
         /// </summary>
         /// <param name="procedureType">要开始的流程。</param>
-        void StartProcedure(ProcedureBaseSO procedureType);
+        void StartProcedure(ProcedureBase procedure);
 
         /// <summary>
         /// 是否存在流程。
         /// </summary>
         /// <returns>是否存在流程。</returns>
-        bool HasProcedure(ProcedureBaseSO procedureType);
+        bool HasProcedure(ProcedureBase procedure);
 
         /// <summary>
         /// 获取流程。
         /// </summary>
         /// <returns>要获取的流程。</returns>
-        ProcedureBaseSO GetProcedure(string procedureName);
+        ProcedureBase GetProcedure(string procedureName);
+
+        /// <summary>
+        /// 获取流程。
+        /// </summary>
+        /// <returns>要获取的流程。</returns>
+        ProcedureBase GetProcedure(ProcedureBase procedure);
     }
 }

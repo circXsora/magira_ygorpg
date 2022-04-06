@@ -18,9 +18,9 @@ namespace NodeCanvas.Tasks.Actions
         protected override void OnExecute()
         {
             battleContext = GameEntry.Context.Battle;
-            GameEntry.Event.OnEntityPointerClick.AddListener(OnEntityPointerClick);
-            GameEntry.Event.OnEntityPointerEnter.AddListener(OnEntityPointerEnter);
-            GameEntry.Event.OnEntityPointerExit.AddListener(OnEntityPointerExit);
+            //GameEntry.Event.OnEntityPointerClick.AddListener(OnEntityPointerClick);
+            //GameEntry.Event.OnEntityPointerEnter.AddListener(OnEntityPointerEnter);
+            //GameEntry.Event.OnEntityPointerExit.AddListener(OnEntityPointerExit);
             battleContext.alreadyPlayerMonsterHovered = false;
             //battleContext.playerMonsters.ForEach(m => m.Selectable = !battleContext.monsterBattleTurnDatas[m].actionDone);
             if (battleContext.playerMonsters.All(m => battleContext.monsterBattleTurnDatas[m].actionDone))
@@ -36,9 +36,9 @@ namespace NodeCanvas.Tasks.Actions
                 //m.Selectable = false;
                 //m.View.MaterialChanger.ChangeTo(MaterialComponent.MaterialType.Origin);
             });
-            GameEntry.Event.OnEntityPointerClick.RemoveListener(OnEntityPointerClick);
-            GameEntry.Event.OnEntityPointerEnter.RemoveListener(OnEntityPointerEnter);
-            GameEntry.Event.OnEntityPointerExit.RemoveListener(OnEntityPointerExit);
+            //GameEntry.Event.OnEntityPointerClick.RemoveListener(OnEntityPointerClick);
+            //GameEntry.Event.OnEntityPointerEnter.RemoveListener(OnEntityPointerEnter);
+            //GameEntry.Event.OnEntityPointerExit.RemoveListener(OnEntityPointerExit);
             _ = GameEntry.UI.Close(UIType.MonsterCommandMenuForm);
         }
 

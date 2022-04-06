@@ -20,7 +20,7 @@ namespace BBYGO
         Environment_1,
     }
 
-    public class EnvironmentComponent : GameFrameworkComponent
+    public class EnvironmentComponent : GameComponent
     {
         [SerializeField]
         private Transform parent;

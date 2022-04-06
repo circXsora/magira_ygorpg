@@ -7,23 +7,27 @@
 //  功能:
 //  </copyright>
 //------------------------------------------------------------------------------
+using MGO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace BBYGO
 {
-	[CreateAssetMenu(fileName = "Procudure", menuName = "ScriptableObjects/Procudure")]
-	public abstract class ProcedureBaseSO : ScriptableObject
-	{
-		public string ProcedureName;
+    public abstract class ProcedureBase : MonoBehaviour
+    {
+        public string ProcedureName;
 
         /// <summary>
         /// 状态初始化时调用。
         /// </summary>
         public virtual void OnInit()
         {
-            
+            Log.Debug(GetType().Name + " " + nameof(OnInit));
+            if (string.IsNullOrEmpty(ProcedureName))
+            {
+                ProcedureName = name;
+            }
         }
 
         /// <summary>
@@ -31,7 +35,12 @@ namespace BBYGO
         /// </summary>
         public virtual void OnEnter()
         {
-            
+            Log.Debug(GetType().Name + " " + nameof(OnEnter));
+        }
+
+        public void Next()
+        {
+            GameEntry.Event.ProcedureEnd.Raise(this, null);
         }
 
         /// <summary>
@@ -50,15 +59,7 @@ namespace BBYGO
         /// <param name="isShutdown">是否是关闭状态机时触发。</param>
         public virtual void OnLeave(bool isShutdown)
         {
-           
-        }
-
-        /// <summary>
-        /// 状态销毁时调用。
-        /// </summary>
-        public virtual void OnDestroy()
-        {
-           
+            Log.Debug(GetType().Name + " " + nameof(OnLeave));
         }
     }
 }

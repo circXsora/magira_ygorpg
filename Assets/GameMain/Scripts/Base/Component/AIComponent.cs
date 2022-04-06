@@ -10,7 +10,7 @@ using UnityEngine;
 namespace BBYGO
 {
 
-    public class AIComponent : GameFrameworkComponent
+    public class AIComponent : GameComponent
     {
         private Dictionary<CreatureLogic, BehaviourTreeOwner> creatureAIDic = new Dictionary<CreatureLogic, BehaviourTreeOwner>();
 

@@ -15,7 +15,7 @@ using UnityEngine;
 
 namespace BBYGO
 {
-    public class SoraResourceComponent : GameFrameworkComponent
+    public class ResourceComponent : GameComponent
     {
         public T Load<T>(string path) where T : Object
         {
@@ -53,7 +53,7 @@ namespace BBYGO
             }
         }
 
-        public Task<Texture> LoadBg(UIForm.BgType bgType)
+        public Task<Texture> LoadBg(BgType bgType)
         {
             return LoadAsync<Texture>("UI/Background/" + bgType.ToString());
         }

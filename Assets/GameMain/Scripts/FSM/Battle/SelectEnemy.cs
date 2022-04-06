@@ -16,9 +16,9 @@ namespace NodeCanvas.Tasks.Actions
         protected override void OnExecute()
         {
             battleContext = GameEntry.Context.Battle;
-            GameEntry.Event.OnEntityPointerClick.AddListener(OnViewPointerClick);
-            GameEntry.Event.OnEntityPointerEnter.AddListener(OnViewPointerEnter);
-            GameEntry.Event.OnEntityPointerExit.AddListener(OnViewPointerExit);
+            //GameEntry.Event.OnEntityPointerClick.AddListener(OnViewPointerClick);
+            //GameEntry.Event.OnEntityPointerEnter.AddListener(OnViewPointerEnter);
+            //GameEntry.Event.OnEntityPointerExit.AddListener(OnViewPointerExit);
             battleContext.enemyMonsters.ForEach(m =>
             {
                 //m.Selectable = true;
@@ -27,9 +27,9 @@ namespace NodeCanvas.Tasks.Actions
 
         protected override void OnStop()
         {
-            GameEntry.Event.OnEntityPointerClick.RemoveListener(OnViewPointerClick);
-            GameEntry.Event.OnEntityPointerEnter.RemoveListener(OnViewPointerEnter);
-            GameEntry.Event.OnEntityPointerExit.RemoveListener(OnViewPointerExit);
+            //GameEntry.Event.OnEntityPointerClick.RemoveListener(OnViewPointerClick);
+            //GameEntry.Event.OnEntityPointerEnter.RemoveListener(OnViewPointerEnter);
+            //GameEntry.Event.OnEntityPointerExit.RemoveListener(OnViewPointerExit);
             battleContext.enemyMonsters.ForEach(m =>
             {
                 //m.Selectable = false;

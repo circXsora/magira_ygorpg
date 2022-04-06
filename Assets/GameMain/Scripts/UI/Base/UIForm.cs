@@ -17,16 +17,15 @@ using UnityEngine;
 
 namespace BBYGO
 {
+	public enum BgType
+	{
+		Bg1,
+		Bg2,
+		Bg3
+	}
+
 	public class UIForm : SerializedMonoBehaviour
 	{
-        public enum BgType
-        {
-			Bg1,
-			Bg2,
-			Bg3
-        }
-
-
 		public float ShowAnimationTime = 0.8f;
 		public float HideAnimationTime = 0.8f;
 

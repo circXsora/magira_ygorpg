@@ -5,6 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using MGO;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -16,9 +17,9 @@ namespace BBYGO
     /// </summary>
     public partial class GameEntry : MonoBehaviour
     {
-        public static SoraEventComponent Event { get; private set; }
-        public static SoraUIComponent UI { get; private set; }
-        public static SoraResourceComponent Resource { get; private set; }
+        public static EventComponent Event { get; private set; }
+        public static UIComponent UI { get; private set; }
+        public static ResourceComponent Resource { get; private set; }
         public static EnvironmentComponent Environment { get; private set; }
         public static CreaturesComponent Creatures { get; private set; }
         public static ConfigComponent Config { get; private set; }
@@ -27,15 +28,19 @@ namespace BBYGO
         public static ContextComponent Context { get; private set; }
         public static AIComponent AI { get; private set; }
         public static VisualEffectComponent VisualEffect { get; private set; }
+        public static ProcedureComponent Procedure { get; private set; }
+        public static GameModuleComponent GameModule { get; private set; }
         public static Camera MainCamera;
 
         private void Awake()
         {
             TaskScheduler.UnobservedTaskException += (s, e) => Debug.LogException(e.Exception);
 
-            Event = GetComponentInChildren<SoraEventComponent>();
-            UI = GetComponentInChildren<SoraUIComponent>();
-            Resource = GetComponentInChildren<SoraResourceComponent>();
+            Procedure = GetComponentInChildren<ProcedureComponent>();
+            GameModule = GetComponentInChildren<GameModuleComponent>();
+            Event = GetComponentInChildren<EventComponent>();
+            UI = GetComponentInChildren<UIComponent>();
+            Resource = GetComponentInChildren<ResourceComponent>();
             Environment = GetComponentInChildren<EnvironmentComponent>();
             Creatures = GetComponentInChildren<CreaturesComponent>();
             Config = GetComponentInChildren<ConfigComponent>();

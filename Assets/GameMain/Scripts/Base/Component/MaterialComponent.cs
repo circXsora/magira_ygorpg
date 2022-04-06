@@ -24,7 +24,7 @@ namespace BBYGO
         Dissolve,
     }
 
-    public class MaterialComponent : GameFrameworkComponent
+    public class MaterialComponent : GameComponent
     {
         public Material OutlineMaterial;
         public Material DissolveMaterial;

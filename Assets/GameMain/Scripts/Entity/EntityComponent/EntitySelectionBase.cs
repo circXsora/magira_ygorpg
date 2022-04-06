@@ -64,19 +64,19 @@ namespace BBYGO
         public override void OnPointerClick(PointerEventData eventData)
         {
             base.OnPointerClick(eventData);
-            GameEntry.Event.OnEntityPointerClick?.Raise(GetOwner(), eventData);
+            //GameEntry.Event.OnEntityPointerClick?.Raise(GetOwner(), eventData);
         }
 
         public override void OnPointerEnter(PointerEventData eventData)
         {
             base.OnPointerEnter(eventData);
-            GameEntry.Event.OnEntityPointerEnter?.Raise(GetOwner(), eventData);
+            //GameEntry.Event.OnEntityPointerEnter?.Raise(GetOwner(), eventData);
         }
 
         public override void OnPointerExit(PointerEventData eventData)
         {
             base.OnPointerExit(eventData);
-            GameEntry.Event.OnEntityPointerExit?.Raise(GetOwner(), eventData);
+            //GameEntry.Event.OnEntityPointerExit?.Raise(GetOwner(), eventData);
         }
     }
 }
