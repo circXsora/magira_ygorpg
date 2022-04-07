@@ -23,11 +23,10 @@ namespace BBYGO
         public CreatureVisualEffectConfigSO visualEffectConfig;
         public CreatureInfo Info { get; set; }
 
-        public CreatureBindings Bindings { get; set; }
         public bool Selectable { get; set; } = false;
         protected virtual void Awake()
         {
-            Bindings = GetComponent<CreatureBindings>();
+            
         }
 
         public void OnPointerClick(PointerEventData eventData)

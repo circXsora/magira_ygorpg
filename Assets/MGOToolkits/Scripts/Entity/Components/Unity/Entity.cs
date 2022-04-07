@@ -14,7 +14,7 @@ namespace MGO.Entity.Unity
 
     public class Entity : MonoBehaviour, IEntity
     {
-        private EntityComponentHolder entityComponentHolder;
+        private EntityGearHolder entityGearHolder;
 
         public virtual Renderer MainRenderer { get; protected set; }
 
@@ -106,14 +106,14 @@ namespace MGO.Entity.Unity
             Position = pointInfo.transform.position;
         }
 
-        public EntityComponentHolder GetComponentHolder()
+        public EntityGearHolder GetGearHolder()
         {
-            if (entityComponentHolder == null)
+            if (entityGearHolder == null)
             {
-                entityComponentHolder = gameObject.AddComponent<EntityComponentHolder>();
-                entityComponentHolder.Owner = this;
+                entityGearHolder = gameObject.AddComponent<EntityGearHolder>();
+                entityGearHolder.Owner = this;
             }
-            return entityComponentHolder;
+            return entityGearHolder;
         }
 
         public ILogic GetLogic()

@@ -50,7 +50,7 @@ namespace BBYGO
                 currentView = view;
                 try
                 {
-                    Panel.anchoredPosition = PositionHelper.WorldPos2CanvasPos(view.Bindings.CommandMenuPoint.position);
+                    //Panel.anchoredPosition = PositionHelper.WorldPos2CanvasPos(view.Bindings.CommandMenuPoint.position);
                 }
                 catch (Exception)
                 {

@@ -17,6 +17,9 @@ using UnityEngine;
 
 namespace BBYGO
 {
+    /// <summary>
+    /// State 当前数据
+    /// </summary>
     public class MonsterState
     {
         public IntRange PhysicalAttackRange { get; set; }
@@ -32,6 +35,9 @@ namespace BBYGO
         public int Avoidance { get; set; }
     }
 
+    /// <summary>
+    /// Entry 表格数据
+    /// </summary>
     public class MonsterEntry
     {
         public int? Star { get; set; }
@@ -60,10 +66,16 @@ namespace BBYGO
 
     /// <summary>
     /// 初始化信息，Id号等信息
+    /// Info 初始化数据
     /// </summary>
     public class CreatureInfo
     {
-        public int id;
+        public CreatureInfo()
+        {
+            id = Guid.NewGuid().ToString();
+        }
+
+        public string id;
         public int entryId;
         public CreaturesType type;
         public CreaturesParty party;
@@ -83,7 +95,6 @@ namespace BBYGO
 
     public class CreaturesComponent : GameComponent
     {
-        private static int idGenerator = 0;
         private readonly Dictionary<int, CreatureEntity> creatures = new();
         private readonly CreatureFactory factory = new();
 

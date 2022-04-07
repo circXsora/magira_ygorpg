@@ -13,7 +13,7 @@ using UnityEngine;
 
 namespace MGO.Entity.Unity
 {
-    public abstract class EntityComponent : MonoBehaviour, IEntityComponent
+    public abstract class EntityGear : MonoBehaviour, IEntityGear
     {
         public Entity entity;
 

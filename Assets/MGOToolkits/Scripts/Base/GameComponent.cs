@@ -4,7 +4,7 @@
 //  邮箱:  circXsora@outlook.com
 //  日期:  2022/3/19 20:11:32
 //  项目:  邦邦游戏王
-//  功能:
+//  功能:  顶层管理类，一切功能的入口
 //  </copyright>
 //------------------------------------------------------------------------------
 using System.Collections;
@@ -13,7 +13,7 @@ using UnityEngine;
 
 namespace MGO
 {
-	public abstract class GameFrameworkComponent : MonoBehaviour
+	public abstract class GameComponent : MonoBehaviour
 	{
         /// <summary>
         /// 游戏框架组件初始化。

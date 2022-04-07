@@ -15,24 +15,24 @@ using UnityEngine;
 namespace MGO.Entity.Unity
 {
     /// <summary>
-    /// 实体组件管理器，用于管理Entity上的组件
+    /// 实体组件管理器，用于管理Entity上的零件
     /// </summary>
-    public class EntityComponentHolder : MonoBehaviour
+    public class EntityGearHolder : MonoBehaviour
     {
-        private List<EntityComponent> components = new List<EntityComponent>();
+        private List<EntityGear> components = new List<EntityGear>();
         public Entity Owner { get; set; }
 
-        public IEnumerable<EntityComponent> GetAll()
+        public IEnumerable<EntityGear> GetAll()
         {
             return components;
         }
 
-        public T Get<T>() where T : EntityComponent
+        public T Get<T>() where T : EntityGear
         {
             return (T)components.First(c => c.GetType() == typeof(T));
         }
 
-        public T Add<T>() where T : EntityComponent
+        public T Add<T>() where T : EntityGear
         {
             var comp = Owner.gameObject.AddComponent<T>();
             components.Add(comp);
@@ -41,14 +41,14 @@ namespace MGO.Entity.Unity
             return comp;
         }
 
-        public void Remove(EntityComponent component)
+        public void Remove(EntityGear component)
         {
             components.Remove(component);
             component.OnRemove();
             Destroy(component);
         }
 
-        public T RemoveAt<T>(int index) where T : EntityComponent  
+        public T RemoveAt<T>(int index) where T : EntityGear  
         {
             var comp = components[index];
             components.RemoveAt(index);

@@ -1,23 +1,13 @@
-//------------------------------------------------------------------------------
-//  <copyright file="GameFrameworkLog.cs" company="MGO">
-//  作者:  circXsora
-//  邮箱:  circXsora@outlook.com
-//  日期:  2022/3/19 20:38:25
-//  项目:  邦邦游戏王
-//  功能:
-//  </copyright>
-//------------------------------------------------------------------------------
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace MGO
 {
-
     /// <summary>
     /// 游戏框架日志等级。
     /// </summary>
-    public enum GameFrameworkLogLevel : byte
+    public enum LogLevel : byte
     {
         /// <summary>
         /// 调试。
@@ -45,11 +35,57 @@ namespace MGO
         Fatal
     }
 
+
+
+
     /// <summary>
     /// 游戏框架日志类。
     /// </summary>
-    public static partial class GameFrameworkLog
+    public static partial class GameLog
     {
+        public static Object Context;
+
+        /// <summary>
+        /// 默认游戏框架日志辅助器。
+        /// </summary>
+        public class DefaultLogHelper : ILogHelper
+        {
+            /// <summary>
+            /// 记录日志。
+            /// </summary>
+            /// <param name="level">日志等级。</param>
+            /// <param name="message">日志内容。</param>
+            public void Log(LogLevel level, object message, Object context = null)
+            {
+                if (context == null)
+                {
+                    context = Context;
+                }
+                switch (level)
+                {
+                    case LogLevel.Debug:
+                        UnityEngine.Debug.Log(Utility.Text.Format("<color=#888888>{0}</color>", message.ToString()));
+                        break;
+
+                    case LogLevel.Info:
+                        UnityEngine.Debug.Log(message.ToString(), context);
+                        break;
+
+                    case LogLevel.Warning:
+                        UnityEngine.Debug.LogWarning(message.ToString(), context);
+                        break;
+
+                    case LogLevel.Error:
+                        UnityEngine.Debug.LogError(message.ToString(), context);
+                        break;
+
+                    default:
+                        throw new System.Exception(message.ToString());
+                }
+            }
+        }
+
+
         /// <summary>
         /// 游戏框架日志辅助器接口。
         /// </summary>
@@ -60,10 +96,10 @@ namespace MGO
             /// </summary>
             /// <param name="level">游戏框架日志等级。</param>
             /// <param name="message">日志内容。</param>
-            void Log(GameFrameworkLogLevel level, object message);
+            void Log(LogLevel level, object message, Object context = null);
         }
 
-        private static ILogHelper s_LogHelper = null;
+        private static ILogHelper s_LogHelper = new DefaultLogHelper();
 
         /// <summary>
         /// 设置游戏框架日志辅助器。
@@ -72,6 +108,51 @@ namespace MGO
         public static void SetLogHelper(ILogHelper logHelper)
         {
             s_LogHelper = logHelper;
+        }
+
+        public static void Debug(object message, Object context)
+        {
+            if (s_LogHelper == null)
+            {
+                return;
+            }
+            s_LogHelper.Log(LogLevel.Debug, message, context);
+        }
+
+        public static void Info(object message, Object context)
+        {
+            if (s_LogHelper == null)
+            {
+                return;
+            }
+            s_LogHelper.Log(LogLevel.Info, message, context);
+        }
+
+        public static void Warning(object message, Object context)
+        {
+            if (s_LogHelper == null)
+            {
+                return;
+            }
+            s_LogHelper.Log(LogLevel.Warning, message, context);
+        }
+
+        public static void Error(object message, Object context)
+        {
+            if (s_LogHelper == null)
+            {
+                return;
+            }
+            s_LogHelper.Log(LogLevel.Error, message, context);
+        }
+
+        public static void Fatal(object message, Object context)
+        {
+            if (s_LogHelper == null)
+            {
+                return;
+            }
+            s_LogHelper.Log(LogLevel.Fatal, message, context);
         }
 
         /// <summary>
@@ -85,7 +166,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Debug, message);
+            s_LogHelper.Log(LogLevel.Debug, message);
         }
 
         /// <summary>
@@ -99,7 +180,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Debug, message);
+            s_LogHelper.Log(LogLevel.Debug, message);
         }
 
         /// <summary>
@@ -115,7 +196,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Debug, Utility.Text.Format(format, arg));
+            s_LogHelper.Log(LogLevel.Debug, Utility.Text.Format(format, arg));
         }
 
         /// <summary>
@@ -133,7 +214,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Debug, Utility.Text.Format(format, arg1, arg2));
+            s_LogHelper.Log(LogLevel.Debug, Utility.Text.Format(format, arg1, arg2));
         }
 
         /// <summary>
@@ -153,7 +234,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Debug, Utility.Text.Format(format, arg1, arg2, arg3));
+            s_LogHelper.Log(LogLevel.Debug, Utility.Text.Format(format, arg1, arg2, arg3));
         }
 
         /// <summary>
@@ -175,7 +256,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Debug, Utility.Text.Format(format, arg1, arg2, arg3, arg4));
+            s_LogHelper.Log(LogLevel.Debug, Utility.Text.Format(format, arg1, arg2, arg3, arg4));
         }
 
         /// <summary>
@@ -199,7 +280,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Debug, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5));
+            s_LogHelper.Log(LogLevel.Debug, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5));
         }
 
         /// <summary>
@@ -225,7 +306,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Debug, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6));
+            s_LogHelper.Log(LogLevel.Debug, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6));
         }
 
         /// <summary>
@@ -253,7 +334,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Debug, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7));
+            s_LogHelper.Log(LogLevel.Debug, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7));
         }
 
         /// <summary>
@@ -283,7 +364,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Debug, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8));
+            s_LogHelper.Log(LogLevel.Debug, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8));
         }
 
         /// <summary>
@@ -315,7 +396,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Debug, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9));
+            s_LogHelper.Log(LogLevel.Debug, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9));
         }
 
         /// <summary>
@@ -349,7 +430,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Debug, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10));
+            s_LogHelper.Log(LogLevel.Debug, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10));
         }
 
         /// <summary>
@@ -385,7 +466,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Debug, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11));
+            s_LogHelper.Log(LogLevel.Debug, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11));
         }
 
         /// <summary>
@@ -423,7 +504,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Debug, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12));
+            s_LogHelper.Log(LogLevel.Debug, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12));
         }
 
         /// <summary>
@@ -463,7 +544,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Debug, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13));
+            s_LogHelper.Log(LogLevel.Debug, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13));
         }
 
         /// <summary>
@@ -505,7 +586,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Debug, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14));
+            s_LogHelper.Log(LogLevel.Debug, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14));
         }
 
         /// <summary>
@@ -549,7 +630,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Debug, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15));
+            s_LogHelper.Log(LogLevel.Debug, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15));
         }
 
         /// <summary>
@@ -595,7 +676,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Debug, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16));
+            s_LogHelper.Log(LogLevel.Debug, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16));
         }
 
         /// <summary>
@@ -609,7 +690,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Info, message);
+            s_LogHelper.Log(LogLevel.Info, message);
         }
 
         /// <summary>
@@ -623,7 +704,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Info, message);
+            s_LogHelper.Log(LogLevel.Info, message);
         }
 
         /// <summary>
@@ -639,7 +720,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Info, Utility.Text.Format(format, arg));
+            s_LogHelper.Log(LogLevel.Info, Utility.Text.Format(format, arg));
         }
 
         /// <summary>
@@ -657,7 +738,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Info, Utility.Text.Format(format, arg1, arg2));
+            s_LogHelper.Log(LogLevel.Info, Utility.Text.Format(format, arg1, arg2));
         }
 
         /// <summary>
@@ -677,7 +758,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Info, Utility.Text.Format(format, arg1, arg2, arg3));
+            s_LogHelper.Log(LogLevel.Info, Utility.Text.Format(format, arg1, arg2, arg3));
         }
 
         /// <summary>
@@ -699,7 +780,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Info, Utility.Text.Format(format, arg1, arg2, arg3, arg4));
+            s_LogHelper.Log(LogLevel.Info, Utility.Text.Format(format, arg1, arg2, arg3, arg4));
         }
 
         /// <summary>
@@ -723,7 +804,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Info, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5));
+            s_LogHelper.Log(LogLevel.Info, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5));
         }
 
         /// <summary>
@@ -749,7 +830,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Info, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6));
+            s_LogHelper.Log(LogLevel.Info, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6));
         }
 
         /// <summary>
@@ -777,7 +858,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Info, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7));
+            s_LogHelper.Log(LogLevel.Info, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7));
         }
 
         /// <summary>
@@ -807,7 +888,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Info, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8));
+            s_LogHelper.Log(LogLevel.Info, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8));
         }
 
         /// <summary>
@@ -839,7 +920,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Info, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9));
+            s_LogHelper.Log(LogLevel.Info, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9));
         }
 
         /// <summary>
@@ -873,7 +954,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Info, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10));
+            s_LogHelper.Log(LogLevel.Info, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10));
         }
 
         /// <summary>
@@ -909,7 +990,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Info, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11));
+            s_LogHelper.Log(LogLevel.Info, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11));
         }
 
         /// <summary>
@@ -947,7 +1028,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Info, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12));
+            s_LogHelper.Log(LogLevel.Info, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12));
         }
 
         /// <summary>
@@ -987,7 +1068,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Info, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13));
+            s_LogHelper.Log(LogLevel.Info, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13));
         }
 
         /// <summary>
@@ -1029,7 +1110,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Info, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14));
+            s_LogHelper.Log(LogLevel.Info, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14));
         }
 
         /// <summary>
@@ -1073,7 +1154,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Info, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15));
+            s_LogHelper.Log(LogLevel.Info, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15));
         }
 
         /// <summary>
@@ -1119,7 +1200,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Info, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16));
+            s_LogHelper.Log(LogLevel.Info, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16));
         }
 
         /// <summary>
@@ -1133,7 +1214,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Warning, message);
+            s_LogHelper.Log(LogLevel.Warning, message);
         }
 
         /// <summary>
@@ -1147,7 +1228,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Warning, message);
+            s_LogHelper.Log(LogLevel.Warning, message);
         }
 
         /// <summary>
@@ -1163,7 +1244,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Warning, Utility.Text.Format(format, arg));
+            s_LogHelper.Log(LogLevel.Warning, Utility.Text.Format(format, arg));
         }
 
         /// <summary>
@@ -1181,7 +1262,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Warning, Utility.Text.Format(format, arg1, arg2));
+            s_LogHelper.Log(LogLevel.Warning, Utility.Text.Format(format, arg1, arg2));
         }
 
         /// <summary>
@@ -1201,7 +1282,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Warning, Utility.Text.Format(format, arg1, arg2, arg3));
+            s_LogHelper.Log(LogLevel.Warning, Utility.Text.Format(format, arg1, arg2, arg3));
         }
 
         /// <summary>
@@ -1223,7 +1304,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Warning, Utility.Text.Format(format, arg1, arg2, arg3, arg4));
+            s_LogHelper.Log(LogLevel.Warning, Utility.Text.Format(format, arg1, arg2, arg3, arg4));
         }
 
         /// <summary>
@@ -1247,7 +1328,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Warning, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5));
+            s_LogHelper.Log(LogLevel.Warning, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5));
         }
 
         /// <summary>
@@ -1273,7 +1354,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Warning, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6));
+            s_LogHelper.Log(LogLevel.Warning, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6));
         }
 
         /// <summary>
@@ -1301,7 +1382,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Warning, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7));
+            s_LogHelper.Log(LogLevel.Warning, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7));
         }
 
         /// <summary>
@@ -1331,7 +1412,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Warning, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8));
+            s_LogHelper.Log(LogLevel.Warning, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8));
         }
 
         /// <summary>
@@ -1363,7 +1444,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Warning, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9));
+            s_LogHelper.Log(LogLevel.Warning, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9));
         }
 
         /// <summary>
@@ -1397,7 +1478,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Warning, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10));
+            s_LogHelper.Log(LogLevel.Warning, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10));
         }
 
         /// <summary>
@@ -1433,7 +1514,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Warning, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11));
+            s_LogHelper.Log(LogLevel.Warning, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11));
         }
 
         /// <summary>
@@ -1471,7 +1552,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Warning, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12));
+            s_LogHelper.Log(LogLevel.Warning, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12));
         }
 
         /// <summary>
@@ -1511,7 +1592,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Warning, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13));
+            s_LogHelper.Log(LogLevel.Warning, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13));
         }
 
         /// <summary>
@@ -1553,7 +1634,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Warning, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14));
+            s_LogHelper.Log(LogLevel.Warning, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14));
         }
 
         /// <summary>
@@ -1597,7 +1678,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Warning, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15));
+            s_LogHelper.Log(LogLevel.Warning, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15));
         }
 
         /// <summary>
@@ -1643,7 +1724,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Warning, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16));
+            s_LogHelper.Log(LogLevel.Warning, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16));
         }
 
         /// <summary>
@@ -1657,7 +1738,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Error, message);
+            s_LogHelper.Log(LogLevel.Error, message);
         }
 
         /// <summary>
@@ -1671,7 +1752,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Error, message);
+            s_LogHelper.Log(LogLevel.Error, message);
         }
 
         /// <summary>
@@ -1687,7 +1768,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Error, Utility.Text.Format(format, arg));
+            s_LogHelper.Log(LogLevel.Error, Utility.Text.Format(format, arg));
         }
 
         /// <summary>
@@ -1705,7 +1786,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Error, Utility.Text.Format(format, arg1, arg2));
+            s_LogHelper.Log(LogLevel.Error, Utility.Text.Format(format, arg1, arg2));
         }
 
         /// <summary>
@@ -1725,7 +1806,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Error, Utility.Text.Format(format, arg1, arg2, arg3));
+            s_LogHelper.Log(LogLevel.Error, Utility.Text.Format(format, arg1, arg2, arg3));
         }
 
         /// <summary>
@@ -1747,7 +1828,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Error, Utility.Text.Format(format, arg1, arg2, arg3, arg4));
+            s_LogHelper.Log(LogLevel.Error, Utility.Text.Format(format, arg1, arg2, arg3, arg4));
         }
 
         /// <summary>
@@ -1771,7 +1852,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Error, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5));
+            s_LogHelper.Log(LogLevel.Error, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5));
         }
 
         /// <summary>
@@ -1797,7 +1878,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Error, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6));
+            s_LogHelper.Log(LogLevel.Error, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6));
         }
 
         /// <summary>
@@ -1825,7 +1906,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Error, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7));
+            s_LogHelper.Log(LogLevel.Error, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7));
         }
 
         /// <summary>
@@ -1855,7 +1936,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Error, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8));
+            s_LogHelper.Log(LogLevel.Error, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8));
         }
 
         /// <summary>
@@ -1887,7 +1968,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Error, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9));
+            s_LogHelper.Log(LogLevel.Error, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9));
         }
 
         /// <summary>
@@ -1921,7 +2002,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Error, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10));
+            s_LogHelper.Log(LogLevel.Error, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10));
         }
 
         /// <summary>
@@ -1957,7 +2038,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Error, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11));
+            s_LogHelper.Log(LogLevel.Error, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11));
         }
 
         /// <summary>
@@ -1995,7 +2076,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Error, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12));
+            s_LogHelper.Log(LogLevel.Error, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12));
         }
 
         /// <summary>
@@ -2035,7 +2116,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Error, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13));
+            s_LogHelper.Log(LogLevel.Error, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13));
         }
 
         /// <summary>
@@ -2077,7 +2158,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Error, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14));
+            s_LogHelper.Log(LogLevel.Error, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14));
         }
 
         /// <summary>
@@ -2121,7 +2202,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Error, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15));
+            s_LogHelper.Log(LogLevel.Error, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15));
         }
 
         /// <summary>
@@ -2167,7 +2248,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Error, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16));
+            s_LogHelper.Log(LogLevel.Error, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16));
         }
 
         /// <summary>
@@ -2181,7 +2262,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Fatal, message);
+            s_LogHelper.Log(LogLevel.Fatal, message);
         }
 
         /// <summary>
@@ -2195,7 +2276,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Fatal, message);
+            s_LogHelper.Log(LogLevel.Fatal, message);
         }
 
         /// <summary>
@@ -2211,7 +2292,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Fatal, Utility.Text.Format(format, arg));
+            s_LogHelper.Log(LogLevel.Fatal, Utility.Text.Format(format, arg));
         }
 
         /// <summary>
@@ -2229,7 +2310,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Fatal, Utility.Text.Format(format, arg1, arg2));
+            s_LogHelper.Log(LogLevel.Fatal, Utility.Text.Format(format, arg1, arg2));
         }
 
         /// <summary>
@@ -2249,7 +2330,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Fatal, Utility.Text.Format(format, arg1, arg2, arg3));
+            s_LogHelper.Log(LogLevel.Fatal, Utility.Text.Format(format, arg1, arg2, arg3));
         }
 
         /// <summary>
@@ -2271,7 +2352,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Fatal, Utility.Text.Format(format, arg1, arg2, arg3, arg4));
+            s_LogHelper.Log(LogLevel.Fatal, Utility.Text.Format(format, arg1, arg2, arg3, arg4));
         }
 
         /// <summary>
@@ -2295,7 +2376,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Fatal, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5));
+            s_LogHelper.Log(LogLevel.Fatal, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5));
         }
 
         /// <summary>
@@ -2321,7 +2402,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Fatal, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6));
+            s_LogHelper.Log(LogLevel.Fatal, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6));
         }
 
         /// <summary>
@@ -2349,7 +2430,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Fatal, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7));
+            s_LogHelper.Log(LogLevel.Fatal, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7));
         }
 
         /// <summary>
@@ -2379,7 +2460,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Fatal, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8));
+            s_LogHelper.Log(LogLevel.Fatal, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8));
         }
 
         /// <summary>
@@ -2411,7 +2492,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Fatal, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9));
+            s_LogHelper.Log(LogLevel.Fatal, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9));
         }
 
         /// <summary>
@@ -2445,7 +2526,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Fatal, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10));
+            s_LogHelper.Log(LogLevel.Fatal, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10));
         }
 
         /// <summary>
@@ -2481,7 +2562,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Fatal, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11));
+            s_LogHelper.Log(LogLevel.Fatal, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11));
         }
 
         /// <summary>
@@ -2519,7 +2600,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Fatal, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12));
+            s_LogHelper.Log(LogLevel.Fatal, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12));
         }
 
         /// <summary>
@@ -2559,7 +2640,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Fatal, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13));
+            s_LogHelper.Log(LogLevel.Fatal, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13));
         }
 
         /// <summary>
@@ -2601,7 +2682,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Fatal, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14));
+            s_LogHelper.Log(LogLevel.Fatal, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14));
         }
 
         /// <summary>
@@ -2645,7 +2726,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Fatal, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15));
+            s_LogHelper.Log(LogLevel.Fatal, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15));
         }
 
         /// <summary>
@@ -2691,7 +2772,7 @@ namespace MGO
                 return;
             }
 
-            s_LogHelper.Log(GameFrameworkLogLevel.Fatal, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16));
+            s_LogHelper.Log(LogLevel.Fatal, Utility.Text.Format(format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16));
         }
     }
 }

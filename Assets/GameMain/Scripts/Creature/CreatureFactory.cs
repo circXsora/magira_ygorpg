@@ -70,7 +70,7 @@ namespace BBYGO
 
                 var holder = entity.GetGearHolder();
 
-                var selection = holder.Add<UniverseEntitySelection>();
+                var selection = holder.Add<UniverseEntitySelector>();
                 selection.CanSelect = false;
 
                 var materialChanger = holder.Add<MaterialChanger>();
