@@ -40,7 +40,7 @@ namespace MGO
             base.UpdateCore(elapseSeconds, realElapseSeconds);
             _leftTime -= elapseSeconds;
             _leftTime = Mathf.Max(0, _leftTime);
-            Debug.Log(Name + " " + _leftTime);
+            Log.Debug(Name + " " + _leftTime);
             Transform.localScale = Vector3.Lerp(Origin, Target, (Time - _leftTime) / Time);
         }
 

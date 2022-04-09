@@ -11,7 +11,20 @@ using System.Collections.Generic;
 
 namespace MGO
 {
-    public class WorkManager
+
+    public interface IWorkManager
+    {
+        void StartWork(Work work);
+        void StopWork(Work work);
+
+        /// <summary>
+        /// 当不再需要使用Work时，释放它以避免GC，方便下次使用
+        /// </summary>
+        /// <param name="work"></param>
+        void ReleaseWork(Work work);
+    }
+
+    public class WorkManager : GameModule, IWorkManager
     {
 
         public bool RecycleOnStop { get; set; }
@@ -36,10 +49,10 @@ namespace MGO
         /// <param name="work"></param>
         public virtual void ReleaseWork(Work work)
         {
-            throw new System.NotImplementedException();
-            //GameFramework.ReferencePool.Release(work);
+            ReferencePool.Release(work);
         }
-        public virtual void Update(float elapseSeconds, float realElapseSeconds)
+
+        public override void Update(float elapseSeconds, float realElapseSeconds)
         {
             var node = _workNodes.First;
             while (node != null)

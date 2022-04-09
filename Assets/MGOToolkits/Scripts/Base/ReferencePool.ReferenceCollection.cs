@@ -95,7 +95,7 @@ namespace MGO
             {
                 if (typeof(T) != m_ReferenceType)
                 {
-                    throw new Exception("Type is invalid.");
+                    throw new System.ArgumentException("Type is invalid.");
                 }
 
                 m_UsingReferenceCount++;
@@ -111,6 +111,28 @@ namespace MGO
                 m_AddReferenceCount++;
                 return new T();
             }
+
+            public T AcquireWithoutSpawn<T>() where T : class, IReference
+            {
+                if (typeof(T) != m_ReferenceType)
+                {
+                    throw new System.ArgumentException("Type is invalid.");
+                }
+
+
+                lock (m_References)
+                {
+                    if (m_References.Count > 0)
+                    {
+                        m_UsingReferenceCount++;
+                        m_AcquireReferenceCount++;
+                        return (T)m_References.Dequeue();
+                    }
+                }
+
+                return null;
+            }
+
 
             public IReference Acquire()
             {
@@ -128,6 +150,22 @@ namespace MGO
                 return (IReference)Activator.CreateInstance(m_ReferenceType);
             }
 
+            public IReference AcquireWithoutSpawn()
+            {
+
+                lock (m_References)
+                {
+                    if (m_References.Count > 0)
+                    {
+                        m_UsingReferenceCount++;
+                        m_AcquireReferenceCount++;
+                        return m_References.Dequeue();
+                    }
+                }
+
+                return null;
+            }
+
             public void Release(IReference reference)
             {
                 reference.Clear();
@@ -135,7 +173,7 @@ namespace MGO
                 {
                     if (m_EnableStrictCheck && m_References.Contains(reference))
                     {
-                        throw new Exception("The reference has been released.");
+                        throw new System.InvalidOperationException("The reference has been released.");
                     }
 
                     m_References.Enqueue(reference);
@@ -143,13 +181,17 @@ namespace MGO
 
                 m_ReleaseReferenceCount++;
                 m_UsingReferenceCount--;
+                if (m_UsingReferenceCount < 0)
+                {
+                    m_UsingReferenceCount = 0;
+                }
             }
 
             public void Add<T>(int count) where T : class, IReference, new()
             {
                 if (typeof(T) != m_ReferenceType)
                 {
-                    throw new Exception("Type is invalid.");
+                    throw new System.ArgumentException("Type is invalid.");
                 }
 
                 lock (m_References)

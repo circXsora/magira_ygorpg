@@ -229,9 +229,25 @@ namespace MGO
             return referenceCollection;
         }
 
-        internal static T AcquireWithoutSpawn<T>()
+        /// <summary>
+        /// 从引用池获取引用。
+        /// </summary>
+        /// <typeparam name="T">引用类型。</typeparam>
+        /// <returns>引用。</returns>
+        public static T AcquireWithoutSpawn<T>() where T : class, IReference
         {
-            throw new NotImplementedException();
+            return GetReferenceCollection(typeof(T)).AcquireWithoutSpawn<T>();
+        }
+
+        /// <summary>
+        /// 从引用池获取引用。
+        /// </summary>
+        /// <typeparam name="T">引用类型。</typeparam>
+        /// <returns>引用。</returns>
+        public static IReference AcquireWithoutSpawn(Type referenceType)
+        {
+            InternalCheckReferenceType(referenceType);
+            return GetReferenceCollection(referenceType).AcquireWithoutSpawn();
         }
     }
 

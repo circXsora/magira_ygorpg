@@ -14,7 +14,9 @@ using UnityEngine;
 
 namespace MGO
 {
-    public class AnchoredPositionLerpWork : Work
+    public abstract class LerpWork : Work { }
+
+    public class AnchoredPositionLerpWork : LerpWork
     {
         public RectTransform RectTransform { get; private set; }
         public Vector2 Origin { get; private set; }
@@ -47,6 +49,46 @@ namespace MGO
         {
             base.Clear();
             RectTransform = null;
+            Origin = default;
+            Target = default;
+            Time = 0;
+            _leftTime = 0;
+        }
+    }
+
+    public class WorldPositionLerpWork : LerpWork
+    {
+        public Transform Transform { get; private set; }
+        public Vector2 Origin { get; private set; }
+        public Vector2 Target { get; private set; }
+        public float Time { get; private set; }
+        private float _leftTime;
+
+        public static WorldPositionLerpWork Create(Transform transform, Vector2 target, float time)
+        {
+            var work = ReferencePool.AcquireWithoutSpawn<WorldPositionLerpWork>() ?? new WorldPositionLerpWork();
+            work.Transform = transform;
+            work.Origin = transform.position;
+            work.Target = target;
+            work.Time = time;
+            work._leftTime = time;
+            return work;
+        }
+
+        protected override bool IsComplete => _leftTime <= 0;
+
+        protected override void UpdateCore(float elapseSeconds, float realElapseSeconds)
+        {
+            base.UpdateCore(elapseSeconds, realElapseSeconds);
+            _leftTime -= elapseSeconds;
+            _leftTime = Mathf.Max(0, _leftTime);
+            Transform.position = Vector2.LerpUnclamped(Origin, Target, (Time - _leftTime) / Time);
+        }
+
+        public override void Clear()
+        {
+            base.Clear();
+            Transform = null;
             Origin = default;
             Target = default;
             Time = 0;

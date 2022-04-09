@@ -43,8 +43,6 @@ namespace MGO
 
         private string _name;
 
-        public bool EnableDebug { get; set; } = false;
-
         public string Name
         {
             get => _name;
@@ -77,10 +75,8 @@ namespace MGO
         {
             if (WorkStatus == WorkStatus.Created || WorkStatus == WorkStatus.Stop)
             {
-                if (EnableDebug)
-                {
-                    UnityEngine.Debug.Log("======Work======" + Name + " Start ");
-                }
+                Log.Debug("======Work======" + Name + " Start ");
+
                 WorkStatus = WorkStatus.Running;
                 StartCore();
                 _onStart?.Invoke(this);
@@ -101,10 +97,7 @@ namespace MGO
 
                 if (IsComplete)
                 {
-                    if (EnableDebug)
-                    {
-                        UnityEngine.Debug.Log("======Work======" + Name + " Complete ");
-                    }
+                    Log.Debug("======Work======" + Name + " Complete ");
                     WorkStatus = WorkStatus.Complete;
                     _onComplete?.Invoke(this);
                 }
@@ -122,10 +115,7 @@ namespace MGO
         {
             if (WorkStatus == WorkStatus.Running)
             {
-                if (EnableDebug)
-                {
-                    UnityEngine.Debug.Log("======Work======" + Name + " Stop ");
-                }
+                Log.Debug("======Work======" + Name + " Stop ");
                 WorkStatus = WorkStatus.Stop;
                 StopCore();
                 _onStop?.Invoke(this);
@@ -192,11 +182,7 @@ namespace MGO
 
         public virtual void Clear()
         {
-            if (EnableDebug)
-            {
-                UnityEngine.Debug.Log("======Work======" + Name + " Clear ");
-            }
-            EnableDebug = false;
+            Log.Debug("======Work======" + Name + " Clear ");
             _name = null;
             UserData = null;
             _onComplete = null;
