@@ -47,6 +47,8 @@ namespace BBYGO
             {
                 enemyMonsters[i].SetPoint(bindings.GetEnemyPoint(i));
             }
+
+            GameEntry.Card.CreateCards(5);
             base.OnEnter();
         }
     }

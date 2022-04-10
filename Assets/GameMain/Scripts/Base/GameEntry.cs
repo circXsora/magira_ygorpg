@@ -30,6 +30,9 @@ namespace BBYGO
         public static VisualEffectComponent VisualEffect { get; private set; }
         public static ProcedureComponent Procedure { get; private set; }
         public static GameModuleComponent GameModule { get; private set; }
+        public static WorkComponent Work { get; private set; }
+        public static CardComponent Card { get; private set; }
+        public static InputComponent Input { get; private set; }
         public static Camera MainCamera;
 
         private void Awake()
@@ -50,6 +53,9 @@ namespace BBYGO
             AI = GetComponentInChildren<AIComponent>();
             Context = GetComponentInChildren<ContextComponent>();
             VisualEffect = GetComponentInChildren<VisualEffectComponent>();
+            Work = GetComponentInChildren<WorkComponent>();
+            Card = GetComponentInChildren<CardComponent>();
+            Input = GetComponentInChildren<InputComponent>();
         }
     }
 }
