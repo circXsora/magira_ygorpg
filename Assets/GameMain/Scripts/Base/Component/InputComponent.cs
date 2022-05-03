@@ -8,19 +8,37 @@
 //  </copyright>
 //------------------------------------------------------------------------------
 using MGO;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace BBYGO
 {
-	public class InputComponent : GameComponent
-	{
-        private IInputManager inputManager;
+    public class InputComponent : GameComponent
+    {
+        public event Action<Vector2> OnGetMouseButton;
+        public event Action<Vector2> OnGetMouseButtonUp;
 
-        private void Start()
+        //private IInputManager inputManager;
+
+        //private void Start()
+        //{
+        //    inputManager = GameEntry.GameModule.GetInstance<InputManager>();
+        //}
+
+        private void Update()
         {
-            inputManager = GameEntry.GameModule.GetInstance<InputManager>();
+            if (Input.GetMouseButton(0))
+            {
+                //RectTransformUtility.ScreenPointToLocalPointInRectangle(RectTransform, Input.mousePosition, Cam, out Vector2 localPosition);
+                OnGetMouseButton?.Invoke(Input.mousePosition);
+            }
+            else if (Input.GetMouseButtonUp(0))
+            {
+                //RectTransformUtility.ScreenPointToLocalPointInRectangle(RectTransform, Input.mousePosition, Cam, out Vector2 localPosition);
+                OnGetMouseButtonUp?.Invoke(Input.mousePosition);
+            }
         }
     }
 }

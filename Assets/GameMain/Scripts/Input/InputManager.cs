@@ -14,9 +14,7 @@ namespace BBYGO
 
     public class InputManager : GameModule, IInputManager
     {
-        private Camera Cam => GameEntry.MainCamera;
-
-        public RectTransform RectTransform;
+        
         public event Action<Vector2> OnGetInput;
         public event Action<Vector2> OnGetInputRelease;
 

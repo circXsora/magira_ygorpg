@@ -29,7 +29,7 @@ namespace MGO.Entity.Unity
 
         public T Get<T>() where T : EntityGear
         {
-            return (T)components.First(c => c.GetType() == typeof(T));
+            return (T)components.First(c => c is T);
         }
 
         public T Add<T>() where T : EntityGear
@@ -48,7 +48,7 @@ namespace MGO.Entity.Unity
             Destroy(component);
         }
 
-        public T RemoveAt<T>(int index) where T : EntityGear  
+        public T RemoveAt<T>(int index) where T : EntityGear
         {
             var comp = components[index];
             components.RemoveAt(index);

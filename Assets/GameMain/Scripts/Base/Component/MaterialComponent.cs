@@ -29,34 +29,4 @@ namespace BBYGO
         public Material OutlineMaterial;
         public Material DissolveMaterial;
     }
-
-    public class MaterialChanger : EntityGear
-    {
-        private Renderer entityRenderer;
-        private Material origin;
-
-        public void SetRenderer(Renderer entityrenderer)
-        {
-            this.entityRenderer = entityrenderer;
-            origin = GameObject.Instantiate(entityrenderer.material);
-        }
-
-        public void ChangeTo(MaterialType materialType)
-        {
-            switch (materialType)
-            {
-                case MaterialType.Origin:
-                    entityRenderer.material = origin;
-                    break;
-                case MaterialType.Outline:
-                    entityRenderer.material = GameEntry.Material.OutlineMaterial;
-                    break;
-                case MaterialType.Dissolve:
-                    entityRenderer.material = GameEntry.Material.DissolveMaterial;
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
 }

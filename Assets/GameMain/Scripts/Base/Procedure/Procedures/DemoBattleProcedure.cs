@@ -7,9 +7,11 @@
 //  功能:
 //  </copyright>
 //------------------------------------------------------------------------------
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace BBYGO
 {
@@ -20,6 +22,9 @@ namespace BBYGO
         private PlayerEntity player;
         private List<MonsterEntity> playerMonsters = new();
         private List<MonsterEntity> enemyMonsters = new();
+
+        private int playerTurn;
+        private int enemyTurn;
 
         public override async void OnEnter()
         {
@@ -49,7 +54,45 @@ namespace BBYGO
             }
 
             GameEntry.Card.CreateCards(5);
+
             base.OnEnter();
+
+            StartPlayerTurn(true);
+        }
+
+        private void StartPlayerTurn(bool isFirstTurn)
+        {
+            foreach (var monster in playerMonsters)
+            {
+                monster.GetGearHolder().Get<EntitySelector>().OnBeginDragEvent += PlayerMonsterOnBeginDragEvent;
+                monster.GetGearHolder().Get<EntitySelector>().OnDragEvent += PlayerMonsterOnDragEvent;
+                monster.GetGearHolder().Get<EntitySelector>().OnEndDragEvent += PlayerMonsterOnEndDragEvent;
+            }
+        }
+
+        private void EndPlayerTurn()
+        {
+            foreach (var monster in playerMonsters)
+            {
+                monster.GetGearHolder().Get<EntitySelector>().OnBeginDragEvent -= PlayerMonsterOnBeginDragEvent;
+                monster.GetGearHolder().Get<EntitySelector>().OnDragEvent -= PlayerMonsterOnDragEvent;
+                monster.GetGearHolder().Get<EntitySelector>().OnEndDragEvent -= PlayerMonsterOnEndDragEvent;
+            }
+        }
+
+        private void PlayerMonsterOnEndDragEvent(object sender, PointerEventData e)
+        {
+            
+        }
+
+        private void PlayerMonsterOnDragEvent(object sender, PointerEventData e)
+        {
+            
+        }
+
+        private void PlayerMonsterOnBeginDragEvent(object sender, UnityEngine.EventSystems.PointerEventData e)
+        {
+            
         }
     }
 }

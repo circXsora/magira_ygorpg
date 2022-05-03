@@ -24,6 +24,7 @@ namespace BBYGO
 
         [SerializeField]
         private Transform cardParent;
+        public Transform CardParent { get => cardParent; }
 
         /// <summary>
         /// 起始手牌数量
@@ -39,6 +40,7 @@ namespace BBYGO
         public float CardEular = 10;
         private List<Card> handCards;
 
+
         private void Start()
         {
             CardSettings.initialize(false);
@@ -49,7 +51,7 @@ namespace BBYGO
             handCards = new List<Card>();
             for (int i = 0; i < count; i++)
             {
-                var cardTransform = Instantiate(CardOrigin, cardParent);
+                var cardTransform = Instantiate(CardOrigin, CardParent);
                 cardTransform.name = "Card" + i;
                 handCards.Add(cardTransform.GetComponent<Card>());
                 //handCards[i].TargetLocalPosition = CalTargetPos(i, startHandCardCount);

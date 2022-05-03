@@ -64,6 +64,7 @@ namespace BBYGO
             if (lastPositionLerpWork != null && lastPositionLerpWork.WorkStatus == MGO.WorkStatus.Running)
             {
                 lastPositionLerpWork.Stop();
+                lastPositionLerpWork.Clear();
             }
             lastPositionLerpWork = MGO.WorldPositionLerpWork.Create(transform, worldPosition, time);
             lastPositionLerpWork.Name = setName;
@@ -132,22 +133,12 @@ namespace BBYGO
         {
             var builder = new StateMachineDefinitionBuilder<States, Events>();
             builder.In(States.Idle)
-                .ExecuteOnEntry(() =>
-                {
-                    Debug.Log(name + " To Idle");
-                    SetScaleTo(Vector3.one, setName: name + " To Idle");
-                    canvas.sortingOrder = 0;
-                })
+                .ExecuteOnEntry(OnEnterIdle)
                 .On(Events.OnPointerEnter)
                 .Goto(States.Hovering);
 
             builder.In(States.Hovering)
-                .ExecuteOnEntry(() =>
-                {
-                    Debug.Log(name + " To Hovering");
-                    SetScaleTo(Vector3.one * 1.5f, setName: name + " To Hovering");
-                    canvas.sortingOrder = 1;
-                });
+                .ExecuteOnEntry(OnEnterHovering);
 
             builder.In(States.Hovering)
                 .On(Events.OnBeginDrag)
@@ -167,8 +158,11 @@ namespace BBYGO
                 .On(Events.OnDrag)
                 .Execute<PointerEventData>((eventData) =>
                 {
-                    RectTransformUtility.ScreenPointToWorldPointInRectangle(GameEntry.Card.Canvas.GetComponent<RectTransform>(), eventData.position, GameEntry.MainCamera, out var pos);
+                    RectTransformUtility.ScreenPointToWorldPointInRectangle(GameEntry.Card.CardParent.GetComponent<RectTransform>(), eventData.position, GameEntry.MainCamera, out var pos);
                     SetWorldPositionTo(pos, "Dragging Move", time: 0.05f);
+
+                    //RectTransformUtility.ScreenPointToLocalPointInRectangle(GameEntry.Card.CardParent.GetComponent<RectTransform>(), eventData.position, GameEntry.MainCamera, out var pos);
+                    //SetAnchoredPositionTo(pos, "Dragging Move", time: 0.05f);
                 });
 
             builder.In(States.Dragging)
@@ -189,7 +183,22 @@ namespace BBYGO
 
             machine = builder.Build().CreatePassiveStateMachine();
             machine.Start();
+
+            void OnEnterIdle()
+            {
+                Debug.Log(name + " To Idle");
+                SetScaleTo(Vector3.one, setName: name + " To Idle");
+                canvas.sortingOrder = 0;
+            }
+
+            void OnEnterHovering()
+            {
+                Debug.Log(name + " To Hovering");
+                SetScaleTo(Vector3.one * 1.5f, setName: name + " To Hovering");
+                canvas.sortingOrder = 1;
+            }
         }
+
 
         public void SetAngleTo(float v)
         {

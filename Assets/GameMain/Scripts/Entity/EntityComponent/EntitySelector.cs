@@ -16,17 +16,16 @@ using UnityEngine.EventSystems;
 
 namespace BBYGO
 {
-
     public enum SelectionState
     {
-        NotSelect,
-        Select,
+        NotHover,
+        Hover,
     }
 
-    public abstract class EntitySelector : EntityGear, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+    public abstract class EntitySelector : EntityGear, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         public virtual bool CanSelect { get; set; } = true;
-        private SelectionState state = SelectionState.NotSelect;
+        private SelectionState state = SelectionState.NotHover;
         public SelectionState State
         {
             get => state;
@@ -42,6 +41,10 @@ namespace BBYGO
 
         public event EventHandler<SelectionState> OnSelectStateChanged;
         public event EventHandler<PointerEventData> OnPointerClicked;
+        public event EventHandler<PointerEventData> OnBeginDragEvent;
+        public event EventHandler<PointerEventData> OnDragEvent;
+        public event EventHandler<PointerEventData> OnEndDragEvent;
+
 
         public virtual void OnPointerClick(PointerEventData eventData)
         {
@@ -50,33 +53,27 @@ namespace BBYGO
 
         public virtual void OnPointerEnter(PointerEventData eventData)
         {
-            State = SelectionState.Select;
+            State = SelectionState.Hover;
         }
 
         public virtual void OnPointerExit(PointerEventData eventData)
         {
-            State = SelectionState.NotSelect;
-        }
-    }
-
-    public class UniverseEntitySelector : EntitySelector
-    {
-        public override void OnPointerClick(PointerEventData eventData)
-        {
-            base.OnPointerClick(eventData);
-            //GameEntry.Event.OnEntityPointerClick?.Raise(GetOwner(), eventData);
+            State = SelectionState.NotHover;
         }
 
-        public override void OnPointerEnter(PointerEventData eventData)
+        public virtual void OnEndDrag(PointerEventData eventData)
         {
-            base.OnPointerEnter(eventData);
-            //GameEntry.Event.OnEntityPointerEnter?.Raise(GetOwner(), eventData);
+            OnDragEvent?.Invoke(this, eventData);
         }
 
-        public override void OnPointerExit(PointerEventData eventData)
+        public virtual void OnDrag(PointerEventData eventData)
         {
-            base.OnPointerExit(eventData);
-            //GameEntry.Event.OnEntityPointerExit?.Raise(GetOwner(), eventData);
+            OnDragEvent?.Invoke(this, eventData);
+        }
+
+        public virtual void OnBeginDrag(PointerEventData eventData)
+        {
+            OnBeginDragEvent?.Invoke(this, eventData);
         }
     }
 }

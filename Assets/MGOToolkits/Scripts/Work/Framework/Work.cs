@@ -35,7 +35,7 @@ namespace MGO
         /// <summary>
         /// 工作出错了
         /// </summary>
-        Faulted
+        Fault
     }
 
     public abstract class Work : IReference
@@ -75,7 +75,7 @@ namespace MGO
         {
             if (WorkStatus == WorkStatus.Created || WorkStatus == WorkStatus.Stop)
             {
-                Log.Debug("======Work======" + Name + " Start ");
+                Log.Debug("工作 {0} 开始", Name);
 
                 WorkStatus = WorkStatus.Running;
                 StartCore();
@@ -97,10 +97,14 @@ namespace MGO
 
                 if (IsComplete)
                 {
-                    Log.Debug("======Work======" + Name + " Complete ");
+                    Log.Debug("工作 {0} 完成", Name);
                     WorkStatus = WorkStatus.Complete;
                     _onComplete?.Invoke(this);
                 }
+                //else
+                //{
+                //    Log.Debug("工作 {0} 剩余 {1}秒", Name, );
+                //}
             }
             else
             {
@@ -115,7 +119,7 @@ namespace MGO
         {
             if (WorkStatus == WorkStatus.Running)
             {
-                Log.Debug("======Work======" + Name + " Stop ");
+                Log.Debug("工作 {0} 停止", Name);
                 WorkStatus = WorkStatus.Stop;
                 StopCore();
                 _onStop?.Invoke(this);
@@ -174,7 +178,7 @@ namespace MGO
             }
             else
             {
-                WorkStatus = WorkStatus.Faulted;
+                WorkStatus = WorkStatus.Fault;
                 throw new System.InvalidOperationException($"在 {Name} Work中已经填充过用户数据了，请勿重复填充。");
             }
             return this;
@@ -182,7 +186,7 @@ namespace MGO
 
         public virtual void Clear()
         {
-            Log.Debug("======Work======" + Name + " Clear ");
+            Log.Debug("工作 {0} 重置");
             _name = null;
             UserData = null;
             _onComplete = null;

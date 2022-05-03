@@ -45,17 +45,20 @@ namespace BBYGO
             }
         }
 
-        private void Arrow_OnGetInput(Vector2 pos)
+        private void Arrow_OnGetInput(Vector2 mousePos)
         {
             if (OriginAnchoredPosition == null)
             {
                 return;
             }
 
+            var canvas = GameEntry.Card.Canvas;
+
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, mousePos, GameEntry.MainCamera, out Vector2 pos);
+
             transform.localPosition = pos;
             image.enabled = true;
 
-            var canvas = GameEntry.Card.Canvas;
             var screenPos = canvas.worldCamera.WorldToScreenPoint(OriginWorldPosition.Value);
             RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.GetComponent<RectTransform>(), screenPos, cam, out Vector2 inCanvasPosition);
 
@@ -98,7 +101,7 @@ namespace BBYGO
             }
         }
 
-        private void Arrow_OnGetInputRelease(Vector2 obj)
+        private void Arrow_OnGetInputRelease(Vector2 mousePos)
         {
             for (int i = 0; i < bodyCount; i++)
             {
@@ -110,22 +113,14 @@ namespace BBYGO
 
         private void OnEnable()
         {
-            //var inputmanager = FindObjectOfType<InputManager>();
-            //if (inputmanager != null)
-            //{
-            //    inputmanager.OnGetInput += Arrow_OnGetInput;
-            //    inputmanager.OnGetInputRelease += Arrow_OnGetInputRelease;
-            //}
+            GameEntry.Input.OnGetMouseButton += Arrow_OnGetInput;
+            GameEntry.Input.OnGetMouseButtonUp += Arrow_OnGetInputRelease;
         }
 
         private void OnDisable()
         {
-            //var inputmanager = FindObjectOfType<InputManager>();
-            //if (inputmanager != null)
-            //{
-            //    inputmanager.OnGetInput -= Arrow_OnGetInput;
-            //    inputmanager.OnGetInputRelease -= Arrow_OnGetInputRelease;
-            //}
+            GameEntry.Input.OnGetMouseButton -= Arrow_OnGetInput;
+            GameEntry.Input.OnGetMouseButtonUp -= Arrow_OnGetInputRelease;
         }
 
     }
